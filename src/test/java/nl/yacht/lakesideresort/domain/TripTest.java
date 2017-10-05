@@ -1,6 +1,7 @@
 package nl.yacht.lakesideresort.domain;
 
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.time.Duration;
@@ -9,10 +10,15 @@ public class TripTest {
 
     private Trip trip;
 
+
+    @Before
+    public void setUp() {
+        this.trip = new Trip(3);
+    }
+
     @Test
     public void testGetDuration() {
 
-        this.trip = new Trip(3);
 
         try {
             Thread.sleep(2000);
