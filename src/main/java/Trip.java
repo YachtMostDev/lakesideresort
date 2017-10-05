@@ -14,6 +14,7 @@ public class Trip {
         this.startTime = LocalDateTime.now();
     }
 
+
     public void end(){
         // set endTime
         this.endTime = LocalDateTime.now();
