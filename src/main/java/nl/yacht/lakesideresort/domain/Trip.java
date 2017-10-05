@@ -1,3 +1,5 @@
+package nl.yacht.lakesideresort.domain;
+
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
