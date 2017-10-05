@@ -17,6 +17,16 @@ public class TripTest {
     }
 
     @Test
+    public void testGetTripNumber() {
+
+        final int expected = 112233;
+
+        this.trip = new Trip(expected);
+
+        Assert.assertEquals(expected, this.trip.getTripNumber());
+    }
+
+    @Test
     public void testGetDuration() {
 
 
