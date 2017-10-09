@@ -23,6 +23,7 @@ public class Main {
         System.out.println("End: " + newTrip.getEndTime());
         System.out.println("Duration: " + newTrip.getDuration());
         System.out.println();
+
     }
 
     static void Sleep() {
