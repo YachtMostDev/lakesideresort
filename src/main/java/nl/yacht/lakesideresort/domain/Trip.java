@@ -7,8 +7,8 @@ import java.time.LocalTime;
 
 public class Trip {
     private long id;
-    protected LocalDateTime startTime;
-    protected LocalDateTime endTime;
+    private LocalDateTime startTime;
+    private LocalDateTime endTime;
     private int tripNumber;
 
     public Trip(int tripNumber){
@@ -48,7 +48,7 @@ public class Trip {
         // calculate duration > difference between start and end time
 
         LocalTime startTime = this.startTime.toLocalTime();
-        LocalTime endTime = this.endTime.toLocalTime();
+        LocalTime endTime = (this.endTime == null)?LocalTime.now():this.endTime.toLocalTime();
 
         Duration difference = Duration.between(startTime, endTime);
         // or calculate only the minutes.

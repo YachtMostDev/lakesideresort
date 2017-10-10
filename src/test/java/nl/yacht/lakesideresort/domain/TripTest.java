@@ -69,15 +69,15 @@ public class TripTest {
     public void testRivierTochtDuration(){
         // we kunnen niet 30min gaan wachten hier
         // hoe lossen we dit op?
-        RiverTrip t = new RiverTrip(1);
+        Trip t = new RiverTrip(1);
         LocalDateTime dtNow = LocalDateTime.now();
         LocalDateTime dtFuture = dtNow.plusMinutes(45);
         t.end();
-        t.SetEndTime(dtFuture);
+        t.setEndTime(dtFuture);
 
         Duration d = t.getDuration();
         long minutes = d.toMinutes();
-        System.out.println(minutes);
+
         Assert.assertTrue(minutes == 15);
 
     }

@@ -27,9 +27,4 @@ public class RiverTrip extends Trip {
     public String getTripType() {
         return this.type;
     }
-
-    /** FOR TESTING ONLY */
-    void SetEndTime(LocalDateTime datetime){
-        this.endTime = datetime;
-    }
 }
