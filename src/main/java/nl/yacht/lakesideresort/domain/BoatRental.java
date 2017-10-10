@@ -8,7 +8,7 @@ public class BoatRental {
     private List<Trip> trips;
 
     public BoatRental() {
-        this.trips = new ArrayList();
+        this.trips = new ArrayList<>();
     }
 
     public List<Trip> getTrips() {
@@ -17,5 +17,19 @@ public class BoatRental {
 
     public void setTrips(List<Trip> trips) {
         this.trips = trips;
+    }
+
+    public void rent(){
+        int max = 0;
+        for(Trip t : trips){
+            int currentTripNumber = t.getTripNumber();
+            if (currentTripNumber >max){
+                max = currentTripNumber;
+            }
+        }
+        Trip trip = new Trip(1);
+
+        trips.add(trip);
+
     }
 }
