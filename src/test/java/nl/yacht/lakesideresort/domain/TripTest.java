@@ -5,6 +5,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.time.Duration;
+import java.time.LocalDateTime;
 
 public class TripTest {
 
@@ -38,6 +39,47 @@ public class TripTest {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+
+
+    }
+
+    @Test
+    public void testMeerTocht(){
+        Trip t = new LakeTrip(1);
+        String type = t.getTripType();
+        Boolean equals = false;
+        if (type.equals("M")){
+            equals = true;
+        }
+        Assert.assertTrue(equals);
+
+    }
+    @Test
+    public void testRivierTocht(){
+        Trip t = new RiverTrip(2);
+        String type = t.getTripType();
+        Boolean equals = type.equals("R");
+        Assert.assertTrue(equals);
+
+        // short version
+        // Assert.assertTrue(new RiverTrip(2).getTripType().equals("R"));
+    }
+
+    @Test
+    public void testRivierTochtDuration(){
+        // we kunnen niet 30min gaan wachten hier
+        // hoe lossen we dit op?
+        Trip t = new RiverTrip(1);
+        LocalDateTime dtNow = LocalDateTime.now();
+        LocalDateTime dtFuture = dtNow.plusMinutes(45);
+        t.end();
+        t.setEndTime(dtFuture);
+
+        Duration d = t.getDuration();
+        long minutes = d.toMinutes();
+
+        Assert.assertTrue(minutes == 15);
+
     }
 
 }
