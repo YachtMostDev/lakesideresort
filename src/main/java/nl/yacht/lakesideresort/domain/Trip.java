@@ -16,10 +16,14 @@ public class Trip {
         this.startTime = LocalDateTime.now();
     }
 
-
     public void end(){
         // set endTime
         this.endTime = LocalDateTime.now();
+    }
+
+    // For testing purposes only
+    void setEndTime(LocalDateTime endTime){
+        this.endTime = endTime;
     }
 
     public Duration getDuration(){
