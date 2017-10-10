@@ -6,8 +6,8 @@ import java.time.LocalTime;
 
 public class Trip {
     private long id;
-    protected LocalDateTime startTime;
-    protected LocalDateTime endTime;
+    private LocalDateTime startTime;
+    private LocalDateTime endTime;
     private int tripNumber;
 
     public Trip(int tripNumber){
