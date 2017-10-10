@@ -4,12 +4,9 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.Before;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.List;
 import nl.yacht.lakesideresort.BoatRental;
+
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class BoatRentalTest {
@@ -52,8 +49,16 @@ public class BoatRentalTest {
         rental.addTrip(trip2);
         rental.addTrip(trip3);
 
+        // Trip 1 is yesterday
+        LocalDateTime yesterday = LocalDateTime.now().minusDays(1);
         trip1.end();
+        trip1.setEndTime(yesterday);
+
+        // Trip 2 is last year
+        LocalDateTime lastYear = LocalDateTime.now().minusYears(1);
         trip2.end();
+        trip2.setEndTime(lastYear);
+
         trip3.end();
 
         rental.rent();
@@ -61,6 +66,6 @@ public class BoatRentalTest {
         rental.rent();
 
         int nr = rental.getNrEndedTrips();
-        Assert.assertTrue(nr == 3);
+        Assert.assertTrue(nr == 1);
     }
 }
