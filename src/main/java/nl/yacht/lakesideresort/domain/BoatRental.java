@@ -19,17 +19,27 @@ public class BoatRental {
         this.trips = trips;
     }
 
+    /**
+     * Rent out a boat
+     */
     public void rent(){
+        int nr = getNewTripNumber();
+        Trip trip = new Trip(nr);
+        trips.add(trip);
+    }
+
+    /**
+     * Loops through the trips and returns the maximum tripnumber for the day
+     * @return
+     */
+    private int getNewTripNumber() {
         int max = 0;
         for(Trip t : trips){
             int currentTripNumber = t.getTripNumber();
-            if (currentTripNumber >max){
+            if (currentTripNumber > max){
                 max = currentTripNumber;
             }
         }
-        Trip trip = new Trip(1);
-
-        trips.add(trip);
-
+        return max + 1;
     }
 }
