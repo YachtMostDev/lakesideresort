@@ -43,4 +43,24 @@ public class BoatRentalTest {
 
         Assert.assertTrue(average == 43);
     }
+
+    @Test
+    public void testGetNrEndedTrips(){
+        BoatRental rental = new BoatRental();
+
+        rental.addTrip(trip1);
+        rental.addTrip(trip2);
+        rental.addTrip(trip3);
+
+        trip1.end();
+        trip2.end();
+        trip3.end();
+
+        rental.rent();
+        rental.rent();
+        rental.rent();
+
+        int nr = rental.getNrEndedTrips();
+        Assert.assertTrue(nr == 3);
+    }
 }
