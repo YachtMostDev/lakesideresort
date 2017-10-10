@@ -1,5 +1,6 @@
 package nl.yacht.lakesideresort;
 
+import nl.yacht.lakesideresort.domain.Boat;
 import nl.yacht.lakesideresort.domain.Trip;
 
 import java.time.LocalDate;
@@ -9,7 +10,19 @@ import java.util.List;
 public class BoatRental {
 
     //Trip ArrayList
-    List<Trip> trips = new ArrayList<>();
+    private List<Trip> trips = new ArrayList<>();
+    private List<Boat> boatList = new ArrayList<>();
+
+    public BoatRental(){
+        // add boat for 1 to 10 to the boatList(ArrayList)
+        for(int index = 1; index <= 10; index++){
+            boatList.add(new Boat(index));
+        }
+    }
+
+    public List<Boat> getBoatList() {
+        return this.boatList;
+    }
 
     //Functie die trip toevoegd aan ArrayList
     public void addTrip(Trip trip){
@@ -34,5 +47,26 @@ public class BoatRental {
 
     }
 
+    // Method to check if any boat is available
+    public int checkBoats(){
+        int availableBoats = 0;
 
+        // For each boat in boatList
+        for (Boat boat : boatList) {
+            if (boat.isAvailable()){
+                availableBoats++;
+            }
+        }
+        return availableBoats;
+    }
+
+    // Print huidige duur & gemiddelde van alle boten
+    public void printBoatTime(){
+
+        System.out.println(calculateAverageDuration());
+
+        for (Boat boat : boatList ){
+            System.out.println("Boat " + boat.getNumber() + ": " + (boat.getTrip().getDuration().getSeconds()/60));
+        }
+    }
 }

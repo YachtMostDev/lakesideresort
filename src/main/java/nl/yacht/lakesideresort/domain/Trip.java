@@ -35,7 +35,7 @@ public class Trip {
         // calculate duration > difference between start and end time
 
         LocalTime startTime = this.startTime.toLocalTime();
-        LocalTime endTime = this.endTime.toLocalTime();
+        LocalTime endTime = (this.endTime == null)?LocalTime.now():this.endTime.toLocalTime();
 
         Duration difference = Duration.between(startTime, endTime);
         // or calculate only the minutes.
