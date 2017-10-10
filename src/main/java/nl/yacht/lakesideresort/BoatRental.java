@@ -25,11 +25,11 @@ public class BoatRental {
     public double calculateAverageDuration(){
         int total = 0;
         int amount = 0;
-        LocalDate today = LocalDate.now();
+
 
         for(Trip trip : trips){
             //Trip moet geendigd en van de huidige dag zijn
-            if(trip.getEndTime() != null && trip.getEndTime().toLocalDate().equals(today)){
+            if(trip.endedToday()){
                 total += trip.getDuration().getSeconds() / 60;
                 amount++;
             }
@@ -69,13 +69,8 @@ public class BoatRental {
     public int getNrEndedTrips(){
         int counter = 0;
         for(Trip trip : trips){
-            LocalDateTime endTime = trip.getEndTime();
-            if(endTime != null){
-                LocalDateTime now = LocalDateTime.now();
-
-                if((endTime.getDayOfYear() == now.getDayOfYear()) && (endTime.getYear() == now.getYear())){
-                    counter++;
-                }
+            if(trip.endedToday()){
+                counter++;
             }
         }
         return counter;
