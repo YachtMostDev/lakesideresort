@@ -6,14 +6,19 @@ import java.time.LocalTime;
 
 public class Trip {
     private long id;
-    private LocalDateTime startTime;
-    private LocalDateTime endTime;
+    protected LocalDateTime startTime;
+    protected LocalDateTime endTime;
     private int tripNumber;
 
     public Trip(int tripNumber){
         // Create the object
         this.tripNumber = tripNumber;
         this.startTime = LocalDateTime.now();
+    }
+
+    public String getTripType(){
+        String type = "T";
+        return type;
     }
 
     public void end(){
@@ -48,5 +53,14 @@ public class Trip {
     public int getTripNumber(){
         // return trip number
         return tripNumber;
+    }
+
+    @Override
+    public String toString(){
+//        String s = "";
+        String s = "Trip: " + this.tripNumber;
+        s += "\nStart: " + this.startTime;
+        s += "\nType: " + this.getTripType();
+        return s;
     }
 }
