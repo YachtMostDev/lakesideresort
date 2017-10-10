@@ -1,5 +1,6 @@
 package nl.yacht.lakesideresort.domain;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,5 +42,24 @@ public class BoatRental {
             }
         }
         return max + 1;
+    }
+
+    /**
+     * Returns the amount of trips that are ended today
+     * @return
+     */
+    private int getNrEndedTrips(){
+        int counter = 0;
+        for(Trip trip : trips){
+            LocalDateTime endTime = trip.getEndTime();
+            if(endTime != null){
+                LocalDateTime now = LocalDateTime.now();
+
+                if((endTime.getDayOfYear() == now.getDayOfYear()) && (endTime.getYear() == now.getYear())){
+                    counter++;
+                }
+            }
+        }
+        return counter;
     }
 }
