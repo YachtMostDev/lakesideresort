@@ -41,6 +41,7 @@ public class Trip {
     public LocalDateTime getEndTime() {
         return endTime;
     }
+
     public int getTripNumber(){
         // return trip number
         return tripNumber;
