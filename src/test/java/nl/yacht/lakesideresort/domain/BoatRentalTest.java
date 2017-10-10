@@ -5,7 +5,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.time.Duration;
 import java.time.LocalDateTime;
 
 public class BoatRentalTest {
@@ -28,22 +27,16 @@ public class BoatRentalTest {
         boatRental.addTrip(trip2);
         boatRental.addTrip(trip3);
 
-        try {
-            LocalDateTime now = LocalDateTime.now();
-            this.trip1.end();
-            this.trip2.end();
-            this.trip3.end();
-            this.trip1.setEndTime(now.plusMinutes(55));
-            this.trip2.setEndTime(now.plusMinutes(40));
-            this.trip3.setEndTime(now.plusMinutes(34));
+        LocalDateTime now = LocalDateTime.now();
+        this.trip1.end();
+        this.trip2.end();
+        this.trip3.end();
+        this.trip1.setEndTime(now.plusMinutes(55));
+        this.trip2.setEndTime(now.plusMinutes(40));
+        this.trip3.setEndTime(now.plusMinutes(34));
 
-            double average = boatRental.calculateAverageDuration();
+        double average = boatRental.calculateAverageDuration();
 
-            Assert.assertTrue(average == 43);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
+        Assert.assertTrue(average == 43);
     }
 }
