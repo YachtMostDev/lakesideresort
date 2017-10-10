@@ -9,12 +9,15 @@ import java.time.LocalDateTime;
 
 public class BoatRentalTest {
 
+    private BoatRental boatRental;
+
     private Trip trip1;
     private Trip trip2;
     private Trip trip3;
 
     @Before
     public void setUp() {
+        this.boatRental = new BoatRental();
         this.trip1 = new Trip(3);
         this.trip2 = new Trip(4);
         this.trip3 = new Trip(5);
@@ -22,7 +25,6 @@ public class BoatRentalTest {
 
     @Test
     public void testCalculateAverageDuration() {
-        BoatRental boatRental = new BoatRental();
         boatRental.addTrip(trip1);
         boatRental.addTrip(trip2);
         boatRental.addTrip(trip3);
@@ -38,5 +40,14 @@ public class BoatRentalTest {
         double average = boatRental.calculateAverageDuration();
 
         Assert.assertTrue(average == 43);
+    }
+
+    @Test
+    public void testCheckBoats(){
+        for (int index = 0; index < 10; index++){
+            Assert.assertEquals(boatRental.checkBoats(), 10-index);
+            boatRental.getBoatList().get(index).setTrip(trip1);
+        }
+        Assert.assertEquals(boatRental.checkBoats(), 0);
     }
 }
