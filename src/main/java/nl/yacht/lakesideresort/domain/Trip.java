@@ -16,7 +16,6 @@ public class Trip {
         this.startTime = LocalDateTime.now();
     }
 
-
     public String getTripType(){
         String type = "T";
         return type;
@@ -25,6 +24,11 @@ public class Trip {
     public void end(){
         // set endTime
         this.endTime = LocalDateTime.now();
+    }
+
+    // For testing purposes only
+    void setEndTime(LocalDateTime endTime){
+        this.endTime = endTime;
     }
 
     public Duration getDuration(){
