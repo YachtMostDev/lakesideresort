@@ -1,16 +1,17 @@
-package nl.yacht.lakesideresort.domain;
+package nl.yacht.lakesideresort.controller;
 
+import nl.yacht.lakesideresort.domain.Trip;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.Before;
 
-import nl.yacht.lakesideresort.controller.BoatController;
-
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.time.LocalDateTime;
 import java.util.List;
 
-public class BoatRentalTest {
+public class BoatControllerTest {
 
     private BoatController boatRental;
 
@@ -36,9 +37,20 @@ public class BoatRentalTest {
         this.trip1.end();
         this.trip2.end();
         this.trip3.end();
-        this.trip1.setEndTime(now.plusMinutes(55));
-        this.trip2.setEndTime(now.plusMinutes(40));
-        this.trip3.setEndTime(now.plusMinutes(34));
+
+        try {
+            Method method = trip1.getClass().getDeclaredMethod("setEndTime", LocalDateTime.class);
+            method.setAccessible(true);
+            method.invoke(trip1, now.plusMinutes(55));
+            method.invoke(trip2, now.plusMinutes(40));
+            method.invoke(trip3, now.plusMinutes(34));
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        }
 
         double average = boatRental.calculateAverageDuration();
 
@@ -62,15 +74,23 @@ public class BoatRentalTest {
         rental.addTrip(trip2);
         rental.addTrip(trip3);
 
-        // Trip 1 is yesterday
         LocalDateTime yesterday = LocalDateTime.now().minusDays(1);
         trip1.end();
-        trip1.setEndTime(yesterday);
-
-        // Trip 2 is last year
         LocalDateTime lastYear = LocalDateTime.now().minusYears(1);
         trip2.end();
-        trip2.setEndTime(lastYear);
+
+        try {
+            Method method = trip1.getClass().getDeclaredMethod("setEndTime", LocalDateTime.class);
+            method.setAccessible(true);
+            method.invoke(trip1, yesterday);
+            method.invoke(trip2, lastYear);
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        }
 
         trip3.end();
 
