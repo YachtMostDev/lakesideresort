@@ -19,16 +19,5 @@ public class RoomGui extends Command {
     @Override
     public void find() {
         System.out.print("What is the room number? ");
-
-    }
-
-    @Override
-    public void update() {
-        System.out.println("Room update");
-    }
-
-    @Override
-    public void remove() {
-        System.out.println("Room remove");
     }
 }

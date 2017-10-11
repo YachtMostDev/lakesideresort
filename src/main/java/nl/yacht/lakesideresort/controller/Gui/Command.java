@@ -1,20 +1,22 @@
 package nl.yacht.lakesideresort.controller.Gui;
 
-import java.io.IOException;
-
 /**
  * Created by njvan on 11-Oct-17.
  */
 public abstract class Command {
-    public void executeCommand(String command) throws IOException {
+    public void executeCommand(String command) throws CommandNotSupportedException {
         switch (command.toUpperCase()){
-            case "CREATE": create();
+            case "CREATE":
+                create();
                 break;
-            case "FIND": find();
+            case "FIND":
+                find();
                 break;
-            case "UPDATE": update();
+            case "UPDATE":
+                update();
                 break;
-            case "REMOVE": remove();
+            case "REMOVE":
+                remove();
                 break;
             default:
                 System.out.println("This is no valid command, type 'help' to get help");
@@ -22,8 +24,22 @@ public abstract class Command {
         }
     }
 
-    public abstract void create() throws IOException;
-    public abstract void find();
-    public abstract void update();
-    public abstract void remove();
+    public void create() throws CommandNotSupportedException {
+        throw new CommandNotSupportedException();
+    }
+
+    public void find() throws CommandNotSupportedException {
+        throw new CommandNotSupportedException();
+    }
+
+    public void update() throws CommandNotSupportedException {
+        throw new CommandNotSupportedException();
+    }
+
+    public void remove() throws CommandNotSupportedException {
+        throw new CommandNotSupportedException();
+    }
+
+    public class CommandNotSupportedException extends Throwable {
+    }
 }

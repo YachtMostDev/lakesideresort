@@ -61,7 +61,11 @@ public class CommandLineInterpreter {
         if(command == null){
             System.out.println("This is an invalid command, type 'help' to get help");
         } else {
-            command.executeCommand(input[1]);
+            try {
+                command.executeCommand(input[1]);
+            } catch (Command.CommandNotSupportedException e) {
+                System.out.println("This is an invalid command for this type of controller, type 'help' to get help");
+            }
         }
     }
 }
