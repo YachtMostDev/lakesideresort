@@ -28,10 +28,7 @@ public class Trip {
      */
     public boolean endedToday(){
         LocalDate today = LocalDate.now();
-        if(getEndTime() != null && getEndTime().toLocalDate().equals(today)){
-            return true;
-        }
-        return false;
+        return getEndTime() != null && getEndTime().toLocalDate().equals(today);
     }
 
     public void end(){
