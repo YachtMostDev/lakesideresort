@@ -5,6 +5,6 @@ package nl.yacht.lakesideresort.controller.Gui;
  */
 public class InputHandler {
     public static Object[] handleInput(String[][] definition){
-
+        return null;
     }
 }
