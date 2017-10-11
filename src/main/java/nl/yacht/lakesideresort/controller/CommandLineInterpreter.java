@@ -1,14 +1,28 @@
 package nl.yacht.lakesideresort.controller;
 
+import nl.yacht.lakesideresort.controller.Gui.Command;
+import nl.yacht.lakesideresort.controller.Gui.RoomGui;
+import nl.yacht.lakesideresort.controller.Gui.TripGui;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by njvan on 11-Oct-17.
  */
 public class CommandLineInterpreter {
+    HashMap<String,Command> map;
+
+    public CommandLineInterpreter(){
+        map = new HashMap<>();
+        map.put("TRIP", new TripGui());
+        map.put("ROOM", new RoomGui());
+    }
+
     public void runApplication() throws IOException {
         BoatController boatController = new BoatController();
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
@@ -37,25 +51,17 @@ public class CommandLineInterpreter {
         } else if(Arrays.asList("BOAT","GUEST","TRIP","ROOM").contains(input[1].toUpperCase())){
             System.out.println();
             System.out.println("You can use " + input[1] + " with the following commands: ");
-            System.out.println(" Add, Find, Edit and Remove");
+            System.out.println(" Create, Find, Update and Remove");
             System.out.println();
         }
     }
 
     public void parseController(String[] input){
-        switch (input[0].toUpperCase()){
-            case "BOAT":
-                break;
-            case "GUEST":
-                break;
-            case "TRIP":
-                break;
-            case "ROOM":
-                break;
-            default:
-                System.out.println("This is no valid input");
-                System.out.println("You can type help to show the help");
-                System.out.println();
+        Command command = map.get(input[0].toUpperCase());
+        if(command == null){
+            System.out.println("This is an invalid command, type 'help' to get help");
+        } else {
+            command.executeCommand(input[1]);
         }
     }
 }
