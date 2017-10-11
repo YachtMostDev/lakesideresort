@@ -11,7 +11,6 @@ public class TripTest {
 
     private Trip trip;
 
-
     @Before
     public void setUp() {
         this.trip = new Trip(3);
@@ -19,33 +18,23 @@ public class TripTest {
 
     @Test
     public void testGetTripNumber() {
-
         final int expected = 112233;
-
         this.trip = new Trip(expected);
-
         Assert.assertEquals(expected, this.trip.getTripNumber());
     }
 
     @Test
     public void testGetDuration() {
-
-
         try {
             Thread.sleep(2000);
-
             this.trip.end();
 
             Duration duration = this.trip.getDuration();
-
             long aantalSeconden = duration.getSeconds();
-
             aantalSeconden -=2;
-
             aantalSeconden = Math.abs(aantalSeconden);
 
             Assert.assertTrue(aantalSeconden < 1);
-
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -60,8 +49,8 @@ public class TripTest {
             equals = true;
         }
         Assert.assertTrue(equals);
-
     }
+
     @Test
     public void testRivierTocht(){
         Trip t = new RiverTrip(2);
@@ -77,17 +66,15 @@ public class TripTest {
     public void testRivierTochtDuration(){
         // we kunnen niet 30min gaan wachten hier
         // hoe lossen we dit op?
-        RiverTrip t = new RiverTrip(1);
+        Trip t = new RiverTrip(1);
         LocalDateTime dtNow = LocalDateTime.now();
         LocalDateTime dtFuture = dtNow.plusMinutes(45);
         t.end();
-        t.SetEndTime(dtFuture);
+        t.setEndTime(dtFuture);
 
         Duration d = t.getDuration();
         long minutes = d.toMinutes();
-        System.out.println(minutes);
+
         Assert.assertTrue(minutes == 15);
-
     }
-
 }

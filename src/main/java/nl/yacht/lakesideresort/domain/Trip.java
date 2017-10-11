@@ -1,13 +1,14 @@
 package nl.yacht.lakesideresort.domain;
 
 import java.time.Duration;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 public class Trip {
     private long id;
-    protected LocalDateTime startTime;
-    protected LocalDateTime endTime;
+    private LocalDateTime startTime;
+    private LocalDateTime endTime;
     private int tripNumber;
 
     public Trip(int tripNumber){
@@ -19,6 +20,15 @@ public class Trip {
     public String getTripType(){
         String type = "T";
         return type;
+    }
+
+    /**
+     * Returns if endtime was set AND if endtime was today
+     * @return
+     */
+    public boolean endedToday(){
+        LocalDate today = LocalDate.now();
+        return getEndTime() != null && getEndTime().toLocalDate().equals(today);
     }
 
     public void end(){
@@ -35,7 +45,7 @@ public class Trip {
         // calculate duration > difference between start and end time
 
         LocalTime startTime = this.startTime.toLocalTime();
-        LocalTime endTime = this.endTime.toLocalTime();
+        LocalTime endTime = (this.endTime == null)?LocalTime.now():this.endTime.toLocalTime();
 
         Duration difference = Duration.between(startTime, endTime);
         // or calculate only the minutes.
@@ -50,6 +60,7 @@ public class Trip {
     public LocalDateTime getEndTime() {
         return endTime;
     }
+
     public int getTripNumber(){
         // return trip number
         return tripNumber;
