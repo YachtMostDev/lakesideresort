@@ -56,7 +56,7 @@ public class CommandLineInterpreter {
         }
     }
 
-    public void parseController(String[] input){
+    public void parseController(String[] input) throws IOException {
         Command command = map.get(input[0].toUpperCase());
         if(command == null){
             System.out.println("This is an invalid command, type 'help' to get help");
