@@ -1,6 +1,7 @@
 package nl.yacht.lakesideresort.domain;
 
 import java.time.Duration;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
@@ -19,6 +20,15 @@ public class Trip {
     public String getTripType(){
         String type = "T";
         return type;
+    }
+
+    /**
+     * Returns if endtime was set AND if endtime was today
+     * @return
+     */
+    public boolean endedToday(){
+        LocalDate today = LocalDate.now();
+        return getEndTime() != null && getEndTime().toLocalDate().equals(today);
     }
 
     public void end(){
@@ -50,6 +60,7 @@ public class Trip {
     public LocalDateTime getEndTime() {
         return endTime;
     }
+
     public int getTripNumber(){
         // return trip number
         return tripNumber;

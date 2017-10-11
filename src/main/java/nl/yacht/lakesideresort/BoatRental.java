@@ -4,16 +4,19 @@ import nl.yacht.lakesideresort.domain.Boat;
 import nl.yacht.lakesideresort.domain.Trip;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 public class BoatRental {
 
     //Trip ArrayList
-    private List<Trip> trips = new ArrayList<>();
-    private List<Boat> boatList = new ArrayList<>();
+    private List<Trip> trips;
+    private List<Boat> boatList;
 
     public BoatRental(){
+        trips = new ArrayList<>();
+        boatList = new ArrayList<>();
         // add boat for 1 to 10 to the boatList(ArrayList)
         for(int index = 1; index <= 10; index++){
             boatList.add(new Boat(index));
@@ -33,18 +36,37 @@ public class BoatRental {
     public double calculateAverageDuration(){
         int total = 0;
         int amount = 0;
-        LocalDate today = LocalDate.now();
+
 
         for(Trip trip : trips){
             //Trip moet geendigd en van de huidige dag zijn
-            if(trip.getEndTime() != null && trip.getEndTime().toLocalDate().equals(today)){
+            if(trip.endedToday()){
                 total += trip.getDuration().getSeconds() / 60;
                 amount++;
             }
         }
         //*1.0 voor double respons
         return 1.0 * total / amount;
+    }
 
+    /**
+     * Rent out a boat
+     */
+    public void rent(){
+        int nr = getNewTripNumber();
+        Trip trip = new Trip(nr);
+        trips.add(trip);
+    }
+
+    private int getNewTripNumber() {
+        int max = 0;
+        for(Trip t : trips){
+            int currentTripNumber = t.getTripNumber();
+            if (currentTripNumber > max){
+                max = currentTripNumber;
+            }
+        }
+        return max + 1;
     }
 
     // Method to check if any boat is available
@@ -68,5 +90,24 @@ public class BoatRental {
         for (Boat boat : boatList ){
             System.out.println("Boat " + boat.getNumber() + ": " + (boat.getTrip().getDuration().getSeconds()/60));
         }
+    }
+
+    /**
+     * Returns the amount of trips that are ended today
+     * @return
+     */
+    public int getNrEndedTrips(){
+        int counter = 0;
+        for(Trip trip : trips){
+            LocalDateTime endTime = trip.getEndTime();
+            if(endTime != null){
+                LocalDateTime now = LocalDateTime.now();
+
+                if((endTime.getDayOfYear() == now.getDayOfYear()) && (endTime.getYear() == now.getYear())){
+                    counter++;
+                }
+            }
+        }
+        return counter;
     }
 }

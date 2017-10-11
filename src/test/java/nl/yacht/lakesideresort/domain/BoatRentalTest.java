@@ -1,11 +1,15 @@
 package nl.yacht.lakesideresort.domain;
 
-import nl.yacht.lakesideresort.BoatRental;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
+import org.junit.Before;
 
+import nl.yacht.lakesideresort.BoatRental;
+
+import java.lang.reflect.Field;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class BoatRentalTest {
 
@@ -49,5 +53,56 @@ public class BoatRentalTest {
             boatRental.getBoatList().get(index).setTrip(trip1);
         }
         Assert.assertEquals(boatRental.checkBoats(), 0);
+    }
+
+    @Test
+    public void testGetNrEndedTrips(){
+        BoatRental rental = new BoatRental();
+
+        rental.addTrip(trip1);
+        rental.addTrip(trip2);
+        rental.addTrip(trip3);
+
+        // Trip 1 is yesterday
+        LocalDateTime yesterday = LocalDateTime.now().minusDays(1);
+        trip1.end();
+        trip1.setEndTime(yesterday);
+
+        // Trip 2 is last year
+        LocalDateTime lastYear = LocalDateTime.now().minusYears(1);
+        trip2.end();
+        trip2.setEndTime(lastYear);
+
+        trip3.end();
+
+        rental.rent();
+        rental.rent();
+        rental.rent();
+
+        int nr = rental.getNrEndedTrips();
+        Assert.assertTrue(nr == 1);
+        }
+
+    /**
+     * Test using reflection to access private field
+     */
+    @Test
+    public void testRent(){
+        try {
+            BoatRental rental = new BoatRental();
+            rental.rent();
+            rental.rent();
+            rental.rent();
+
+            Field field = rental.getClass().getDeclaredField("trips");
+            field.setAccessible(true);
+            List<Trip> trips = (List<Trip>) field.get(rental);
+
+            Assert.assertTrue(trips.size() == 3);
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        }
     }
 }
