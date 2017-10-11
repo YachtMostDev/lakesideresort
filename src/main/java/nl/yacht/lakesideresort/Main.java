@@ -1,9 +1,11 @@
 package nl.yacht.lakesideresort;
 
+import nl.yacht.lakesideresort.controller.BoatController;
+
 public class Main {
     public static void main(String[] args) {
 
-        BoatRental rental = new BoatRental();
+        BoatController rental = new BoatController();
         rental.rent();
         rental.rent();
         rental.rent();
