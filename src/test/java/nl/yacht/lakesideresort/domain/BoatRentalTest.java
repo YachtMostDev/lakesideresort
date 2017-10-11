@@ -4,16 +4,15 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.Before;
 
-import nl.yacht.lakesideresort.BoatRental;
+import nl.yacht.lakesideresort.controller.BoatController;
 
 import java.lang.reflect.Field;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
 public class BoatRentalTest {
 
-    private BoatRental boatRental;
+    private BoatController boatRental;
 
     private Trip trip1;
     private Trip trip2;
@@ -21,7 +20,7 @@ public class BoatRentalTest {
 
     @Before
     public void setUp() {
-        this.boatRental = new BoatRental();
+        this.boatRental = new BoatController();
         this.trip1 = new Trip(3);
         this.trip2 = new Trip(4);
         this.trip3 = new Trip(5);
@@ -57,7 +56,7 @@ public class BoatRentalTest {
 
     @Test
     public void testGetNrEndedTrips(){
-        BoatRental rental = new BoatRental();
+        BoatController rental = new BoatController();
 
         rental.addTrip(trip1);
         rental.addTrip(trip2);
@@ -89,7 +88,7 @@ public class BoatRentalTest {
     @Test
     public void testRent(){
         try {
-            BoatRental rental = new BoatRental();
+            BoatController rental = new BoatController();
             rental.rent();
             rental.rent();
             rental.rent();

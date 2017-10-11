@@ -1,4 +1,4 @@
-package nl.yacht.lakesideresort;
+package nl.yacht.lakesideresort.controller;
 
 import nl.yacht.lakesideresort.domain.Boat;
 import nl.yacht.lakesideresort.domain.Trip;
@@ -8,13 +8,13 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BoatRental {
+public class BoatController {
 
     //Trip ArrayList
     private List<Trip> trips;
     private List<Boat> boatList;
 
-    public BoatRental(){
+    public BoatController(){
         trips = new ArrayList<>();
         boatList = new ArrayList<>();
         // add boat for 1 to 10 to the boatList(ArrayList)
