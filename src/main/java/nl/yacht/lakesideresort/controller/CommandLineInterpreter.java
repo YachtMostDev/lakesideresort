@@ -18,9 +18,7 @@ public class CommandLineInterpreter {
 
     public CommandLineInterpreter(){
         map = new HashMap<>();
-        map.put("TRIP", new TripGui());
-        map.put("ROOM", new RoomGui());
-//        loadGuiClasses();
+        loadGuiClasses();
     }
 
     private void loadGuiClasses(){
