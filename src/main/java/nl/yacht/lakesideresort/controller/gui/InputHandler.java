@@ -10,8 +10,8 @@ import java.io.InputStreamReader;
 public class InputHandler {
     public static Object[] handleInput(String[][] definition) throws IOException {
         Object[] result = new Object[definition.length];
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         for(int index = 0; index < definition.length; index++){
-            BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
             boolean correct = false;
             while(!correct){
                 System.out.print(definition[index][0] + " ");
