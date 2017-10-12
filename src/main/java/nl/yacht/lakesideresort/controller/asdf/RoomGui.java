@@ -1,4 +1,4 @@
-package nl.yacht.lakesideresort.controller.Gui;
+package nl.yacht.lakesideresort.controller.asdf;
 
 import nl.yacht.lakesideresort.domain.Boat;
 

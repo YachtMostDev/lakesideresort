@@ -1,4 +1,4 @@
-package nl.yacht.lakesideresort.controller.Gui;
+package nl.yacht.lakesideresort.controller.asdf;
 
 /**
  * Created by njvan on 11-Oct-17.

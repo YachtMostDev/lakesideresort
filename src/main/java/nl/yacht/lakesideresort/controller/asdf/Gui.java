@@ -1,4 +1,4 @@
-package nl.yacht.lakesideresort.controller.Gui;
+package nl.yacht.lakesideresort.controller.asdf;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
