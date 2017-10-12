@@ -101,9 +101,7 @@ public class BoatController {
         for(Trip trip : trips){
             LocalDateTime endTime = trip.getEndTime();
             if(endTime != null){
-                LocalDateTime now = LocalDateTime.now();
-
-                if((endTime.getDayOfYear() == now.getDayOfYear()) && (endTime.getYear() == now.getYear())){
+                if(trip.endedToday()){
                     counter++;
                 }
             }
