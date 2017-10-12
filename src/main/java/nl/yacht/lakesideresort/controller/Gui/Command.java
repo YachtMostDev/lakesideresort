@@ -15,7 +15,7 @@ public abstract class Command {
         // Loop through methods of this class
         for(Method method : getMethods()){
             boolean isPublic = Modifier.isPublic(method.getModifiers());
-            boolean namesMatch = method.getName().toLowerCase().equals(command);
+            boolean namesMatch = method.getName().toLowerCase().equals(command.toLowerCase());
             if(isPublic && namesMatch){
                 try {
                     commandFound = true;
@@ -29,7 +29,7 @@ public abstract class Command {
     }
 
     public Method[] getMethods(){
-        return this.getClass().getMethods();
+        return this.getClass().getDeclaredMethods();
     }
 
     public String[] getMethodNames(){
