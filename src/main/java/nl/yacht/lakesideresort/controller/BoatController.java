@@ -1,9 +1,10 @@
 package nl.yacht.lakesideresort.controller;
 
 import nl.yacht.lakesideresort.domain.Boat;
+import nl.yacht.lakesideresort.domain.LakeTrip;
+import nl.yacht.lakesideresort.domain.RiverTrip;
 import nl.yacht.lakesideresort.domain.Trip;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,9 +28,12 @@ public class BoatController {
         return this.boatList;
     }
 
-    //Functie die trip toevoegd aan ArrayList
-    public void addTrip(Trip trip){
-        this.trips.add(trip);
+    public Trip findTrip(int tripNumber){
+        Trip result = null;
+        for(Trip t : trips){
+            if(t.getTripNumber() == tripNumber) result = t;
+        }
+        return result;
     }
 
     //Berekenen gemiddelde duur Trip method
@@ -49,13 +53,18 @@ public class BoatController {
         return 1.0 * total / amount;
     }
 
+    public void addTrip(Trip trip){
+        this.trips.add(trip);
+    }
+
     /**
      * Rent out a boat
      */
-    public void rent(){
+    public Trip rent(boolean riverTrip){
         int nr = getNewTripNumber();
-        Trip trip = new Trip(nr);
+        Trip trip = (riverTrip)?new RiverTrip(nr):new LakeTrip(nr);
         trips.add(trip);
+        return trip;
     }
 
     private int getNewTripNumber() {

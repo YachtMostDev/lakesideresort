@@ -94,9 +94,9 @@ public class BoatControllerTest {
 
         trip3.end();
 
-        rental.rent();
-        rental.rent();
-        rental.rent();
+        rental.rent(false);
+        rental.rent(false);
+        rental.rent(false);
 
         int nr = rental.getNrEndedTrips();
         Assert.assertTrue(nr == 1);
@@ -109,9 +109,9 @@ public class BoatControllerTest {
     public void testRent(){
         try {
             BoatController rental = new BoatController();
-            rental.rent();
-            rental.rent();
-            rental.rent();
+            rental.rent(false);
+            rental.rent(false);
+            rental.rent(false);
 
             Field field = rental.getClass().getDeclaredField("trips");
             field.setAccessible(true);

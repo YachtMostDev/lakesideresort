@@ -1,7 +1,6 @@
 package nl.yacht.lakesideresort.controller;
 
-import nl.yacht.lakesideresort.controller.gui.Command;
-import nl.yacht.lakesideresort.controller.gui.Gui;
+import nl.yacht.lakesideresort.controller.gui.*;
 import org.reflections.Reflections;
 import org.reflections.util.ClasspathHelper;
 
@@ -19,8 +18,6 @@ public class CommandLineInterpreter {
 
     public CommandLineInterpreter(){
         map = new HashMap<>();
-//        map.put("TRIP", new TripGui());
-//        map.put("ROOM", new RoomGui());
         loadGuiClasses();
     }
 
@@ -39,9 +36,9 @@ public class CommandLineInterpreter {
     }
 
     public void runApplication() throws IOException {
-        BoatController boatController = new BoatController();
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         while(true){
+            System.out.println();
             System.out.print("What do you want to do? ");
             String line = reader.readLine();
             String[] input = line.split(" ");
@@ -66,9 +63,8 @@ public class CommandLineInterpreter {
             System.out.println();
             System.out.println("You have to start commands by using one of the following " + map.keySet().size() + " keywords");
             System.out.println(possibleMethodsString);
-            System.out.println("You can also request the help for one of the 4 keywords with 'help [KEYWORD]'");
+            System.out.println("You can also request the help for one of the " + map.keySet().size() + " keywords with 'help [KEYWORD]'");
             System.out.println("Or you can type 'quit' to quit the program");
-            System.out.println();
         } else {
             Command command = map.get(input[1].toUpperCase());
             if(command == null){
@@ -78,7 +74,6 @@ public class CommandLineInterpreter {
                 System.out.println();
                 System.out.println("The possible commands for this keywords are: ");
                 System.out.println(possibleMethods);
-                System.out.println();
             }
         }
     }
