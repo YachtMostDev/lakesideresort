@@ -42,30 +42,46 @@ public class CommandLineInterpreter {
 
     public void displayHelp(String[] input){
         if(input.length == 1) {
+            String[] possibleMethods = map.keySet().toArray(new String[map.size()]);
+            for(int index = 0; index < possibleMethods.length; index++){
+                possibleMethods[index] = possibleMethods[index].substring(0, 1).toUpperCase() + possibleMethods[index].toLowerCase().substring(1);
+            }
+            String possibleMethodsString = String.join(", ", possibleMethods);
+
             System.out.println();
-            System.out.println("You have to start commands by using one of the following 4 keywords");
-            System.out.println(" Boat, Guest, Trip & Room");
+            System.out.println("You have to start commands by using one of the following " + map.keySet().size() + " keywords");
+            System.out.println(possibleMethodsString);
             System.out.println("You can also request the help for one of the 4 keywords with 'help [KEYWORD]'");
             System.out.println("Or you can type 'quit' to quit the program");
             System.out.println();
-        } else if(Arrays.asList("BOAT","GUEST","TRIP","ROOM").contains(input[1].toUpperCase())){
-            System.out.println();
-            System.out.println("You can use " + input[1] + " with the following commands: ");
-            System.out.println(" Create, Find, Update and Remove");
-            System.out.println();
+        } else {
+            Command command = map.get(input[1].toUpperCase());
+            if(command == null){
+                displayInvalidCommandMessage();
+            } else {
+                String possibleMethods = String.join(", ", command.getMethodNames());
+                System.out.println();
+                System.out.println("The possible commands for this keywords are: ");
+                System.out.println(possibleMethods);
+                System.out.println();
+            }
         }
     }
 
     public void parseController(String[] input) throws IOException {
         Command command = map.get(input[0].toUpperCase());
         if(command == null){
-            System.out.println("This is an invalid command, type 'help' to get help");
+            displayInvalidCommandMessage();
         } else {
             try {
                 command.executeCommand(input[1]);
             } catch (Command.CommandNotSupportedException e) {
-                System.out.println("This is an invalid command for this type of controller, type 'help' to get help");
+                displayInvalidCommandMessage();
             }
         }
+    }
+
+    public void displayInvalidCommandMessage(){
+        System.out.println("This is an invalid command, type 'help' to get help");
     }
 }

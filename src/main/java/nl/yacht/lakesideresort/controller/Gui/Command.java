@@ -12,28 +12,33 @@ public abstract class Command {
     public void executeCommand(String command) throws IOException, CommandNotSupportedException {
         boolean commandFound = false;
 
-        // Get the Gui class
-        Class<?> kl = this.getClass();
-        Method[] methods = kl.getMethods();
-
-        // Loop through methods
-        for(Method method : methods){
+        // Loop through methods of this class
+        for(Method method : getMethods()){
             boolean isPublic = Modifier.isPublic(method.getModifiers());
             boolean namesMatch = method.getName().toLowerCase().equals(command);
             if(isPublic && namesMatch){
                 try {
                     commandFound = true;
                     method.invoke(this);
-                } catch (IllegalAccessException e) {
-                    e.printStackTrace();
-                } catch (InvocationTargetException e) {
-                    e.printStackTrace();
-                }
+                } catch (Exception e) {}
             }
         }
         if(!commandFound) {
             throw new CommandNotSupportedException();
         }
+    }
+
+    public Method[] getMethods(){
+        return this.getClass().getMethods();
+    }
+
+    public String[] getMethodNames(){
+        Method[] methods = getMethods();
+        String[] result = new String[methods.length];
+        for(int index = 0; index < methods.length; index++){
+            result[index] = methods[index].getName();
+        }
+        return result;
     }
 
     public class CommandNotSupportedException extends Throwable {
