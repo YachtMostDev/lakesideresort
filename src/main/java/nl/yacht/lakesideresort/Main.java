@@ -15,7 +15,9 @@ public class Main {
         GuestController guestController = new GuestController();
 
         Guest guest1 = new Guest(guestController.generateGuestNumber(), "de Vries", "Henk", "Parkweg 42", "9462AB", "Groningen", "the Netherlands", "0612345678", "henk.de.vries@gmail.com");
-        guestController.getGuestList().add(guest1);
+        //guestController.getGuestList().add(guest1);
+
+        guestController.createNewGuest("Henk", "Geertsema", "adres", "postcode");
 
         Guest guest2 = new Guest(guestController.generateGuestNumber(), "de Vries", "Henk", "Parkweg 42", "9462AB", "Groningen", "the Netherlands", "0612345678", "henk.de.vries@gmail.com");
         guestController.getGuestList().add(guest2);
