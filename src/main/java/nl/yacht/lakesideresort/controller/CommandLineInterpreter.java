@@ -1,8 +1,10 @@
 package nl.yacht.lakesideresort.controller;
 
 import nl.yacht.lakesideresort.controller.Gui.Command;
+import nl.yacht.lakesideresort.controller.Gui.Gui;
 import nl.yacht.lakesideresort.controller.Gui.RoomGui;
 import nl.yacht.lakesideresort.controller.Gui.TripGui;
+import org.reflections.Reflections;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -10,6 +12,7 @@ import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Created by njvan on 11-Oct-17.
@@ -19,8 +22,23 @@ public class CommandLineInterpreter {
 
     public CommandLineInterpreter(){
         map = new HashMap<>();
-        map.put("TRIP", new TripGui());
-        map.put("ROOM", new RoomGui());
+//        map.put("TRIP", new TripGui());
+//        map.put("ROOM", new RoomGui());
+        loadGuiClasses();
+    }
+
+    private void loadGuiClasses(){
+        Reflections reflections = new Reflections("nl.yacht.lakesideresort.controller.Gui");
+        Set<Class<?>> annotated = reflections.getTypesAnnotatedWith(Gui.class);
+        for(Class<?> kl : annotated){
+            Gui gui = kl.getAnnotation(Gui.class);
+            String name = gui.name().toUpperCase();
+            try {
+                map.put(name, (Command) kl.newInstance());
+            } catch (Exception e) {
+                System.out.println("Couldn't load class " + name);
+            }
+        }
     }
 
     public void runApplication() throws IOException {
@@ -75,7 +93,7 @@ public class CommandLineInterpreter {
         } else {
             try {
                 command.executeCommand(input[1]);
-            } catch (Command.CommandNotSupportedException e) {
+            } catch (Exception e) {
                 displayInvalidCommandMessage();
             }
         }

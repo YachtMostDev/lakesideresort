@@ -7,6 +7,7 @@ import java.io.IOException;
 /**
  * Created by njvan on 11-Oct-17.
  */
+@Gui(name="Room")
 public class RoomGui extends Command {
     public void create() throws IOException {
         String[][] definition = {

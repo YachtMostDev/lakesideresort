@@ -41,6 +41,6 @@ public abstract class Command {
         return result;
     }
 
-    public class CommandNotSupportedException extends Throwable {
+    public class CommandNotSupportedException extends Exception {
     }
 }
