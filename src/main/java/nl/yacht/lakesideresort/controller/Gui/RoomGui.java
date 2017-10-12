@@ -8,7 +8,6 @@ import java.io.IOException;
  * Created by njvan on 11-Oct-17.
  */
 public class RoomGui extends Command {
-    @Override
     public void create() throws IOException {
         String[][] definition = {
             {"What type of room is it [Normal, Luxery]?","NORMAL|LUXERY"},
@@ -20,8 +19,11 @@ public class RoomGui extends Command {
         System.out.println(boat.getNumber());
     }
 
-    @Override
     public void find() {
         System.out.print("What is the room number? ");
+    }
+
+    public void doSomething(){
+        System.out.println("Doing something!");
     }
 }
