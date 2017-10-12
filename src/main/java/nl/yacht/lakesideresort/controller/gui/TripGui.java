@@ -34,7 +34,10 @@ public class TripGui extends Command {
             System.out.println("This is an invalid tripnumber!");
         } else {
             trip.end();
-            System.out.println(String.format("Trip with tripnumber %d has ended.",trip.getTripNumber()));
+//            System.out.println("Trip with tripnumber " + trip.getTripNumber() + " has ended.");
+//            System.out.println(String.format("Trip with tripnumber %d has ended.",trip.getTripNumber()));
+//            This last one needs to end with an %n if you want a newline
+            System.out.printf("Trip with tripnumber %d has ended.%n",trip.getTripNumber());
         }
     }
 
