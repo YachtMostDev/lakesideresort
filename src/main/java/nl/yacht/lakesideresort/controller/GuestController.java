@@ -35,6 +35,6 @@ public class GuestController {
                 guestNumber++;
             }
         }
-        return 0;
+        return guestNumber;
     }
 }
