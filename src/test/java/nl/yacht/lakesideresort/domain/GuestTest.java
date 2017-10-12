@@ -22,5 +22,9 @@ public class GuestTest {
         guestController.getGuestList().add(guest3);
         //assert.assertEquals
     }
+    @Test
+    public void testFirstname(){
+       // Guest g = new Guest()
+    }
 }
 

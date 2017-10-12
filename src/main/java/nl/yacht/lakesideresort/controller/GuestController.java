@@ -18,8 +18,20 @@ public class GuestController {
         int guestNumber = generateGuestNumber();
         Guest g = new Guest(guestNumber, surname, firstName, address, postalCode, city, country, phoneNumber, mailAdress);
         this.guestList.add(g);
+        System.out.println("successfully created guest with number: " + guestNumber);
     }
 
+    public Guest getGuestFromList(int guestnumber){
+        // loop door de lijst
+        for(Guest g : this.guestList){
+            // controleer of het ingevoerde nummber gelijk is aan gast g zijn/haar nummer
+            if (guestnumber == g.getGuestNumber()){
+                // als deze gelijk is returnen we gast g
+                return g;
+            }
+        }
+        return null;
+    }
 
     public int generateGuestNumber(){
 
