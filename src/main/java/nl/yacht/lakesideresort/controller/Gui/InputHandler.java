@@ -17,7 +17,6 @@ public class InputHandler {
             while(!correct){
                 System.out.print(definition[index][0] + " ");
                 String line = reader.readLine();
-                Pattern r = Pattern.compile(definition[index][1]);
                 if(line.toUpperCase().matches(definition[index][1])){
                     correct = true;
                     result[index] = line;
