@@ -25,5 +25,9 @@ public class GuestTest {
         Assert.assertTrue(guest2.getGuestNumber() == 12);
         Assert.assertTrue(guest3.getGuestNumber() == 2);
     }
+    @Test
+    public void testFirstname(){
+       // Guest g = new Guest()
+    }
 }
 

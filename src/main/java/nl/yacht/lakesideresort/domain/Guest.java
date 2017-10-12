@@ -26,6 +26,16 @@ public class Guest {
         this.mailAdress = mailAdress;
     }
 
+    public void updateGuest(String surname, String firstName, String adress, String postalCode, String city, String country, String phoneNumber, String mailAdress) {
+        this.surname = surname;
+        this.firstName = firstName;
+        this.adress = adress;
+        this.postalCode = postalCode;
+        this.city = city;
+        this.country = country;
+        this.phoneNumber = phoneNumber;
+        this.mailAdress = mailAdress;
+    }
     //Setters&getters
     public int getGuestNumber() {
         return guestNumber;
