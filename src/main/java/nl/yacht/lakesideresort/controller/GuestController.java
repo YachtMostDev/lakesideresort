@@ -14,15 +14,12 @@ public class GuestController {
         return guestList;
     }
 
-    public Guest testAdress(String info, String method){
-        String adress = "9181HB";
-        for(Guest guest : guestList){
-            if (guest.getAdress().equals(adress)){
-                return guest;
-            }
-        }
-        return null;
+    public void createNewGuest(String surname, String firstName, String address, String postalCode, String city, String country, String phoneNumber, String mailAdress){
+        int guestNumber = generateGuestNumber();
+        Guest g = new Guest(guestNumber, surname, firstName, address, postalCode, city, country, phoneNumber, mailAdress);
+        this.guestList.add(g);
     }
+
 
     public int generateGuestNumber(){
 
@@ -35,6 +32,6 @@ public class GuestController {
                 guestNumber++;
             }
         }
-        return 0;
+        return guestNumber;
     }
 }
