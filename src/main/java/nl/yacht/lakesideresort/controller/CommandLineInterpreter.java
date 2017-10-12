@@ -2,16 +2,13 @@ package nl.yacht.lakesideresort.controller;
 
 import nl.yacht.lakesideresort.controller.Gui.Command;
 import nl.yacht.lakesideresort.controller.Gui.Gui;
-import nl.yacht.lakesideresort.controller.Gui.RoomGui;
-import nl.yacht.lakesideresort.controller.Gui.TripGui;
 import org.reflections.Reflections;
+import org.reflections.util.ClasspathHelper;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.Set;
 
 /**
@@ -28,7 +25,7 @@ public class CommandLineInterpreter {
     }
 
     private void loadGuiClasses(){
-        Reflections reflections = new Reflections("nl.yacht.lakesideresort.controller.Gui");
+        Reflections reflections = new Reflections(ClasspathHelper.forPackage("nl.yacht.lakesideresort.controller.Gui"));
         Set<Class<?>> annotated = reflections.getTypesAnnotatedWith(Gui.class);
         for(Class<?> kl : annotated){
             Gui gui = kl.getAnnotation(Gui.class);

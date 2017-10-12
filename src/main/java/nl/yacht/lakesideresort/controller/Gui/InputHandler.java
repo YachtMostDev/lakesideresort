@@ -3,7 +3,6 @@ package nl.yacht.lakesideresort.controller.Gui;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.regex.Pattern;
 
 /**
  * Created by njvan on 11-Oct-17.
