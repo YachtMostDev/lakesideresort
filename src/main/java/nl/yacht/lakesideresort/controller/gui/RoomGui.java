@@ -11,7 +11,7 @@ import java.io.IOException;
 public class RoomGui extends Command {
     public void create() throws IOException {
         String[][] definition = {
-            {"What type of room is it [Normal, Luxery]?","NORMAL|LUXERY"},
+            {"What type of room is it [Normal, Luxury]?","NORMAL|LUXURY"},
             {"How big is the room [Normal, Big]?","NORMAL|BIG"},
             {"How many windows?","\\d+"}
         };
