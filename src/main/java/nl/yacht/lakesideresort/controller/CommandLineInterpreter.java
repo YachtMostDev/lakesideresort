@@ -1,7 +1,7 @@
 package nl.yacht.lakesideresort.controller;
 
-import nl.yacht.lakesideresort.controller.asdf.Command;
-import nl.yacht.lakesideresort.controller.asdf.Gui;
+import nl.yacht.lakesideresort.controller.gui.Command;
+import nl.yacht.lakesideresort.controller.gui.Gui;
 import org.reflections.Reflections;
 import org.reflections.util.ClasspathHelper;
 
@@ -25,7 +25,7 @@ public class CommandLineInterpreter {
     }
 
     private void loadGuiClasses(){
-        Reflections reflections = new Reflections(ClasspathHelper.forPackage("nl.yacht.lakesideresort.controller.asdf"));
+        Reflections reflections = new Reflections(ClasspathHelper.forPackage("nl.yacht.lakesideresort.controller.gui"));
         Set<Class<?>> annotated = reflections.getTypesAnnotatedWith(Gui.class);
         for(Class<?> kl : annotated){
             Gui gui = kl.getAnnotation(Gui.class);

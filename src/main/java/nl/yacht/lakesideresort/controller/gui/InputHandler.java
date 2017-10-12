@@ -1,4 +1,4 @@
-package nl.yacht.lakesideresort.controller.asdf;
+package nl.yacht.lakesideresort.controller.gui;
 
 import java.io.BufferedReader;
 import java.io.IOException;
