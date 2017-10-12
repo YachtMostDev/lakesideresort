@@ -1,1 +1,1 @@
-java -jar target/lakesideresort-0.2.0-SNAPSHOT.jar
+java -jar target/lakesideresort-0.2.0-SNAPSHOT-jar-with-dependencies.jar
