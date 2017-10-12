@@ -1,10 +1,12 @@
 package nl.yacht.lakesideresort.controller.Gui;
 
+import java.io.IOException;
+
 /**
  * Created by njvan on 11-Oct-17.
  */
 public abstract class Command {
-    public void executeCommand(String command) throws CommandNotSupportedException {
+    public void executeCommand(String command) throws CommandNotSupportedException, IOException {
         switch (command.toUpperCase()){
             case "CREATE":
                 create();
@@ -24,7 +26,7 @@ public abstract class Command {
         }
     }
 
-    public void create() throws CommandNotSupportedException {
+    public void create() throws CommandNotSupportedException, IOException {
         throw new CommandNotSupportedException();
     }
 

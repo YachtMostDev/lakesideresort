@@ -3,6 +3,7 @@ package nl.yacht.lakesideresort.controller.Gui;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.regex.Pattern;
 
 /**
  * Created by njvan on 11-Oct-17.
@@ -14,19 +15,14 @@ public class InputHandler {
             BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
             boolean correct = false;
             while(!correct){
-                System.out.println(definition[index][1]);
+                System.out.print(definition[index][0] + " ");
                 String line = reader.readLine();
-                if("String".equalsIgnoreCase(definition[index][0])){
+                Pattern r = Pattern.compile(definition[index][1]);
+                if(line.toUpperCase().matches(definition[index][1])){
                     correct = true;
                     result[index] = line;
-                } else if("Integer".equalsIgnoreCase(definition[index][0])){
-                    try {
-                        int value = Integer.parseInt(line);
-                        correct = true;
-                        result[index] = value;
-                    } catch (Exception name) {
-                        System.out.println("That an invalid number!");
-                    }
+                } else {
+                    System.out.println("This input is incorrect!");
                 }
             }
         }

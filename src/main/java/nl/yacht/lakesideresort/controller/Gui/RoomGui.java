@@ -1,5 +1,7 @@
 package nl.yacht.lakesideresort.controller.Gui;
 
+import nl.yacht.lakesideresort.domain.Boat;
+
 import java.io.IOException;
 
 /**
@@ -9,11 +11,13 @@ public class RoomGui extends Command {
     @Override
     public void create() throws IOException {
         String[][] definition = {
-            {"String","What type of room is it [Normal, Luxery]?"},
-            {"String","How big is the room [Normal, Big]?"},
-            {"Integer","How many windows?"}
+            {"What type of room is it [Normal, Luxery]?","NORMAL|LUXERY"},
+            {"How big is the room [Normal, Big]?","NORMAL|BIG"},
+            {"How many windows?","\\d+"}
         };
         Object[] inputs = InputHandler.handleInput(definition);
+        Boat boat = new Boat(Integer.parseInt(inputs[2].toString()));
+        System.out.println(boat.getNumber());
     }
 
     @Override
