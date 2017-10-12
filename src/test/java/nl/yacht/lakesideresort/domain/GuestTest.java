@@ -2,9 +2,9 @@ package nl.yacht.lakesideresort.domain;
 
 import nl.yacht.lakesideresort.controller.GuestController;
 import org.junit.Test;
+import org.junit.Assert;
 
 public class GuestTest {
-
 
     @Test
     public void testGuestController(){
@@ -20,6 +20,7 @@ public class GuestTest {
 
     Guest guest3 = new Guest(guestController.generateGuestNumber(), "de Vries", "Alex", "Doorweg 12", "7671GH", "Zwolle", "the Netherlands", "0693559272", "alex.de.vries@gmail.com");
         guestController.getGuestList().add(guest3);
+        //assert.assertEquals
     }
 }
 
