@@ -19,7 +19,7 @@ public class TripGui extends Command {
         String[][] definition = {
             {"Is it a lake trip or a river trip [Lake, River]?","LAKE|RIVER"}
         };
-        Object[] inputs = InputHandler.handleInput(definition);
+        Object[] inputs = InputHandler.handleInput(definition, args);
         Trip trip = boatCtrl.rent("river".equalsIgnoreCase(inputs[0].toString()));
         System.out.println("A trip has started with trip number: " + trip.getTripNumber());
     }
@@ -28,7 +28,7 @@ public class TripGui extends Command {
         String[][] definition = {
             {"What is the tripnumber?","\\d+"}
         };
-        Object[] inputs = InputHandler.handleInput(definition);
+        Object[] inputs = InputHandler.handleInput(definition, args);
         Trip trip = boatCtrl.findTrip(Integer.parseInt(inputs[0].toString()));
         if(trip == null){
             System.out.println("This is an invalid tripnumber!");
@@ -45,7 +45,7 @@ public class TripGui extends Command {
         String[][] definition = {
                 {"What is the tripnumber?","\\d+"}
         };
-        Object[] inputs = InputHandler.handleInput(definition);
+        Object[] inputs = InputHandler.handleInput(definition, args);
         Trip trip = boatCtrl.findTrip(Integer.parseInt(inputs[0].toString()));
         if(trip == null){
             System.out.println("This is an invalid tripnumber!");

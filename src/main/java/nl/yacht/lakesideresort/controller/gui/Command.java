@@ -8,8 +8,11 @@ import java.lang.reflect.Modifier;
  * Created by njvan on 11-Oct-17.
  */
 public abstract class Command {
-    public void executeCommand(String command) throws IOException, CommandNotSupportedException {
+    protected String[] args;
+
+    public void executeCommand(String command, String args[]) throws IOException, CommandNotSupportedException {
         boolean commandFound = false;
+        this.args = args;
 
         // Loop through methods of this class
         for(Method method : getMethods()){

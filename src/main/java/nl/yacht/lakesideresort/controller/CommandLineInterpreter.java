@@ -7,6 +7,7 @@ import org.reflections.util.ClasspathHelper;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Set;
 
@@ -80,11 +81,12 @@ public class CommandLineInterpreter {
 
     public void parseController(String[] input) throws IOException {
         Command command = map.get(input[0].toUpperCase());
+        String[] args = Arrays.copyOfRange(input, 2, input.length);
         if(command == null){
             displayInvalidCommandMessage();
         } else {
             try {
-                command.executeCommand(input[1]);
+                command.executeCommand(input[1], args);
             } catch (Exception e) {
                 displayInvalidCommandMessage();
             }
