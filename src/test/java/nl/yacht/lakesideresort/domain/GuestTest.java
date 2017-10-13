@@ -17,43 +17,30 @@ public class GuestTest {
     private String phone = "PhoneNumber";
     private String city = "City";
     private Guest guest;
+    private Guest gcGuest;
+
+    private GuestController gc;
+
     @Before
     public void setUp(){
         guest = new Guest(1, sn, fn, address, postal, city, country, phone, email);
+        gc = new GuestController();
+        this.gcGuest = gc.createNewGuest(guest.getSurname(),
+                guest.getFirstName(),
+                guest.getAddress(),
+                guest.getPostalCode(),
+                guest.getCity(),
+                guest.getCountry(),
+                guest.getPhoneNumber(),
+                guest.getMailAddress());
+
     }
+
     @Test
-    public void testGuestController(){
-
-    GuestController guestController = new GuestController();
-
-    Guest guest1 = new Guest(guestController.generateGuestNumber(), "de Vries", "Henk", "Parkweg 42", "9462AB", "Groningen", "the Netherlands", "0612345678", "henk.de.vries@gmail.com");
-        guestController.getGuestList().add(guest1);
-
-    Guest guest2 = new Guest(guestController.generateGuestNumber(), "Jansen", "Thomas", "Schoolstraat 5", "9813JF", "Leek", "the Netherlands", "0609123102", "thomas.jansen@gmail.com");
-        guestController.getGuestList().add(guest2);
-        guestController.getGuestList().get(1).setGuestNumber(12);
-
-    Guest guest3 = new Guest(guestController.generateGuestNumber(), "de Vries", "Alex", "Doorweg 12", "7671GH", "Zwolle", "the Netherlands", "0693559272", "alex.de.vries@gmail.com");
-        guestController.getGuestList().add(guest3);
-        //assert.assertEquals
+    public void testGetGuestFromController(){
+        Guest g = gc.getGuestFromList(gcGuest.getGuestNumber());
+        Assert.assertTrue(g.getGuestNumber() == gcGuest.getGuestNumber());
     }
-
-//    @Test
-//    public void testFirstname(){
-//        // gast maken met een voornaam(a)
-//        // string checkvoornaam = gast.getvoornaam
-//        // als checkvoornaam == voornaam(a)
-//        // als true > test ok
-//        // als false > test niet ok
-//        String voornaam = "Voornaam";
-//        Guest g = new Guest(1, "a", voornaam, "adres", "postcode", "woonplaats", "land", "telefoonnummer", "emailadres");
-//        String checkVoornaam = g.getFirstName();
-//        boolean result = false;
-//        if (voornaam.equals(checkVoornaam)) {
-//            result = true;
-//        }
-//        Assert.assertTrue(result);
-//    }
 
     @Test
     public void testGetFirstname(){
