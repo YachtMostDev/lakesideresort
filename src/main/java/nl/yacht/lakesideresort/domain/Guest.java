@@ -109,15 +109,17 @@ public class Guest {
         this.mailAddress = mailAddress;
     }
 
-    public void printGuest(){
-        System.out.println("Guest Number: " + this.guestNumber);
-        System.out.println("Surname: " + this.surname);
-        System.out.println("Firstname: " + this.firstName);
-        System.out.println("Address: " + this.address);
-        System.out.println("Postal Code: " + this.postalCode);
-        System.out.println("City: " + this.city);
-        System.out.println("Country: " + this.country);
-        System.out.println("Phone: " + this.phoneNumber);
-        System.out.println("Mail: " + this.mailAddress);
+    public String toString(){
+        StringBuilder sb = new StringBuilder(512);
+        sb.append("Guest Number: " + this.guestNumber);
+        sb.append("\nSurname: " + this.surname);
+        sb.append("\nFirstname: " + this.firstName);
+        sb.append("\nAddress: " + this.address);
+        sb.append("\nPostal Code: " + this.postalCode);
+        sb.append("\nCity: " + this.city);
+        sb.append("\nCountry: " + this.country);
+        sb.append("\nPhone: " + this.phoneNumber);
+        sb.append("\nMail: " + this.mailAddress);
+        return sb.toString();
     }
 }

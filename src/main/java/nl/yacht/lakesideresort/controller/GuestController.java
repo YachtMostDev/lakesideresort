@@ -28,7 +28,6 @@ public class GuestController {
         if (searchGuest(guestData).size() == 0){
             g = new Guest(guestNumber, surname, firstName, address, postalCode, city, country, phoneNumber, mailAddress);
             this.guestList.add(g);
-            System.out.println("successfully created guest with number: " + guestNumber);
         }
         return g;
     }
@@ -41,6 +40,13 @@ public class GuestController {
                 // als deze gelijk is returnen we gast g
                 return g;
             }
+        }
+        return null;
+    }
+
+    public Guest findGuest(int guestNumber){
+        for(Guest guest: guestList){
+            if(guest.getGuestNumber() == guestNumber) return guest;
         }
         return null;
     }
