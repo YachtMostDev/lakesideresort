@@ -1,5 +1,7 @@
 package nl.yacht.lakesideresort.controller.gui;
 
+import com.sun.javafx.scene.web.Debugger;
+
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;

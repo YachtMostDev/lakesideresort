@@ -23,6 +23,15 @@ public class Trip {
     }
 
     /**
+     * Returns is this trip was started today
+     * @return
+     */
+    public boolean startedToday(){
+        LocalDate today = LocalDate.now();
+        return getStartTime() != null && getStartTime().toLocalDate().equals(today);
+    }
+
+    /**
      * Returns if endtime was set AND if endtime was today
      * @return
      */

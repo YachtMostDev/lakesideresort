@@ -4,6 +4,8 @@ import nl.yacht.lakesideresort.controller.BoatController;
 import nl.yacht.lakesideresort.domain.Trip;
 
 import java.io.IOException;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 /**
  * Created by njvan on 11-Oct-17.
@@ -60,5 +62,19 @@ public class TripGui extends Command {
 
     public void ended(){
         System.out.println(String.format("The amount of ended trips today is: %d", boatCtrl.getNrEndedTrips()));
+    }
+
+    /**
+     * List trips started today
+     */
+    public void listToday(){
+        List<Trip> trips = boatCtrl.getTodaysTrips();
+        System.out.println("Trips (started today):");
+        for(Trip trip : trips){
+            String started = trip.getStartTime().format(DateTimeFormatter.ISO_LOCAL_TIME);
+            String ended = trip.endedToday() ? trip.getEndTime().format(DateTimeFormatter.ISO_LOCAL_TIME).toString() : "-";
+            System.out.printf("Nr: %d | Started: %s | Ended: %s %n",
+                trip.getTripNumber(), started, ended);
+        }
     }
 }
