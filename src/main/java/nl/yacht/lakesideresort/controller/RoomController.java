@@ -27,6 +27,11 @@ public class RoomController {
         }
     }
 
+    public void printRooms(){
+        for (Room r : this.roomMap.values()){
+            System.out.println("Room: " + r.getRoomNumber());
+        }
+    }
     private int generateRoomNumber(){
         int nr = 0;
         for (Room r : this.roomMap.values()){
