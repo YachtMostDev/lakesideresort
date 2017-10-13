@@ -1,5 +1,6 @@
 package nl.yacht.lakesideresort.steps;
 
+import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -9,9 +10,13 @@ import org.junit.Assert;
 
 public class BoatControllerSteps {
 
-    private BoatController boatController = new BoatController();
-
+    private BoatController boatController;
     private Trip trip;
+
+    @Before
+    public void setUp() {
+        this.boatController = new BoatController();
+    }
 
     @Given("^I start a trip and rent a boat")
     public void iRentATrip() throws Throwable {
