@@ -73,8 +73,9 @@ public class TripGui extends Command {
         for(Trip trip : trips){
             String started = trip.getStartTime().format(DateTimeFormatter.ISO_LOCAL_TIME);
             String ended = trip.endedToday() ? trip.getEndTime().format(DateTimeFormatter.ISO_LOCAL_TIME).toString() : "-";
-            System.out.printf("Nr: %d n| Type: %s | Started: %s | Ended: %s %n",
-                trip.getTripNumber(), trip.getTripType(), started, ended);
+            long duration = trip.getDuration().toMinutes();
+            System.out.printf("Nr: %d | Type: %s | Started: %s | Ended: %s | Duration: %d min %n",
+                trip.getTripNumber(), trip.getTripType(), started, ended, duration);
         }
     }
 }
