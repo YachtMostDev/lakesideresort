@@ -1,12 +1,10 @@
 package nl.yacht.lakesideresort.controller.gui;
 
 import nl.yacht.lakesideresort.controller.RoomController;
-import nl.yacht.lakesideresort.domain.Boat;
 import nl.yacht.lakesideresort.domain.Room;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 /**
  * Created by njvan on 11-Oct-17.
@@ -56,6 +54,7 @@ public class RoomGui extends Command {
                 break;
         }
         String[] dateTimeInput = inputs[2].toString().split("-");
+        // you should check if these values are correct
         int year = Integer.parseInt(dateTimeInput[0]);
         int month = Integer.parseInt(dateTimeInput[1]);
         int day = Integer.parseInt(dateTimeInput[2]);
@@ -69,8 +68,7 @@ public class RoomGui extends Command {
                 {"What is the room number you want to edit?", "\\d+"},
                 {"What is the new room number?", "\\d+"},
                 {"What type of room is it [Budget, Normal, Luxury]?", "BUDGET|NORMAL|LUXURY"},
-                {"What size is the room [1, 2, 3-4, 5-6]?", "1|2|3-4|5-6"},
-                {"When will the room be available [yyyy-MM-dd]", "\\d{4}-\\d{2}-\\d{2}"}
+                {"What size is the room [1, 2, 3-4, 5-6]?", "1|2|3-4|5-6"}
         };
         Object[] inputs = InputHandler.handleInput(definition, args);
 
