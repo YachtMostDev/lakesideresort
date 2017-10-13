@@ -44,16 +44,13 @@ public class RoomGui extends Command {
         switch(s){
             case "1":
                 roomSize = Room.RoomSize.ONE_PERSON;
-            break;
-
+                break;
             case "2":
                 roomSize = Room.RoomSize.TWO_PERSON;
                 break;
-
             case "3-4":
                 roomSize = Room.RoomSize.THREE_FOUR_PERSON;
                 break;
-
             case "5-6":
                 roomSize = Room.RoomSize.FIVE_SIX_PERSON;
                 break;
@@ -98,15 +95,12 @@ public class RoomGui extends Command {
             case "1":
                 roomSize = Room.RoomSize.ONE_PERSON;
                 break;
-
             case "2":
                 roomSize = Room.RoomSize.TWO_PERSON;
                 break;
-
             case "3-4":
                 roomSize = Room.RoomSize.THREE_FOUR_PERSON;
                 break;
-
             case "5-6":
                 roomSize = Room.RoomSize.FIVE_SIX_PERSON;
                 break;
