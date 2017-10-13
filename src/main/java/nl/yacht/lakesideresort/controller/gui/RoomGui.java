@@ -15,7 +15,7 @@ public class RoomGui extends Command {
             {"How big is the room [Normal, Big]?","NORMAL|BIG"},
             {"How many windows?","\\d+"}
         };
-        Object[] inputs = InputHandler.handleInput(definition);
+        Object[] inputs = InputHandler.handleInput(definition, args);
         Boat boat = new Boat(Integer.parseInt(inputs[2].toString()));
         System.out.println(boat.getNumber());
     }
