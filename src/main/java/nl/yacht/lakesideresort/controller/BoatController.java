@@ -1,20 +1,21 @@
-package nl.yacht.lakesideresort;
+package nl.yacht.lakesideresort.controller;
 
 import nl.yacht.lakesideresort.domain.Boat;
+import nl.yacht.lakesideresort.domain.LakeTrip;
+import nl.yacht.lakesideresort.domain.RiverTrip;
 import nl.yacht.lakesideresort.domain.Trip;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BoatRental {
+public class BoatController {
 
     //Trip ArrayList
     private List<Trip> trips;
     private List<Boat> boatList;
 
-    public BoatRental(){
+    public BoatController(){
         trips = new ArrayList<>();
         boatList = new ArrayList<>();
         // add boat for 1 to 10 to the boatList(ArrayList)
@@ -27,9 +28,12 @@ public class BoatRental {
         return this.boatList;
     }
 
-    //Functie die trip toevoegd aan ArrayList
-    public void addTrip(Trip trip){
-        this.trips.add(trip);
+    public Trip findTrip(int tripNumber){
+        Trip result = null;
+        for(Trip t : trips){
+            if(t.getTripNumber() == tripNumber) result = t;
+        }
+        return result;
     }
 
     //Berekenen gemiddelde duur Trip method
@@ -49,13 +53,18 @@ public class BoatRental {
         return 1.0 * total / amount;
     }
 
+    public void addTrip(Trip trip){
+        this.trips.add(trip);
+    }
+
     /**
      * Rent out a boat
      */
-    public void rent(){
+    public Trip rent(boolean riverTrip){
         int nr = getNewTripNumber();
-        Trip trip = new Trip(nr);
+        Trip trip = (riverTrip)?new RiverTrip(nr):new LakeTrip(nr);
         trips.add(trip);
+        return trip;
     }
 
     private int getNewTripNumber() {
@@ -101,9 +110,7 @@ public class BoatRental {
         for(Trip trip : trips){
             LocalDateTime endTime = trip.getEndTime();
             if(endTime != null){
-                LocalDateTime now = LocalDateTime.now();
-
-                if((endTime.getDayOfYear() == now.getDayOfYear()) && (endTime.getYear() == now.getYear())){
+                if(trip.endedToday()){
                     counter++;
                 }
             }
