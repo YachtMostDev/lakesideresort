@@ -15,8 +15,8 @@ public class InputHandler {
      * @return
      * @throws IOException
      */
-    public static Object[] handleInput(String[][] definition, String[] args) throws IOException {
-        Object[] result = new Object[definition.length];
+    public static String[] handleInput(String[][] definition, String[] args) throws IOException {
+        String[] result = new String[definition.length];
 
         int autoargs_parsed = parseAutoArgs(definition, args, result);
         parseArguments(definition, result, autoargs_parsed);
@@ -53,7 +53,7 @@ public class InputHandler {
      * @param autoargs_parsed
      * @throws IOException
      */
-    private static void parseArguments(String[][] definition, Object[] result, int autoargs_parsed) throws IOException {
+    private static void parseArguments(String[][] definition, String[] result, int autoargs_parsed) throws IOException {
         // Use buffered reader to read remaining arguments
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         for(int index = autoargs_parsed; index < definition.length; index++){
