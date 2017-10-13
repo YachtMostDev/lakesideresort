@@ -81,7 +81,10 @@ public class CommandLineInterpreter {
 
     public void parseController(String[] input) throws IOException {
         Command command = map.get(input[0].toUpperCase());
-        String[] args = Arrays.copyOfRange(input, 2, input.length);
+        String[] args = {};
+        if(input.length > 2) {
+            args = Arrays.copyOfRange(input, 2, input.length);
+        }
         if(command == null){
             displayInvalidCommandMessage();
         } else {
