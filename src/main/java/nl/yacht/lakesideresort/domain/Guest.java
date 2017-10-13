@@ -6,35 +6,35 @@ public class Guest {
     private int guestNumber;
     private String surname;
     private String firstName;
-    private String adress;
+    private String address;
     private String postalCode;
     private String city;
     private String country;
     private String phoneNumber;
-    private String mailAdress;
+    private String mailAddress;
 
     //Constructor met alle variabelen
-    public Guest(int guestNumber, String surname, String firstName, String adress, String postalCode, String city, String country, String phoneNumber, String mailAdress) {
+    public Guest(int guestNumber, String surname, String firstName, String address, String postalCode, String city, String country, String phoneNumber, String mailAddress) {
         this.guestNumber = guestNumber;
         this.surname = surname;
         this.firstName = firstName;
-        this.adress = adress;
+        this.address = address;
         this.postalCode = postalCode;
         this.city = city;
         this.country = country;
         this.phoneNumber = phoneNumber;
-        this.mailAdress = mailAdress;
+        this.mailAddress = mailAddress;
     }
 
-    public void updateGuest(String surname, String firstName, String adress, String postalCode, String city, String country, String phoneNumber, String mailAdress) {
+    public void updateGuest(String surname, String firstName, String address, String postalCode, String city, String country, String phoneNumber, String mailAddress) {
         this.surname = surname;
         this.firstName = firstName;
-        this.adress = adress;
+        this.address = address;
         this.postalCode = postalCode;
         this.city = city;
         this.country = country;
         this.phoneNumber = phoneNumber;
-        this.mailAdress = mailAdress;
+        this.mailAddress = mailAddress;
     }
     //Setters&getters
     public int getGuestNumber() {
@@ -61,12 +61,12 @@ public class Guest {
         this.firstName = firstName;
     }
 
-    public String getAdress() {
-        return adress;
+    public String getAddress() {
+        return address;
     }
 
-    public void setAdress(String adress) {
-        this.adress = adress;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public String getPostalCode() {
@@ -101,23 +101,23 @@ public class Guest {
         this.phoneNumber = phoneNumber;
     }
 
-    public String getMailAdress() {
-        return mailAdress;
+    public String getMailAddress() {
+        return mailAddress;
     }
 
-    public void setMailAdress(String mailAdress) {
-        this.mailAdress = mailAdress;
+    public void setMailAddress(String mailAddress) {
+        this.mailAddress = mailAddress;
     }
 
     public void printGuest(){
         System.out.println("Guest Number: " + this.guestNumber);
         System.out.println("Surname: " + this.surname);
         System.out.println("Firstname: " + this.firstName);
-        System.out.println("Adress: " + this.adress);
+        System.out.println("Address: " + this.address);
         System.out.println("Postal Code: " + this.postalCode);
         System.out.println("City: " + this.city);
         System.out.println("Country: " + this.country);
         System.out.println("Phone: " + this.phoneNumber);
-        System.out.println("Mail: " + this.mailAdress);
+        System.out.println("Mail: " + this.mailAddress);
     }
 }
