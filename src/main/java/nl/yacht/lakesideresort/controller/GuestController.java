@@ -14,7 +14,7 @@ public class GuestController {
         return guestList;
     }
 
-    public void createNewGuest(String surname, String firstName, String address, String postalCode, String city, String country, String phoneNumber, String mailAddress){
+    public Guest createNewGuest(String surname, String firstName, String address, String postalCode, String city, String country, String phoneNumber, String mailAddress){
         int guestNumber = generateGuestNumber();
 
         // maak van de gastdata een HashMap
@@ -22,12 +22,15 @@ public class GuestController {
         guestData.put("surName", surname);
         guestData.put("firstName", firstName);
 
+        Guest g = null;
+
         // maake een nieuwe gast aan als de gastdata niet overeenkomt met een andere gast
-        if (searchGuest(guestData) == null){
-            Guest g = new Guest(guestNumber, surname, firstName, address, postalCode, city, country, phoneNumber, mailAddress);
+        if (searchGuest(guestData).size() == 0){
+            g = new Guest(guestNumber, surname, firstName, address, postalCode, city, country, phoneNumber, mailAddress);
             this.guestList.add(g);
             System.out.println("successfully created guest with number: " + guestNumber);
         }
+        return g;
     }
 
     public Guest getGuestFromList(int guestnumber){
@@ -43,8 +46,9 @@ public class GuestController {
     }
 
     // zoek naar een gast met gastdata aangeleverd met een een HashMap
-    public Guest searchGuest(HashMap<String, String> searchData){
+    public ArrayList<Guest> searchGuest(HashMap<String, String> searchData){
         int correct;
+        ArrayList<Guest> result = new ArrayList<>();
 
         // voor alle gasten in de gastenlijst
         for(Guest guest : guestList) {
@@ -63,17 +67,20 @@ public class GuestController {
             }
             // als een gast alle opgevraagde eigenschappen heeft
             if (correct == searchData.size()){
-                return guest;
+                result.add(guest);
             }
         }
-        return null;
+        return result;
     }
 
     // zoek naar een gast met een gastnummer in combinatie met gastdata
     public Guest searchGuest(int guestNumber, HashMap<String, String> searchData){
-        Guest guest = searchGuest(searchData);
-        if (getGuestFromList(guestNumber) == guest){
-            return guest;
+        ArrayList<Guest> guestList = searchGuest(searchData);
+
+        for (Guest guest : guestList){
+            if (getGuestFromList(guestNumber) == guest){
+                return guest;
+            }
         }
         return null;
     }
