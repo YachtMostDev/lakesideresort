@@ -79,13 +79,13 @@ public class GuestTest {
 
     @Test
     public void testGetAddress(){
-        Assert.assertTrue(guest.getAddress().equals(this.address));
+        Assert.assertTrue(guest.getAdress().equals(this.address));
     }
     @Test
     public void testSetAddress(){
         String newAddress = "NewAddress";
-        guest.setAddress(newAddress);
-        Assert.assertTrue(guest.getAddress().equals(newAddress));
+        guest.setAdress(newAddress);
+        Assert.assertTrue(guest.getAdress().equals(newAddress));
     }
 
     @Test
@@ -112,13 +112,13 @@ public class GuestTest {
 
     @Test
     public void testGetEmail(){
-        Assert.assertTrue(guest.getMailAddress().equals(this.email));
+        Assert.assertTrue(guest.getMailAdress().equals(this.email));
     }
     @Test
     public void testSetEmail(){
         String newEmail = "NewEmailAddress";
-        guest.setMailAddress(newEmail);
-        Assert.assertTrue(guest.getMailAddress().equals(newEmail));
+        guest.setMailAdress(newEmail);
+        Assert.assertTrue(guest.getMailAdress().equals(newEmail));
     }
 
     @Test
@@ -139,7 +139,7 @@ public class GuestTest {
     @Test
     public void testSetPostal(){
         String newPostalCOde = "NewPostalCOde";
-        guest.setPostalCode(newPostalCOde);
+        guest.setCountry(newPostalCOde);
         Assert.assertTrue(guest.getPostalCode().equals(newPostalCOde));
     }
 }
