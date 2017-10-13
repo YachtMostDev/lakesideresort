@@ -13,12 +13,10 @@ public class Room {
         LUXURY, NORMAL, BUDGET
     }
     public enum RoomSize{
-
         ONE_PERSON, TWO_PERSON, THREE_FOUR_PERSON, FIVE_SIX_PERSON
     }
 
     public Room(int roomNumber, RoomType roomType, RoomSize roomSize, LocalDateTime availableFrom) {
-
         this.roomNumber = roomNumber;
         this.roomType = roomType;
         this.roomSize = roomSize;

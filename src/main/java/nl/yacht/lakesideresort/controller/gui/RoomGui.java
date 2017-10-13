@@ -14,7 +14,7 @@ public class RoomGui extends Command {
         String[][] definition = {
             {"What type of room is it [Budget, Normal, Luxury]?","BUDGET|NORMAL|LUXURY"},
             {"What size is the room [1, 2, 3-4, 5-6]?","1|2|3-4|5-6"},
-                {"How many windows?","\\d+"}
+            {"How many windows?","\\d+"}
         };
         Object[] inputs = InputHandler.handleInput(definition, args);
         // checken
@@ -50,8 +50,7 @@ public class RoomGui extends Command {
                 roomSize = Room.RoomSize.FIVE_SIX_PERSON;
                 break;
         }
-        Boat boat = new Boat(Integer.parseInt(inputs[2].toString()));
-        System.out.println(boat.getNumber());
+//        Room r = new Room(Room)
     }
 
     public void find() {
