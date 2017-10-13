@@ -59,4 +59,8 @@ public class Room {
     public LocalDateTime getAvailableFrom() {
         return availableFrom;
     }
+
+//    public void setAvailableFrom(LocalDateTime ldt){
+//        this.availableFrom = ldt;
+//    }
 }
