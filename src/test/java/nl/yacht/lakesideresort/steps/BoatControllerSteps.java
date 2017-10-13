@@ -38,9 +38,7 @@ public class BoatControllerSteps {
     @Then("^I have average (\\d+) trips today$")
     public void iHaveAverageTripsToday(double extectedTripsAverageToday) throws Throwable {
 
-
-
-//        Assert.assertTrue(extectedTripsAverageToday == this.boatController.calculateAverageDuration());
+        Assert.assertTrue(extectedTripsAverageToday == this.boatController.calculateAverageDuration());
 
     }
 
