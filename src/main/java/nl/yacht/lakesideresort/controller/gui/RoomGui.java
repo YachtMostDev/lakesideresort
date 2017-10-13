@@ -104,7 +104,7 @@ public class RoomGui extends Command {
                 break;
         }
         rc.updateRoom(currentRN, newRN, roomType, roomSize);
-        System.out.println("Updated the room");
+        //System.out.println("Updated the room");
     }
 
     public void list(){
