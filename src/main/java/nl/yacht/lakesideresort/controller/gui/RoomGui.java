@@ -1,6 +1,7 @@
 package nl.yacht.lakesideresort.controller.gui;
 
 import nl.yacht.lakesideresort.domain.Boat;
+import nl.yacht.lakesideresort.domain.Room;
 
 import java.io.IOException;
 
@@ -11,11 +12,44 @@ import java.io.IOException;
 public class RoomGui extends Command {
     public void create() throws IOException {
         String[][] definition = {
-            {"What type of room is it [Normal, Luxury]?","NORMAL|LUXURY"},
-            {"How big is the room [Normal, Big]?","NORMAL|BIG"},
-            {"How many windows?","\\d+"}
+            {"What type of room is it [Budget, Normal, Luxury]?","BUDGET|NORMAL|LUXURY"},
+            {"What size is the room [1, 2, 3-4, 5-6]?","1|2|3-4|5-6"},
+                {"How many windows?","\\d+"}
         };
         Object[] inputs = InputHandler.handleInput(definition, args);
+        // checken
+        Room.RoomSize roomSize;
+        Room.RoomType roomType;
+        switch(inputs[0].toString()){
+            case "LUXURY":
+                roomType = Room.RoomType.LUXURY;
+                break;
+            case "BUDGET":
+                roomType = Room.RoomType.BUDGET;
+                break;
+            case "NORMAL":
+                roomType = Room.RoomType.NORMAL;
+                break;
+        }
+
+        String s = inputs[1].toString();
+        switch(s){
+            case "1":
+                roomSize = Room.RoomSize.ONE_PERSON;
+            break;
+
+            case "2":
+                roomSize = Room.RoomSize.TWO_PERSON;
+                break;
+
+            case "3-4":
+                roomSize = Room.RoomSize.THREE_FOUR_PERSON;
+                break;
+
+            case "5-6":
+                roomSize = Room.RoomSize.FIVE_SIX_PERSON;
+                break;
+        }
         Boat boat = new Boat(Integer.parseInt(inputs[2].toString()));
         System.out.println(boat.getNumber());
     }
