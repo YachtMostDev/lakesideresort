@@ -8,6 +8,7 @@ import nl.yacht.lakesideresort.domain.Trip;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class BoatController {
 
@@ -22,6 +23,16 @@ public class BoatController {
         for(int index = 1; index <= 10; index++){
             boatList.add(new Boat(index));
         }
+    }
+
+    /**
+     * List trips started today
+     * @return
+     */
+    public List<Trip> getTodaysTrips() {
+        return this.trips.stream()
+            .filter(t -> t.startedToday())
+            .collect(Collectors.toList());
     }
 
     public List<Boat> getBoatList() {
