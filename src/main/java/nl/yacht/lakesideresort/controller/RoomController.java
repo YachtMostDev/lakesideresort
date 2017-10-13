@@ -2,14 +2,14 @@ package nl.yacht.lakesideresort.controller;
 
 import nl.yacht.lakesideresort.domain.Room;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 
 public class RoomController {
     private Map<Integer, Room> roomMap = new HashMap<>();
 
-    public Room createNewRoom(Room.RoomType roomType, Room.RoomSize roomSize, LocalDateTime availableFrom){
+    public Room createNewRoom(Room.RoomType roomType, Room.RoomSize roomSize, LocalDate availableFrom){
         int roomNumber = generateRoomNumber();
         Room r = new Room(roomNumber, roomType, roomSize, availableFrom);
         this.roomMap.put(roomNumber, r);

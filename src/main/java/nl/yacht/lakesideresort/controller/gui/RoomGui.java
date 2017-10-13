@@ -5,6 +5,7 @@ import nl.yacht.lakesideresort.domain.Boat;
 import nl.yacht.lakesideresort.domain.Room;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 /**
@@ -16,7 +17,7 @@ public class RoomGui extends Command {
         String[][] definition = {
             {"What type of room is it [Budget, Normal, Luxury]?","BUDGET|NORMAL|LUXURY"},
             {"What size is the room [1, 2, 3-4, 5-6]?","1|2|3-4|5-6"},
-            {"When will the room be available [yyyy-MM-dd HH:mm]","\\d+"}
+            {"When will the room be available [yyyy-MM-dd]","\\d+"}
         };
         Object[] inputs = InputHandler.handleInput(definition, args);
         // this can be set to a default value, because these values will be set later.
@@ -53,13 +54,22 @@ public class RoomGui extends Command {
                 roomSize = Room.RoomSize.FIVE_SIX_PERSON;
                 break;
         }
+        String[] dateTimeInput = inputs[3].toString().split("-");
+        int year = Integer.parseInt(dateTimeInput[0]);
+        int month = Integer.parseInt(dateTimeInput[1]);
+        int day = Integer.parseInt(dateTimeInput[2]);
+        LocalDate ld = LocalDate.of(year, month, day);
         RoomController rc = new RoomController();
-        Room r = rc.createNewRoom(roomType, roomSize, LocalDateTime.now());
+        Room r = rc.createNewRoom(roomType, roomSize, ld);
         System.out.println("Created room:\n" + r);
     }
 
     public void update(){
 
+    }
+
+    public void list(){
+//        for (Room r : )
     }
     public void find() {
 
