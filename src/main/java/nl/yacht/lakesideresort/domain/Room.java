@@ -1,24 +1,22 @@
 package nl.yacht.lakesideresort.domain;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 public class Room {
 
     private int roomNumber;
     private RoomType roomType;
     private RoomSize roomSize;
-    private LocalDateTime availableFrom;
+    private LocalDate availableFrom;
 
     public enum RoomType{
         LUXURY, NORMAL, BUDGET
     }
     public enum RoomSize{
-
         ONE_PERSON, TWO_PERSON, THREE_FOUR_PERSON, FIVE_SIX_PERSON
     }
 
-    public Room(int roomNumber, RoomType roomType, RoomSize roomSize, LocalDateTime availableFrom) {
-
+    public Room(int roomNumber, RoomType roomType, RoomSize roomSize, LocalDate availableFrom) {
         this.roomNumber = roomNumber;
         this.roomType = roomType;
         this.roomSize = roomSize;
@@ -58,7 +56,11 @@ public class Room {
         this.roomSize = roomSize;
     }
     //#For testing purposes
-    public LocalDateTime getAvailableFrom() {
+    public LocalDate getAvailableFrom() {
         return availableFrom;
     }
+
+//    public void setAvailableFrom(LocalDateTime ldt){
+//        this.availableFrom = ldt;
+//    }
 }
