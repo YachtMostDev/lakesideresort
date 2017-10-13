@@ -18,7 +18,6 @@ public class GuestTest {
     private String city = "City";
     private Guest guest;
     private Guest gcGuest;
-
     private GuestController gc;
 
     @Before
@@ -33,7 +32,6 @@ public class GuestTest {
                 guest.getCountry(),
                 guest.getPhoneNumber(),
                 guest.getMailAddress());
-
     }
 
     @Test
