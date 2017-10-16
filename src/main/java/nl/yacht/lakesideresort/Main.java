@@ -1,19 +1,12 @@
 package nl.yacht.lakesideresort;
 
+import nl.yacht.lakesideresort.controller.CommandLineInterpreter;
+
+import java.io.IOException;
+
 public class Main {
-    public static void main(String[] args) {
-
-        BoatRental rental = new BoatRental();
-        rental.rent();
-        rental.rent();
-        rental.rent();
-    }
-
-    static void Sleep() {
-        try {
-            Thread.sleep(4000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+    public static void main(String[] args) throws IOException {
+        CommandLineInterpreter cli = new CommandLineInterpreter();
+        cli.runApplication();
     }
 }
