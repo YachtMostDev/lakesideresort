@@ -4,7 +4,6 @@ import nl.yacht.lakesideresort.domain.Guest;
 import nl.yacht.lakesideresort.controller.GuestRepository;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -81,7 +80,7 @@ public class GuestGui extends Command {
             System.out.println("Could not find this guest");
         } else {
             switch (inputs[1].toUpperCase()){
-                case "SURNAME": guest.setSurname(inputs[2]);
+                case "SURNAME": guest.setSurName(inputs[2]);
                     break;
                 case "FIRSTNAME" : guest.setFirstName(inputs[2]);
                     break;

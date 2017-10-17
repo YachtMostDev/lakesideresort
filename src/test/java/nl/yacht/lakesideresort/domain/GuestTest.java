@@ -24,7 +24,7 @@ public class GuestTest {
     public void setUp(){
         guest = new Guest(1, sn, fn, address, postal, city, country, phone, email);
         gc = new GuestRepository();
-        this.gcGuest = gc.createNewGuest(guest.getSurname(),
+        this.gcGuest = gc.createNewGuest(guest.getSurName(),
                 guest.getFirstName(),
                 guest.getAddress(),
                 guest.getPostalCode(),
@@ -53,13 +53,13 @@ public class GuestTest {
 
     @Test
     public void testGetSurname(){
-        Assert.assertTrue(guest.getSurname().equals(this.sn));
+        Assert.assertTrue(guest.getSurName().equals(this.sn));
     }
     @Test
     public void testSetSurname(){
         String newSurName = "NewSurName";
-        guest.setSurname(newSurName);
-        Assert.assertTrue(guest.getSurname().equals(newSurName));
+        guest.setSurName(newSurName);
+        Assert.assertTrue(guest.getSurName().equals(newSurName));
     }
 
     @Test

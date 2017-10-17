@@ -64,7 +64,7 @@ public class GuestRepository {
             correct = 0;
             // voor het aantal eigenschappen waar je de gast op gecontroleerd wordt
             for (String key: searchData.keySet()){
-                if (key.equals("surName") && searchData.get(key).equals(guest.getSurname()))
+                if (key.equals("surName") && searchData.get(key).equals(guest.getSurName()))
                 {
                     correct++;
                 } else if (key.equals("firstName") && searchData.get(key).equals(guest.getFirstName()))
@@ -100,12 +100,15 @@ public class GuestRepository {
 
         // ga bij alle gasten in de gastenlijst na op het nummer al gebruikt wordt
         for(Guest guest : guestList) {
-            if (guest.getGuestNumber() != guestNumber) {
-                return guestNumber;
-            } else {
-                guestNumber++;
+            if (guest.getGuestNumber() >= guestNumber) {
+                guestNumber = guest.getGuestNumber() + 1;
             }
         }
         return guestNumber;
     }
+
+    public void addGuest(Guest guest) {
+        this.guestList.add(guest);
+    }
+
 }

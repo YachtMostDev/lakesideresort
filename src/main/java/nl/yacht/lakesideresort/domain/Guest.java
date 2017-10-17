@@ -4,7 +4,7 @@ public class Guest {
 
     //variabelen
     private int guestNumber;
-    private String surname;
+    private String surName;
     private String firstName;
     private String address;
     private String postalCode;
@@ -13,10 +13,12 @@ public class Guest {
     private String phoneNumber;
     private String mailAddress;
 
+    public Guest(){}
+
     //Constructor met alle variabelen
-    public Guest(int guestNumber, String surname, String firstName, String address, String postalCode, String city, String country, String phoneNumber, String mailAddress) {
+    public Guest(int guestNumber, String surName, String firstName, String address, String postalCode, String city, String country, String phoneNumber, String mailAddress) {
         this.guestNumber = guestNumber;
-        this.surname = surname;
+        this.surName = surName;
         this.firstName = firstName;
         this.address = address;
         this.postalCode = postalCode;
@@ -27,7 +29,7 @@ public class Guest {
     }
 
     public void updateGuest(String surname, String firstName, String address, String postalCode, String city, String country, String phoneNumber, String mailAddress) {
-        this.surname = surname;
+        this.surName = surname;
         this.firstName = firstName;
         this.address = address;
         this.postalCode = postalCode;
@@ -45,12 +47,12 @@ public class Guest {
         this.guestNumber = guestNumber;
     }
 
-    public String getSurname() {
-        return surname;
+    public String getSurName() {
+        return surName;
     }
 
-    public void setSurname(String surname) {
-        this.surname = surname;
+    public void setSurName(String surName) {
+        this.surName = surName;
     }
 
     public String getFirstName() {
@@ -112,7 +114,7 @@ public class Guest {
     public String toString(){
         StringBuilder sb = new StringBuilder(512);
         sb.append("Guest Number: " + this.guestNumber);
-        sb.append("\nSurname: " + this.surname);
+        sb.append("\nSurname: " + this.surName);
         sb.append("\nFirstname: " + this.firstName);
         sb.append("\nAddress: " + this.address);
         sb.append("\nPostal Code: " + this.postalCode);
