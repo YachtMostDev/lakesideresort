@@ -1,21 +1,33 @@
 package nl.yacht.lakesideresort.controller;
 
 import nl.yacht.lakesideresort.domain.Room;
+import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 
-public class RoomController {
+@Repository
+public class RoomRepository {
     private Map<Integer, Room> roomMap = new HashMap<>();
 
+    public Room insertRoom(Room room){
+        this.roomMap.put(room.getRoomNumber(), room);
+        return room;
+    }
+
+    public void deleteRoom(int id){
+        this.roomMap.remove(id);
+    }
     public Room createNewRoom(Room.RoomType roomType, Room.RoomSize roomSize, LocalDate availableFrom){
         int roomNumber = generateRoomNumber();
         Room r = new Room(roomNumber, roomType, roomSize, availableFrom);
         this.roomMap.put(roomNumber, r);
         return r;
     }
-
+    public void updateRoom(int id, Room r){
+        updateRoom(id, r.getRoomNumber(), r.getRoomType(), r.getRoomSize());
+    }
     public void updateRoom(int roomNumber, int newRoomNumber, Room.RoomType roomType, Room.RoomSize roomSize){
         Room r = roomMap.get(roomNumber);
         if(r != null){
@@ -35,6 +47,11 @@ public class RoomController {
             System.out.println("Room: " + r.getRoomNumber());
         }
     }
+
+    public Iterable<Room> getRooms(){
+        return this.roomMap.values();
+    }
+
     private int generateRoomNumber(){
         int nr = 0;
         for (Room r : this.roomMap.values()){

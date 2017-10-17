@@ -1,6 +1,6 @@
 package nl.yacht.lakesideresort.controller.gui;
 
-import nl.yacht.lakesideresort.controller.RoomController;
+import nl.yacht.lakesideresort.controller.RoomRepository;
 import nl.yacht.lakesideresort.domain.Room;
 
 import java.io.IOException;
@@ -11,9 +11,9 @@ import java.time.LocalDate;
  */
 @Gui(name="Room")
 public class RoomGui extends Command {
-    RoomController rc;
+    RoomRepository rc;
     public RoomGui(){
-        rc = new RoomController();
+        rc = new RoomRepository();
     }
     public void create() throws IOException {
         String[][] definition = {

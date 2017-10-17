@@ -16,6 +16,10 @@ public class Room {
         ONE_PERSON, TWO_PERSON, THREE_FOUR_PERSON, FIVE_SIX_PERSON
     }
 
+    public Room(){
+
+    }
+
     public Room(int roomNumber, RoomType roomType, RoomSize roomSize, LocalDate availableFrom) {
         this.roomNumber = roomNumber;
         this.roomType = roomType;
@@ -60,7 +64,7 @@ public class Room {
         return availableFrom;
     }
 
-//    public void setAvailableFrom(LocalDateTime ldt){
-//        this.availableFrom = ldt;
-//    }
+    public void setAvailableFrom(String ld){
+        this.availableFrom = LocalDate.parse(ld);
+    }
 }
