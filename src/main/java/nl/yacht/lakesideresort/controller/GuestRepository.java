@@ -1,14 +1,17 @@
 package nl.yacht.lakesideresort.controller;
 
 import nl.yacht.lakesideresort.domain.Guest;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.HashMap;
+import java.util.Map;
 
-public class GuestController {
+@Repository
+public class GuestRepository {
 
-    private ArrayList<Guest> guestList = new ArrayList<>();
+    private List<Guest> guestList = new ArrayList<>();
 
     public List<Guest> getGuestList() {
         return guestList;
@@ -18,7 +21,7 @@ public class GuestController {
         int guestNumber = generateGuestNumber();
 
         // maak van de gastdata een HashMap
-        HashMap<String, String> guestData = new HashMap<>();
+        Map<String, String> guestData = new HashMap<>();
         guestData.put("surName", surname);
         guestData.put("firstName", firstName);
 
@@ -52,9 +55,9 @@ public class GuestController {
     }
 
     // zoek naar een gast met gastdata aangeleverd met een een HashMap
-    public ArrayList<Guest> searchGuest(HashMap<String, String> searchData){
+    public List<Guest> searchGuest(Map<String, String> searchData){
         int correct;
-        ArrayList<Guest> result = new ArrayList<>();
+        List<Guest> result = new ArrayList<>();
 
         // voor alle gasten in de gastenlijst
         for(Guest guest : guestList) {
@@ -80,8 +83,8 @@ public class GuestController {
     }
 
     // zoek naar een gast met een gastnummer in combinatie met gastdata
-    public Guest searchGuest(int guestNumber, HashMap<String, String> searchData){
-        ArrayList<Guest> guestList = searchGuest(searchData);
+    public Guest searchGuest(int guestNumber, Map<String, String> searchData){
+        List<Guest> guestList = searchGuest(searchData);
 
         for (Guest guest : guestList){
             if (getGuestFromList(guestNumber) == guest){

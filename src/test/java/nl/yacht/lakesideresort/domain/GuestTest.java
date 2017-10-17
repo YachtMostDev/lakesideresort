@@ -1,6 +1,6 @@
 package nl.yacht.lakesideresort.domain;
 
-import nl.yacht.lakesideresort.controller.GuestController;
+import nl.yacht.lakesideresort.controller.GuestRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.Assert;
@@ -18,12 +18,12 @@ public class GuestTest {
     private String city = "City";
     private Guest guest;
     private Guest gcGuest;
-    private GuestController gc;
+    private GuestRepository gc;
 
     @Before
     public void setUp(){
         guest = new Guest(1, sn, fn, address, postal, city, country, phone, email);
-        gc = new GuestController();
+        gc = new GuestRepository();
         this.gcGuest = gc.createNewGuest(guest.getSurname(),
                 guest.getFirstName(),
                 guest.getAddress(),
