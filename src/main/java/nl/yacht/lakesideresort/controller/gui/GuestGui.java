@@ -1,20 +1,18 @@
 package nl.yacht.lakesideresort.controller.gui;
 
 import nl.yacht.lakesideresort.domain.Guest;
-import nl.yacht.lakesideresort.controller.GuestController;
+import nl.yacht.lakesideresort.controller.GuestRepository;
 
 import java.io.IOException;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 @Gui(name="Guest")
 public class GuestGui extends Command {
-    private GuestController guestCtrl;
+    private GuestRepository guestCtrl;
     public GuestGui()
     {
-        guestCtrl = new GuestController();
+        guestCtrl = new GuestRepository();
     }
 
     public void create() throws IOException{
@@ -59,7 +57,7 @@ public class GuestGui extends Command {
                 System.out.println(guest);
             }
         } else {
-            ArrayList<Guest> guestList = guestCtrl.searchGuest(guestData);
+            List<Guest> guestList = guestCtrl.searchGuest(guestData);
             if (guestList.size() > 0){
                 System.out.printf("We have found %d guest(s)%n", guestList.size());
                 for (Guest guest: guestList){
@@ -82,7 +80,7 @@ public class GuestGui extends Command {
             System.out.println("Could not find this guest");
         } else {
             switch (inputs[1].toUpperCase()){
-                case "SURNAME": guest.setSurname(inputs[2]);
+                case "SURNAME": guest.setSurName(inputs[2]);
                     break;
                 case "FIRSTNAME" : guest.setFirstName(inputs[2]);
                     break;

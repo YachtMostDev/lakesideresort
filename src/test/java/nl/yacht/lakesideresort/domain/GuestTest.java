@@ -1,6 +1,6 @@
 package nl.yacht.lakesideresort.domain;
 
-import nl.yacht.lakesideresort.controller.GuestController;
+import nl.yacht.lakesideresort.controller.GuestRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.Assert;
@@ -18,13 +18,13 @@ public class GuestTest {
     private String city = "City";
     private Guest guest;
     private Guest gcGuest;
-    private GuestController gc;
+    private GuestRepository gc;
 
     @Before
     public void setUp(){
         guest = new Guest(1, sn, fn, address, postal, city, country, phone, email);
-        gc = new GuestController();
-        this.gcGuest = gc.createNewGuest(guest.getSurname(),
+        gc = new GuestRepository();
+        this.gcGuest = gc.createNewGuest(guest.getSurName(),
                 guest.getFirstName(),
                 guest.getAddress(),
                 guest.getPostalCode(),
@@ -53,13 +53,13 @@ public class GuestTest {
 
     @Test
     public void testGetSurname(){
-        Assert.assertTrue(guest.getSurname().equals(this.sn));
+        Assert.assertTrue(guest.getSurName().equals(this.sn));
     }
     @Test
     public void testSetSurname(){
         String newSurName = "NewSurName";
-        guest.setSurname(newSurName);
-        Assert.assertTrue(guest.getSurname().equals(newSurName));
+        guest.setSurName(newSurName);
+        Assert.assertTrue(guest.getSurName().equals(newSurName));
     }
 
     @Test
