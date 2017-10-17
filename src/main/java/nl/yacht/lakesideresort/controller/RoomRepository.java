@@ -16,17 +16,16 @@ public class RoomRepository {
         return room;
     }
 
-    public void deleteRoom(int id){
-        this.roomMap.remove(id);
+    public void deleteRoom(int roomNumber){
+        this.roomMap.remove(roomNumber);
     }
-    public Room createNewRoom(Room.RoomType roomType, Room.RoomSize roomSize, LocalDate availableFrom){
-        int roomNumber = generateRoomNumber();
+    public Room createNewRoom(int roomNumber, Room.RoomType roomType, Room.RoomSize roomSize, LocalDate availableFrom){
         Room r = new Room(roomNumber, roomType, roomSize, availableFrom);
         this.roomMap.put(roomNumber, r);
         return r;
     }
-    public void updateRoom(int id, Room r){
-        updateRoom(id, r.getRoomNumber(), r.getRoomType(), r.getRoomSize());
+    public void updateRoom(int roomNumber, Room r){
+        updateRoom(roomNumber, r.getRoomNumber(), r.getRoomType(), r.getRoomSize());
     }
     public void updateRoom(int roomNumber, int newRoomNumber, Room.RoomType roomType, Room.RoomSize roomSize){
         Room r = roomMap.get(roomNumber);
@@ -52,13 +51,4 @@ public class RoomRepository {
         return this.roomMap.values();
     }
 
-    private int generateRoomNumber(){
-        int nr = 0;
-        for (Room r : this.roomMap.values()){
-            if (r.getRoomNumber() > nr){
-                nr = r.getRoomNumber();
-            }
-        }
-        return nr + 1;
-    }
 }

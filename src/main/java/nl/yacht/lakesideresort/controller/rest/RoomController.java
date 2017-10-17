@@ -23,14 +23,14 @@ public class RoomController {
 
     @RequestMapping(value = "{id}", method = RequestMethod.PUT)
     public void changeRoom(@PathVariable long id, @RequestBody Room r) {
-        int roomId = Long.valueOf(id).intValue();
-        roomRepository.updateRoom(roomId, r);
-        }
+        int roomNumber = Long.valueOf(id).intValue();
+        roomRepository.updateRoom(roomNumber, r);
+    }
 
     @RequestMapping(value="{id}", method = RequestMethod.DELETE)
     public void deleteRoom(@PathVariable long id){
-        int roomId = Long.valueOf(id).intValue();
-        roomRepository.deleteRoom(roomId);
+        int roomNumber = Long.valueOf(id).intValue();
+        roomRepository.deleteRoom(roomNumber);
     }
 
 

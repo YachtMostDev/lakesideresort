@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 public class Room {
 
+    private long id; // database id
     private int roomNumber;
     private RoomType roomType;
     private RoomSize roomSize;
