@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 public class Room {
 
+    private long id; // database id
     private int roomNumber;
     private RoomType roomType;
     private RoomSize roomSize;
@@ -14,6 +15,10 @@ public class Room {
     }
     public enum RoomSize{
         ONE_PERSON, TWO_PERSON, THREE_FOUR_PERSON, FIVE_SIX_PERSON
+    }
+
+    public Room(){
+
     }
 
     public Room(int roomNumber, RoomType roomType, RoomSize roomSize, LocalDate availableFrom) {
@@ -60,7 +65,7 @@ public class Room {
         return availableFrom;
     }
 
-//    public void setAvailableFrom(LocalDateTime ldt){
-//        this.availableFrom = ldt;
-//    }
+    public void setAvailableFrom(String ld){
+        this.availableFrom = LocalDate.parse(ld);
+    }
 }

@@ -1,6 +1,6 @@
 package nl.yacht.lakesideresort.controller.gui;
 
-import nl.yacht.lakesideresort.controller.RoomController;
+import nl.yacht.lakesideresort.controller.RoomRepository;
 import nl.yacht.lakesideresort.domain.Room;
 
 import java.io.IOException;
@@ -11,12 +11,13 @@ import java.time.LocalDate;
  */
 @Gui(name="Room")
 public class RoomGui extends Command {
-    RoomController rc;
+    RoomRepository rc;
     public RoomGui(){
-        rc = new RoomController();
+        rc = new RoomRepository();
     }
     public void create() throws IOException {
         String[][] definition = {
+                {"WHat is the roomnumber?", "\\d"},
             {"What type of room is it [Budget, Normal, Luxury]?","BUDGET|NORMAL|LUXURY"},
             {"What size is the room [1, 2, 3-4, 5-6]?","1|2|3-4|5-6"},
             {"When will the room be available [yyyy-MM-dd]","\\d{4}-\\d{2}-\\d{2}"}
@@ -26,7 +27,7 @@ public class RoomGui extends Command {
         // this is handled by the regex match in the inputHandler
         Room.RoomSize roomSize = Room.RoomSize.ONE_PERSON;
         Room.RoomType roomType = Room.RoomType.NORMAL;
-        switch(inputs[0].toString()){
+        switch(inputs[1].toString()){
             case "LUXURY":
                 roomType = Room.RoomType.LUXURY;
                 break;
@@ -38,7 +39,7 @@ public class RoomGui extends Command {
                 break;
         }
 
-        String s = inputs[1].toString();
+        String s = inputs[2].toString();
         switch(s){
             case "1":
                 roomSize = Room.RoomSize.ONE_PERSON;
@@ -53,13 +54,15 @@ public class RoomGui extends Command {
                 roomSize = Room.RoomSize.FIVE_SIX_PERSON;
                 break;
         }
-        String[] dateTimeInput = inputs[2].toString().split("-");
+        String[] dateTimeInput = inputs[3].toString().split("-");
         // you should check if these values are correct
         int year = Integer.parseInt(dateTimeInput[0]);
         int month = Integer.parseInt(dateTimeInput[1]);
         int day = Integer.parseInt(dateTimeInput[2]);
         LocalDate ld = LocalDate.of(year, month, day);
-        Room r = rc.createNewRoom(roomType, roomSize, ld);
+
+        int roomNumber = Integer.parseInt(inputs[0].toString());
+        Room r = rc.createNewRoom(roomNumber, roomType, roomSize, ld);
         System.out.println("Created room:\n" + r);
     }
 
