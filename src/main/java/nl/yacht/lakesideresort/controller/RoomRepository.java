@@ -52,10 +52,7 @@ public class RoomRepository {
 
     public Room getSingleRoom(int roomNumber){
     	Room r = this.roomMap.get(roomNumber);
-    	if (r == null){
-    		return null;
-	    }
-	    return r;
+    	return r;
     }
     public Iterable<Room> getRooms(){
         return this.roomMap.values();
