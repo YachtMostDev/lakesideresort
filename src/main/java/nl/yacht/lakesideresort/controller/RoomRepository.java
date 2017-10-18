@@ -50,6 +50,10 @@ public class RoomRepository {
         }
     }
 
+    public Room getSingleRoom(int roomNumber){
+    	Room r = this.roomMap.get(roomNumber);
+    	return r;
+    }
     public Iterable<Room> getRooms(){
         return this.roomMap.values();
     }
