@@ -30,11 +30,17 @@ public class RoomRepository {
     public void updateRoom(int roomNumber, int newRoomNumber, Room.RoomType roomType, Room.RoomSize roomSize){
         Room r = roomMap.get(roomNumber);
         if(r != null){
-            r.setRoomNumber(newRoomNumber);
-            r.setRoomSize(roomSize);
-            r.setRoomType(roomType);
-            roomMap.remove(roomNumber);
-            roomMap.put(newRoomNumber, r);
+        	if (roomSize != null){
+		        r.setRoomSize(roomSize);
+	        }
+	        if (roomType != null) {
+		        r.setRoomType(roomType);
+	        }
+	        if (newRoomNumber > 0 && newRoomNumber != roomNumber) {
+		        r.setRoomNumber(newRoomNumber);
+		        roomMap.remove(roomNumber);
+		        roomMap.put(newRoomNumber, r);
+	        }
             System.out.println("Room Updated");
         } else {
             System.out.println("This room does not exists");
