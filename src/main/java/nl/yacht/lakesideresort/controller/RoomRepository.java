@@ -41,9 +41,6 @@ public class RoomRepository {
 		        roomMap.remove(roomNumber);
 		        roomMap.put(newRoomNumber, r);
 	        }
-            System.out.println("Room Updated");
-        } else {
-            System.out.println("This room does not exists");
         }
     }
 
