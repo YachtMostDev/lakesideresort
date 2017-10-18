@@ -11,37 +11,45 @@
     <script src="vendor/api.js"></script>
     <title>Lakeside Resort</title>
     <style>
-        #updateDiv {
+        #room-div {
             display: none;
+        }
+        #scrolldiv {
+            height : 450px;
+            overflow : auto;
         }
     </style>
 </head>
 <body>
-    <script> $(document).ready(apiLoadRooms);</script>
+    <script>
+        $(document).ready(apiLoadRooms);
+    </script>
 
     <div class="container">
         <h1>Lakeside Resort</h1>
 
+        <h3>Room List</h3>
+        <div id="scrolldiv">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>id</th>
+                    <th>RoomNumber</th>
+                    <th>Size</th>
+                    <th>Type</th>
+                    <th>Edit / Delete</th>
+                </tr>
+                </thead>
+                <tbody id="tableBody">
 
+                </tbody>
+            </table>
+        </div>
         <button onclick="apiLoadRooms()" class="btn">Get Rooms</button>
-        <ul class="list-group" id="roomlist"></ul>
-        <br><br><br>
-        <table class="table">
-            <thead>
-            <tr>
-                <th>id</th>
-                <th>RoomNumber</th>
-                <th>Size</th>
-                <th>Type</th>
-                <th>Edit / Delete</th>
-            </tr>
-            </thead>
-            <tbody id="tableBody">
+        <button onclick="createRoomDiv()" class="btn">Create Room</button>
 
-            </tbody>
-        </table>
-        <div id="updateDiv">
-            <h2>Update Room</h2>
+        <div id="room-div">
+            <h3 id="room-div-title"></h3>
             <form class="form-horizontal">
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="roomnumber">RoomNumber:</label>

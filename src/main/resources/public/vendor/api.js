@@ -1,4 +1,4 @@
-
+// OBJECT CONVERTERS
 function roomToTable(room){
     var result = "<tr>";
     result += "<td>DB ID</td>";
@@ -10,27 +10,35 @@ function roomToTable(room){
     return result;
 }
 
-function apiGetSingleRoom(id){
-    // get query met id;
-    console.log("getSingle: " + id)
-    var api = "http://localhost:8080/api/room/" + id;
-    $.get(api, function(data){
-        if (data){
-            $("#updateDiv").css('display','block');
-            fillUpdateDiv(data);
-        } else {
-            $("#updateDiv").css('display', 'none');
-        }
-    })
+// GENERAL FUNCTIONS
+function createRoomDiv(){
+    $("#room-div").css('display', 'block');
+    $("#room-div-title").html("Create Room");
+    $("#roomnumber").val("");
+    $("#roomtype").val("");
+    $("#roomsize").val("");
 }
-
 function fillUpdateDiv(room){
     $("#roomnumber").val(room.roomNumber);
     $("#roomtype").val(room.roomType);
     $("#roomsize").val(room.roomSize);
 }
 
-
+// API FUNCTIONALITY
+function apiGetSingleRoom(id){
+    // get query met id;
+    console.log("getSingle: " + id)
+    var api = "http://localhost:8080/api/room/" + id;
+    $.get(api, function(data){
+        if (data){
+            $("#room-div").css('display','block');
+            $("#room-div-title").html("Update Room");
+            fillUpdateDiv(data);
+        } else {
+            $("#room-div").css('display', 'none');
+        }
+    })
+}
 function apiLoadRooms() {
 	console.log("api GET Rooms");
 	var api = "http://localhost:8080/api/room";
@@ -44,9 +52,6 @@ function apiLoadRooms() {
                 var roomTableEntry = roomToTable(item);
                 $("#tableBody").append(roomTableEntry);
 		    }
-			//console.log(data);
-		} else {
-			return null;
 		}
 	})
 }
