@@ -49,7 +49,9 @@ public class RoomRepository {
             System.out.println("Room: " + r.getRoomNumber());
         }
     }
-
+	public Room getSingleRoom(int id){
+    	return this.roomMap.get(id);
+	}
     public Iterable<Room> getRooms(){
         return this.roomMap.values();
     }
