@@ -10,6 +10,11 @@
         crossorigin="anonymous">
     <script src="vendor/api.js"></script>
     <title>Lakeside Resort</title>
+    <style>
+        #updateDiv {
+            display: none;
+        }
+    </style>
 </head>
 <body>
     <script> $(document).ready(apiLoadRooms);</script>
@@ -35,7 +40,8 @@
 
             </tbody>
         </table>
-        <div>
+        <div id="updateDiv">
+            <h2>Update Room</h2>
             <form class="form-horizontal">
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="roomnumber">RoomNumber:</label>
