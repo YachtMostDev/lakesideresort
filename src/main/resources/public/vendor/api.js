@@ -18,13 +18,13 @@ function createRoomDiv(){
     $("#roomnumber").val("");
     $("#roomtype").val("");
     $("#roomsize").val("");
-    $("#form-room").attr('action', 'http://localhost:8080/api/room');
+    $("#btnsubmit").attr('onclick', 'processFormPost();');
 }
 function hideRoomDiv(){
     $("#room-div").css('display', 'none');
 }
 function fillUpdateDiv(room){
-    $("#form-room").attr('action', 'http://localhost:8080/api/room/' + room.roomNumber);
+    $("#btnsubmit").attr('onclick', 'processFormPut(' + room.roomNumber + ');');
     $("#roomnumber").val(room.roomNumber);
     $("#roomtype").val(room.roomType);
     $("#roomsize").val(room.roomSize);
@@ -36,6 +36,14 @@ function confirmDelete(id){
         apiDeleteRoom(id);
     }
 }
+function processFormPost(){
+    console.log("processFormPost")
+}
+function processFormPut(id){
+    console.log("processFormPut: " + id);
+
+}
+
 // API FUNCTIONALITY
 function apiGetSingleRoom(id){
     // get query met id;
