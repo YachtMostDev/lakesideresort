@@ -32,7 +32,7 @@ function fillUpdateDiv(room){
 function confirmDelete(id){
     var msg = "Delete room: " + id + "?"
     var r = confirm(msg);
-    if (r == true) {
+    if (r) {
         apiDeleteRoom(id);
     }
 }
@@ -43,10 +43,10 @@ function processFormPost(){
     var rt = $("#roomtype").val();
     var availableFrom = "2017-02-03";
     var room = {
-        roomNumber : rn,
-        roomSize : rs,
-        roomType : rt,
-        availableFrom : availableFrom
+        "roomNumber" : rn,
+        "roomSize" : rs,
+        "roomType" : rt,
+        "availableFrom" : availableFrom
     }
     console.log("apiPostRoom with obj: " + JSON.stringify(room));
     apiPostRoom(room);
@@ -100,9 +100,9 @@ function apiPostRoom(data){
     $.ajax ({
         url: 'http://localhost:8080/api/room',
         type: "POST",
-        data: data,
+        data: JSON.stringify(data),
         dataType: "json",
-        contentType: "application/json; charset=utf-8",
+        contentType: "application/json",
         success: function(response){
             console.log("POST room request success");
             console.log("Response: " + response);
