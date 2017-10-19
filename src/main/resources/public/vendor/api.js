@@ -37,7 +37,19 @@ function confirmDelete(id){
     }
 }
 function processFormPost(){
-    console.log("processFormPost")
+    console.log("processFormPost");
+    var rn = parseInt($("#roomnumber").val());
+    var rs = $("#roomsize").val();
+    var rt = $("#roomtype").val();
+    var availableFrom = "2017-02-03";
+    var room = {
+        roomNumber : rn,
+        roomSize : rs,
+        roomType : rt,
+        availableFrom : availableFrom
+    }
+    console.log("apiPostRoom with obj: " + JSON.stringify(room));
+    apiPostRoom(room);
 }
 function processFormPut(id){
     console.log("processFormPut: " + id);
@@ -81,6 +93,38 @@ function apiDeleteRoom(id){
         success: function(response){
             console.log(response);
             apiLoadRooms();
+        }
+    });
+}
+function apiPostRoom(data){
+    $.ajax ({
+        url: 'http://localhost:8080/api/room',
+        type: "POST",
+        data: data,
+        dataType: "json",
+        contentType: "application/json; charset=utf-8",
+        success: function(response){
+            console.log("POST room request success");
+            console.log("Response: " + response);
+        },
+        error: function(req, status, err){
+            console.log("Error during POST");
+            console.log("req: " + JSON.stringify(req));
+            console.log("status: " + JSON.stringify(status));
+            console.log("err: " + JSON.stringify(err));
+        }
+    });
+}
+function apiPutRoom(id, data){
+    $.ajax ({
+        url: 'http://localhost:8080/api/room/' + id,
+        type: "PUT",
+        data: data,
+        dataType: "json",
+        contentType: "application/json; charset=utf-8",
+        success: function(response){
+            console.log("PUT room request success");
+            console.log("Response: " + response);
         }
     });
 }
