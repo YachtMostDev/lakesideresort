@@ -5,7 +5,8 @@ function roomToTable(room){
     result += "<td>" + room.roomNumber + "</td>";
     result += "<td>" + room.roomSize + "</td>";
     result += "<td>" + room.roomType + "</td>";
-    result += "<td><button type=\"button\" onclick=\"apiGetSingleRoom(" + room.roomNumber + ")\" class=\"btn btn-info\"><span class=\"glyphicon glyphicon-search\"></span></button> <button type=\"button\" class=\"btn btn-danger\"><span class=\"glyphicon glyphicon-remove\"></span></button></td>"
+    result += "<td><button type=\"button\" onclick=\"apiGetSingleRoom(" + room.roomNumber + ")\" class=\"btn btn-info\"><span class=\"glyphicon glyphicon-pencil\"></span></button>";
+    result += "<button type=\"button\" onclick=\"confirmDelete(" + room.roomNumber + ")\" class=\"btn btn-danger\"><span class=\"glyphicon glyphicon-remove\"></span></button></td>";
     result += "</tr>"
     return result;
 }
@@ -17,13 +18,24 @@ function createRoomDiv(){
     $("#roomnumber").val("");
     $("#roomtype").val("");
     $("#roomsize").val("");
+    $("#form-room").attr('action', 'http://localhost:8080/api/room');
+}
+function hideRoomDiv(){
+    $("#room-div").css('display', 'none');
 }
 function fillUpdateDiv(room){
+    $("#form-room").attr('action', 'http://localhost:8080/api/room/' + room.roomNumber);
     $("#roomnumber").val(room.roomNumber);
     $("#roomtype").val(room.roomType);
     $("#roomsize").val(room.roomSize);
 }
-
+function confirmDelete(id){
+    var msg = "Delete room: " + id + "?"
+    var r = confirm(msg);
+    if (r == true) {
+        apiDeleteRoom(id);
+    }
+}
 // API FUNCTIONALITY
 function apiGetSingleRoom(id){
     // get query met id;
@@ -37,14 +49,12 @@ function apiGetSingleRoom(id){
         } else {
             $("#room-div").css('display', 'none');
         }
-    })
+    });
 }
 function apiLoadRooms() {
-	console.log("api GET Rooms");
 	var api = "http://localhost:8080/api/room";
 	$.get(api, function (data) {
 		if (data) {
-
             $("#tableBody").empty();
             for(var i = 0; i < data.length; i++){
                 var item = data[i];
@@ -53,5 +63,16 @@ function apiLoadRooms() {
                 $("#tableBody").append(roomTableEntry);
 		    }
 		}
-	})
+	});
+}
+function apiDeleteRoom(id){
+    var api = "http://localhost:8080/api/room/" + id;
+    $.ajax({
+        url: api,
+        type: 'DELETE',
+        success: function(response){
+            console.log(response);
+            apiLoadRooms();
+        }
+    });
 }
