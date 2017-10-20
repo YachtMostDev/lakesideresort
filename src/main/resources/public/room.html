@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <!--jquery-->
+    <script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
+    <!--bootstrap js and css-->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <!--datatable js and css-->
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs/dt-1.10.16/datatables.min.js"></script>
+    <link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet">
+
+    <script src="vendor/api.js"></script>
+    <title>Lakeside Resort</title>
+    <style>
+        #room-div {
+            display: none;
+        }
+        #scrolldiv {
+            height : 250px;
+            overflow : auto;
+        }
+    </style>
+</head>
+<body>
+    <script>
+        $(document).ready(onDocumentReady);
+    </script>
+
+    <div class="container">
+        <h1>Lakeside Resort</h1>
+
+
+        <h3>Room List</h3>
+
+        <table id="roomtable" class="display" cellspacing="0" width="100%">
+            <thead>
+            <tr>
+                <th>Roomnumber</th>
+                <th>Size</th>
+                <th>Type</th>
+                <th>AvailableFrom</th>
+            </tr>
+            </thead>
+            <tfoot>
+            <tr>
+                <th>Roomnumber</th>
+                <th>Size</th>
+                <th>Type</th>
+                <th>AvailableFrom</th>
+            </tr>
+            </tfoot>
+            <tbody>
+
+            </tbody>
+        </table>
+        <button onclick="apiLoadRooms()" class="btn">Get Rooms</button>
+        <button onclick="createRoomDiv()" class="btn" data-toggle="modal" data-target="#myModal">Create Room</button>
+
+        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">Open Modal</button>
+
+        <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h3 class="modal-title" id="modal-title">Title</h3>
+                    </div>
+                    <div class="modal-body">
+                        <form id="form-room" class="form-horizontal">
+                            <div class="form-group">
+                                <label class="control-label col-sm-2" for="roomnumber">RoomNumber:</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="roomnumber">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2" for="roomtype">Room Type:</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="roomtype">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2" for="roomsize">Room Size:</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="roomsize">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-10">
+                                    <button type="button" class="btn btn-primary" id="btnsubmit">Submit</button>
+                                    <button type="button" class="btn btn-default" onclick="hideRoomDiv();">Hide</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>

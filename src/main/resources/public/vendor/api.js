@@ -13,15 +13,17 @@ function roomToTable(room){
 
 // GENERAL FUNCTIONS
 function createRoomDiv(){
-    $("#room-div").css('display', 'block');
-    $("#room-div-title").html("Create Room");
+//    $("#room-div").css('display', 'block');
+    $("#modal-title").html("Create Room");
     $("#roomnumber").val("");
     $("#roomtype").val("");
     $("#roomsize").val("");
     $("#btnsubmit").attr('onclick', 'processFormPost();');
 }
-function hideRoomDiv(){
-    $("#room-div").css('display', 'none');
+function hideRoomModal(){
+    //$("#room-div").css('display', 'none');
+    // hide modal
+
 }
 function fillUpdateDiv(room){
     $("#btnsubmit").attr('onclick', 'processFormPut(' + room.roomNumber + ');');
@@ -55,8 +57,50 @@ function processFormPut(id){
     console.log("processFormPut: " + id);
 
 }
+function zeroPad(num, places) {
+  var zero = places - num.toString().length + 1;
+  return Array(+(zero > 0 && zero)).join("0") + num;
+}
 
 // API FUNCTIONALITY
+function onDocumentReady(){
+    $('#roomtable').DataTable({
+        columns: [
+            { "data": "roomNumber" },
+            { "data": "roomType" },
+            { "data": "roomSize" },
+            { "data": "availableFrom" }
+        ]
+    });
+    $('#roomtable tbody').on( 'click', 'tr', function () {
+        if ( $(this).hasClass('selected') ) {
+            $(this).removeClass('selected');
+        }
+        else {
+            $('#roomtable tr.selected').removeClass('selected');
+            $(this).addClass('selected');
+
+        }
+    });
+    apiLoadDatatables();
+}
+function apiLoadDatatables(){
+    var api = "http://localhost:8080/api/room";
+
+    $.get(api, function (dataSet) {
+        //console.log("Adding dataset to table: \n" + JSON.stringify(dataSet));
+        dataSet = dataSet.map(function(object){
+            object.availableFrom = "" + object.availableFrom.year + "-" + zeroPad(object.availableFrom.monthValue, 2) + "-" + zeroPad(object.availableFrom.dayOfMonth, 2);
+            return object;
+        });
+        //console.log("Adding dataset to table: \n" + JSON.stringify(dataSet));
+        $("#roomtable").DataTable().clear();
+        $("#roomtable").DataTable().rows.add(dataSet);
+        $("#roomtable").DataTable().columns.adjust().draw();
+
+
+    });
+}
 function apiGetSingleRoom(id){
     // get query met id;
     console.log("getSingle: " + id)
@@ -82,6 +126,8 @@ function apiLoadRooms() {
                 var roomTableEntry = roomToTable(item);
                 $("#tableBody").append(roomTableEntry);
 		    }
+            console.log("result of api call: " + data);
+		    return data;
 		}
 	});
 }
@@ -101,11 +147,11 @@ function apiPostRoom(data){
         url: 'http://localhost:8080/api/room',
         type: "POST",
         data: JSON.stringify(data),
-        dataType: "json",
         contentType: "application/json",
         success: function(response){
             console.log("POST room request success");
             console.log("Response: " + response);
+            hideRoomModal();
         },
         error: function(req, status, err){
             console.log("Error during POST");
@@ -114,6 +160,7 @@ function apiPostRoom(data){
             console.log("err: " + JSON.stringify(err));
         }
     });
+    apiLoadDatatables();
 }
 function apiPutRoom(id, data){
     $.ajax ({
