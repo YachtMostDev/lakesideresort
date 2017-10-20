@@ -1,0 +1,11 @@
+.header {
+    height: 200px;
+    background-color: red;
+    margin-bottom: 50px;
+}
+
+.footer {
+    height: 200px;
+    background-color: red;
+    margin-top: 50px;
+}
