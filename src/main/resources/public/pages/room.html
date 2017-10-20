@@ -14,7 +14,7 @@
     <script type="text/javascript" src="https://cdn.datatables.net/v/bs/dt-1.10.16/datatables.min.js"></script>
     <link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet">
 
-    <script src="vendor/api.js"></script>
+    <script src="../js/room.js"></script>
     <title>Lakeside Resort</title>
     <style>
         #room-div {
@@ -58,10 +58,9 @@
 
             </tbody>
         </table>
-        <button onclick="apiLoadRooms()" class="btn">Get Rooms</button>
+        <button onclick="apiLoadDatatables()" class="btn">Get Rooms</button>
         <button onclick="createRoomDiv()" class="btn" data-toggle="modal" data-target="#myModal">Create Room</button>
-
-        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">Open Modal</button>
+        <!--<button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">Open Modal</button>-->
 
         <div class="modal fade" id="myModal" role="dialog">
             <div class="modal-dialog">
@@ -93,7 +92,7 @@
                             <div class="form-group">
                                 <div class="col-sm-offset-2 col-sm-10">
                                     <button type="button" class="btn btn-primary" id="btnsubmit">Submit</button>
-                                    <button type="button" class="btn btn-default" onclick="hideRoomDiv();">Hide</button>
+                                    <button type="button" class="btn btn-default" onclick="hideRoomModal();">Hide</button>
                                 </div>
                             </div>
                         </form>

@@ -23,7 +23,7 @@ function createRoomDiv(){
 function hideRoomModal(){
     //$("#room-div").css('display', 'none');
     // hide modal
-
+    $('#myModal').modal('toggle');
 }
 function fillUpdateDiv(room){
     $("#btnsubmit").attr('onclick', 'processFormPut(' + room.roomNumber + ');');
@@ -79,7 +79,7 @@ function onDocumentReady(){
         else {
             $('#roomtable tr.selected').removeClass('selected');
             $(this).addClass('selected');
-
+            $('#myModal').modal('toggle');
         }
     });
     apiLoadDatatables();
