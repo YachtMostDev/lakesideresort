@@ -17,8 +17,6 @@ $(document).ready(function(){
 
     $("#submitGuest").click(function(e){
       var formData = $("#guestForm").serializeArray().reduce(function(result, object){ result[object.name] = object.value; return result}, {});
-      console.log(formData);
-      //console.log(JSON.stringify( $("#guestForm").serializeArray()));
       $.ajax({
           url:"/api/guest",
           type:"post",
@@ -35,8 +33,6 @@ $(document).ready(function(){
         for(var key in formData){
             if(formData[key] == "" || formData == null) delete formData[key];
         }
-        console.log(formData);
-        console.log(guestNumber);
         $.ajax({
             url:"/api/guest/" + guestNumber,
             type:"put",
@@ -49,8 +45,6 @@ $(document).ready(function(){
     $("#submitDelete").click(function(e){
         var formData = $("#deleteForm").serializeArray().reduce(function(result, object){ result[object.name] = object.value; return result}, {});
         var guestNumber = formData.guestNumber;
-        console.log(formData);
-        console.log(guestNumber);
         $.ajax({
             url:"/api/guest/" + guestNumber,
             type:"delete",
