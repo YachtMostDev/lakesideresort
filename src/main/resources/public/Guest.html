@@ -1,49 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Welcome to the guestpage</title>
+    <head>
+        <meta charset="UTF-8">
+        <title>Welcome to the guestpage</title>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="script.js"></script>
-</head>
-        <body>
-
-        <script>$(document).ready(getGuest)</script>
-
-                <h1>Guestlist<h1>
-                    <CENTER><font size="4"> Search guest:</font> <br></CENTER>
-                    <script>
-                         getGuest("surName");
-                    </script>
-                    <select>
+    <script src="//code.jquery.com/jquery-1.12.4.js"></script>
+     <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css"></script>
+    <script>$(document).ready(getGuest)</script>
 
 
+    </head>
 
-                    </select>
+        <body style="background-color:#FFDEDB;">
 
-<div>
+        <h1>Guestlist</h1><br>
 
-    <font size="3">Surname:</font> <input type="tekst" name="Surname"Placeholder="Surname"/> <br>
-    <font size="3"> Firstname:</font> <input type="tekst" name="Firstname"Placeholder="Firstname"/> <br>
-    <font size="3"> Adress:</font> <input type="tekst" name="Adress"Placeholder="Adress"/> <br>
-    <font size="3"> Postal code:</font> <input type="tekst" name="Postal code"Placeholder="Postal code"/> <br>
-    <font size="3"> City:</font> <input type="tekst" name="City"Placeholder="City"/> <br>
-    <font size="3">Country:</font> <input type="tekst" name="Country"Placeholder="Country"/> <br>
-    <font size="3">Phone number:</font> <input type="tekst" name="Phone number"Placeholder="Phone number"/> <br>
-   <font size="3">Mailadress:</font>  <input type="tekst" name="Mailadress"Placeholder="Mailadress"/> <br>
+        <div id="inner"> </div>
 
-</div>
-                    <button type="button">Save</button> <br>
+                <table id="guest" class="display" cellspacing="5" align="left" border="1" cellpadding="10" rules="all" bgcolor="#f5fffa">
+                    <thead>
+                        <tr align="left">
+                            <th>Surname</th>
+                            <th>Firstname</th>
+                            <th>Adress</th>
+                            <th>Postal code</th>
+                            <th>City</th>
+                            <th>Country</th>
+                            <th>Phone number</th>
+                            <th>E-mail</th>
+                            </tr>
+                    </thead>
+                    <tbody>
+                        <tr align="left">
+                            <td>Storm</td>
+                            <td>Henk</td>
+                            <td>Schoolstraat 42</td>
+                            <td>9876dr</td>
+                            <td>zwolle</td>
+                            <td>nederland</td>
+                            <td>0987654321</td>
+                            <td>a.a@.com</td>
+                        </tr>
+                         <tr>
+                            <td>Storm</td>
+                            <td>Henk</td>
+                            <td>Schoolstraat 42</td>
+                            <td>9876dr</td>
+                            <td>zwolle</td>
+                            <td>nederland</td>
+                            <td>0987654321</td>
+                            <td>a.a@.com</td>
+                         </tr>
+                          <tr>
+                            <td>Storm</td>
+                            <td>Henk</td>
+                            <td>Schoolstraat 42</td>
+                            <td>9876dr</td>
+                            <td>zwolle</td>
+                            <td>nederland</td>
+                            <td>0987654321</td>
+                            <td>a.a@.com</td>
+                          </tr>
+                    </tbody>
+                </table><br>
 
 
-
-
-
-
-<button type="button">Create new guest</button>
-<button type="button">Update guest</button>
-<button type="button">Delete guest</button>
-
-</body>
+        <br><br><br><br><br><br><br><br><button onclick="getGuest()">Get guestlist</button>
+        <button onclick="myFunction();">Submit</button>
+        <button type="reset">Reset</button>
+        <br><button type="button">Create new guest</button>
+        <button type="button">Update guest</button>
+        <button type="button">Delete guest</button><br>
+        </body>
 </html>
