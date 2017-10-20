@@ -18,9 +18,8 @@ public class RoomController {
 
     @RequestMapping(value="{id}", method = RequestMethod.GET)
     public Room getSingleRoom(@PathVariable long id){
-    	return this.roomRepository.getSingleRoom(Long.valueOf(id).intValue());
+    	return roomRepository.getSingleRoom(Long.valueOf(id).intValue());
     }
-
 
     @RequestMapping(method = RequestMethod.POST)
     public void insertRoom(@RequestBody Room r){
