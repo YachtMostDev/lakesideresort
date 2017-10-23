@@ -152,6 +152,7 @@ function apiPostRoom(data){
             console.log("POST room request success");
             console.log("Response: " + response);
             hideRoomModal();
+            apiLoadDatatables();
         },
         error: function(req, status, err){
             console.log("Error during POST");
@@ -160,7 +161,7 @@ function apiPostRoom(data){
             console.log("err: " + JSON.stringify(err));
         }
     });
-    apiLoadDatatables();
+
 }
 function apiPutRoom(id, data){
     $.ajax ({
