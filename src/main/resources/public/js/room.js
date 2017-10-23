@@ -30,6 +30,7 @@ function fillUpdateModal(room){
     $("#roomnumber").val(room.roomNumber);
     $("#roomtype").val(room.roomType);
     $("#roomsize").val(room.roomSize);
+    $("#date").val(room.availableFrom);
     $("#modal-title").html("Update Room");
 }
 function confirmDelete(id){
@@ -122,6 +123,9 @@ function apiGetSingleRoom(id){
 //            $("#room-div").css('display','block');
             $('#myModal').modal('toggle');
 //            $("#room-div-title").html("Update Room");
+            console.log('data for update: ' + JSON.stringify(data));
+            data.availableFrom = "" + data.availableFrom.year + "-" + zeroPad(data.availableFrom.monthValue, 2) + "-" + zeroPad(data.availableFrom.dayOfMonth, 2);
+            console.log('data for update: ' + JSON.stringify(data));
             fillUpdateModal(data);
         } else {
             $("#room-div").css('display', 'none');
