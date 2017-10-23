@@ -59,7 +59,21 @@ function processFormPost(){
 }
 function processFormPut(id){
     console.log("processFormPut: " + id);
+    var rn = parseInt($("#roomnumber").val());
+    var rs = $("#roomsize").val();
+    var rt = $("#roomtype").val();
+//    var availableFrom = "2017-02-03";
+    var af = $("#date").val();
 
+    var room = {
+        "roomNumber" : rn,
+        "roomSize" : rs,
+        "roomType" : rt,
+        "availableFrom" : af
+    }
+    console.log("api put: " + id + "  " + JSON.stringify(room));
+    apiPutRoom(id, room);
+//    console.log("apiPostRoom with obj: " + JSON.stringify(room));
 }
 function zeroPad(num, places) {
   var zero = places - num.toString().length + 1;
@@ -185,11 +199,12 @@ function apiPutRoom(id, data){
         url: 'http://localhost:8080/api/room/' + id,
         type: "PUT",
         data: data,
-        dataType: "json",
-        contentType: "application/json; charset=utf-8",
+        contentType: "application/json",
         success: function(response){
             console.log("PUT room request success");
             console.log("Response: " + response);
+            hideRoomModal();
+            apiLoadDatatables();
         }
     });
 }
