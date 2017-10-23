@@ -43,12 +43,14 @@ function processFormPost(){
     var rn = parseInt($("#roomnumber").val());
     var rs = $("#roomsize").val();
     var rt = $("#roomtype").val();
-    var availableFrom = "2017-02-03";
+//    var availableFrom = "2017-02-03";
+    var af = $("#date").val();
+
     var room = {
         "roomNumber" : rn,
         "roomSize" : rs,
         "roomType" : rt,
-        "availableFrom" : availableFrom
+        "availableFrom" : af
     }
     console.log("apiPostRoom with obj: " + JSON.stringify(room));
     apiPostRoom(room);
@@ -80,9 +82,15 @@ function onDocumentReady(){
             $('#roomtable tr.selected').removeClass('selected');
             $(this).addClass('selected');
             $('#myModal').modal('toggle');
+            var data = table.row( this ).data();
+            // get room and show modal with correct values
         }
     });
     apiLoadDatatables();
+    $('#datePicker').datepicker({
+        autoclose: true,
+        format: 'yyyy-mm-dd'
+    })
 }
 function apiLoadDatatables(){
     var api = "http://localhost:8080/api/room";
