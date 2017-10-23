@@ -25,11 +25,12 @@ function hideRoomModal(){
     // hide modal
     $('#myModal').modal('toggle');
 }
-function fillUpdateDiv(room){
+function fillUpdateModal(room){
     $("#btnsubmit").attr('onclick', 'processFormPut(' + room.roomNumber + ');');
     $("#roomnumber").val(room.roomNumber);
     $("#roomtype").val(room.roomType);
     $("#roomsize").val(room.roomSize);
+    $("#modal-title").html("Update Room");
 }
 function confirmDelete(id){
     var msg = "Delete room: " + id + "?"
@@ -81,8 +82,11 @@ function onDocumentReady(){
         else {
             $('#roomtable tr.selected').removeClass('selected');
             $(this).addClass('selected');
-            $('#myModal').modal('toggle');
+//            $('#myModal').modal('toggle');
+            var table = $('#roomtable').DataTable();
             var data = table.row( this ).data();
+            console.log(data.roomNumber);
+            apiGetSingleRoom(data.roomNumber);
             // get room and show modal with correct values
         }
     });
@@ -115,9 +119,10 @@ function apiGetSingleRoom(id){
     var api = "http://localhost:8080/api/room/" + id;
     $.get(api, function(data){
         if (data){
-            $("#room-div").css('display','block');
-            $("#room-div-title").html("Update Room");
-            fillUpdateDiv(data);
+//            $("#room-div").css('display','block');
+            $('#myModal').modal('toggle');
+//            $("#room-div-title").html("Update Room");
+            fillUpdateModal(data);
         } else {
             $("#room-div").css('display', 'none');
         }
