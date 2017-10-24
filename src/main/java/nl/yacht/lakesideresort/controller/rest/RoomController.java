@@ -1,5 +1,6 @@
 package nl.yacht.lakesideresort.controller.rest;
 
+import javassist.NotFoundException;
 import nl.yacht.lakesideresort.controller.RoomRepository;
 import nl.yacht.lakesideresort.domain.Room;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,9 +31,17 @@ public class RoomController {
 
     @RequestMapping(value = "{id}", method = RequestMethod.PUT)
     public void changeRoom(@PathVariable long id, @RequestBody Room r) {
-    	if (roomRepository.exists(id)) {
-		    roomRepository.save(r);
+    	Room updateRoom = roomRepository.findOne(id);
+    	if (updateRoom == null){
+    		return;
+    		// add not found exc
 	    }
+	    updateRoom.setAvailableFrom(r.getAvailableFrom());
+    	updateRoom.setRoomType(r.getRoomType());
+    	updateRoom.setRoomSize(r.getRoomSize());
+    	// check if roomnumber is unique
+    	updateRoom.setRoomNumber(r.getRoomNumber());
+    	roomRepository.save(updateRoom);
     }
 
     @RequestMapping(value="{id}", method = RequestMethod.DELETE)

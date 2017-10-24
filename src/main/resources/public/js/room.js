@@ -100,8 +100,8 @@ function onDocumentReady(){
 //            $('#myModal').modal('toggle');
             var table = $('#roomtable').DataTable();
             var data = table.row( this ).data();
-            console.log(data.roomNumber);
-            apiGetSingleRoom(data.roomNumber);
+            console.log("selected row: " + JSON.stringify(data));
+            apiGetSingleRoom(data.id);
             // get room and show modal with correct values
         }
     });
