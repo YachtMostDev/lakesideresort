@@ -44,6 +44,14 @@ public class Room {
         return s;
     }
 
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
     public int getRoomNumber() {
         return roomNumber;
     }
