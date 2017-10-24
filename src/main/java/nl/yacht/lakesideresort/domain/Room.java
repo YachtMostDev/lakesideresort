@@ -75,4 +75,7 @@ public class Room {
     public void setAvailableFrom(String ld){
         this.availableFrom = LocalDate.parse(ld);
     }
+	public void setAvailableFrom(LocalDate ld){
+		this.availableFrom = ld;
+	}
 }
