@@ -198,7 +198,7 @@ function apiPutRoom(id, data){
     $.ajax ({
         url: 'http://localhost:8080/api/room/' + id,
         type: "PUT",
-        data: data,
+        data: JSON.stringify(data),
         contentType: "application/json",
         success: function(response){
             console.log("PUT room request success");

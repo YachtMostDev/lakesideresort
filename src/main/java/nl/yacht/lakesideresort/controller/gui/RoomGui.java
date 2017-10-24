@@ -106,7 +106,7 @@ public class RoomGui extends Command {
                 roomSize = Room.RoomSize.FIVE_SIX_PERSON;
                 break;
         }
-        rc.updateRoom(currentRN, newRN, roomType, roomSize);
+        rc.updateRoom(currentRN, newRN, roomType, roomSize, null);
         //System.out.println("Updated the room");
     }
 

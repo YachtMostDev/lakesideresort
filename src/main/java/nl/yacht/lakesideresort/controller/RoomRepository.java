@@ -25,9 +25,9 @@ public class RoomRepository {
         return r;
     }
     public void updateRoom(int roomNumber, Room r){
-        updateRoom(roomNumber, r.getRoomNumber(), r.getRoomType(), r.getRoomSize());
+        updateRoom(roomNumber, r.getRoomNumber(), r.getRoomType(), r.getRoomSize(), r.getAvailableFrom());
     }
-    public void updateRoom(int roomNumber, int newRoomNumber, Room.RoomType roomType, Room.RoomSize roomSize){
+    public void updateRoom(int roomNumber, int newRoomNumber, Room.RoomType roomType, Room.RoomSize roomSize, LocalDate availableFrom){
         Room r = roomMap.get(roomNumber);
         if(r != null){
         	if (roomSize != null){
@@ -35,6 +35,9 @@ public class RoomRepository {
 	        }
 	        if (roomType != null) {
 		        r.setRoomType(roomType);
+	        }
+	        if (availableFrom != null){
+        		r.setAvailableFrom(availableFrom);
 	        }
 	        if (newRoomNumber > 0 && newRoomNumber != roomNumber) {
 		        r.setRoomNumber(newRoomNumber);
