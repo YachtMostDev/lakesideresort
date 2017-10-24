@@ -1,6 +1,5 @@
 package nl.yacht.lakesideresort.controller.rest;
 
-import javassist.NotFoundException;
 import nl.yacht.lakesideresort.controller.RoomRepository;
 import nl.yacht.lakesideresort.domain.Room;
 import org.springframework.beans.factory.annotation.Autowired;
