@@ -25,11 +25,13 @@ function hideRoomModal(){
     // hide modal
     $('#myModal').modal('toggle');
 }
-function fillUpdateDiv(room){
+function fillUpdateModal(room){
     $("#btnsubmit").attr('onclick', 'processFormPut(' + room.roomNumber + ');');
     $("#roomnumber").val(room.roomNumber);
     $("#roomtype").val(room.roomType);
     $("#roomsize").val(room.roomSize);
+    $("#date").val(room.availableFrom);
+    $("#modal-title").html("Update Room");
 }
 function confirmDelete(id){
     var msg = "Delete room: " + id + "?"
@@ -43,19 +45,35 @@ function processFormPost(){
     var rn = parseInt($("#roomnumber").val());
     var rs = $("#roomsize").val();
     var rt = $("#roomtype").val();
-    var availableFrom = "2017-02-03";
+//    var availableFrom = "2017-02-03";
+    var af = $("#date").val();
+
     var room = {
         "roomNumber" : rn,
         "roomSize" : rs,
         "roomType" : rt,
-        "availableFrom" : availableFrom
+        "availableFrom" : af
     }
     console.log("apiPostRoom with obj: " + JSON.stringify(room));
     apiPostRoom(room);
 }
 function processFormPut(id){
     console.log("processFormPut: " + id);
+    var rn = parseInt($("#roomnumber").val());
+    var rs = $("#roomsize").val();
+    var rt = $("#roomtype").val();
+//    var availableFrom = "2017-02-03";
+    var af = $("#date").val();
 
+    var room = {
+        "roomNumber" : rn,
+        "roomSize" : rs,
+        "roomType" : rt,
+        "availableFrom" : af
+    }
+    console.log("api put: " + id + "  " + JSON.stringify(room));
+    apiPutRoom(id, room);
+//    console.log("apiPostRoom with obj: " + JSON.stringify(room));
 }
 function zeroPad(num, places) {
   var zero = places - num.toString().length + 1;
@@ -79,10 +97,19 @@ function onDocumentReady(){
         else {
             $('#roomtable tr.selected').removeClass('selected');
             $(this).addClass('selected');
-            $('#myModal').modal('toggle');
+//            $('#myModal').modal('toggle');
+            var table = $('#roomtable').DataTable();
+            var data = table.row( this ).data();
+            console.log("selected row: " + JSON.stringify(data));
+            apiGetSingleRoom(data.id);
+            // get room and show modal with correct values
         }
     });
     apiLoadDatatables();
+    $('#datePicker').datepicker({
+        autoclose: true,
+        format: 'yyyy-mm-dd'
+    })
 }
 function apiLoadDatatables(){
     var api = "http://localhost:8080/api/room";
@@ -107,9 +134,13 @@ function apiGetSingleRoom(id){
     var api = "http://localhost:8080/api/room/" + id;
     $.get(api, function(data){
         if (data){
-            $("#room-div").css('display','block');
-            $("#room-div-title").html("Update Room");
-            fillUpdateDiv(data);
+//            $("#room-div").css('display','block');
+            $('#myModal').modal('toggle');
+//            $("#room-div-title").html("Update Room");
+            console.log('data for update: ' + JSON.stringify(data));
+            data.availableFrom = "" + data.availableFrom.year + "-" + zeroPad(data.availableFrom.monthValue, 2) + "-" + zeroPad(data.availableFrom.dayOfMonth, 2);
+            console.log('data for update: ' + JSON.stringify(data));
+            fillUpdateModal(data);
         } else {
             $("#room-div").css('display', 'none');
         }
@@ -167,12 +198,13 @@ function apiPutRoom(id, data){
     $.ajax ({
         url: 'http://localhost:8080/api/room/' + id,
         type: "PUT",
-        data: data,
-        dataType: "json",
-        contentType: "application/json; charset=utf-8",
+        data: JSON.stringify(data),
+        contentType: "application/json",
         success: function(response){
             console.log("PUT room request success");
             console.log("Response: " + response);
+            hideRoomModal();
+            apiLoadDatatables();
         }
     });
 }
