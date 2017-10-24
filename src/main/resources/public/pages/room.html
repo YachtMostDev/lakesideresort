@@ -25,13 +25,14 @@
 
     <script src="../js/room.js"></script>
     <style>
-        #room-div {
+        #confirmbutton {
             display: none;
         }
         #scrolldiv {
             height : 250px;
             overflow : auto;
         }
+
     </style>
 </head>
 <body>
@@ -82,6 +83,8 @@
         <button onclick="apiLoadDatatables()" class="btn">Get Rooms</button>
         <button onclick="createRoomDiv()" class="btn" data-toggle="modal" data-target="#myModal">Create Room</button>
 
+
+
         <div class="modal fade" id="myModal" role="dialog">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -131,6 +134,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-primary" id="btnsubmit">Submit</button>
+                        <a href="#" id="confirmbutton" data-title="Are you sure" data-trigger="focus" data-toggle="clickover" data-placement="top" class="btn btn-danger">Delete</a>
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     </div>
                 </div>
