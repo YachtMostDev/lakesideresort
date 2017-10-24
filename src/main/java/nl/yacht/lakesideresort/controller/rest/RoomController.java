@@ -13,29 +13,31 @@ public class RoomController {
 
     @RequestMapping(method = RequestMethod.GET)
     public Iterable<Room> getRooms(){
-          return roomRepository.getRooms();
+    	Iterable<Room> list = roomRepository.findAll();
+        return list;
     }
 
     @RequestMapping(value="{id}", method = RequestMethod.GET)
     public Room getSingleRoom(@PathVariable long id){
-    	return roomRepository.getSingleRoom(Long.valueOf(id).intValue());
+	    return roomRepository.findOne(id);
     }
+
 
     @RequestMapping(method = RequestMethod.POST)
     public void insertRoom(@RequestBody Room r){
-        roomRepository.insertRoom(r);
+	    roomRepository.save(r);
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.PUT)
     public void changeRoom(@PathVariable long id, @RequestBody Room r) {
-        int roomNumber = Long.valueOf(id).intValue();
-        roomRepository.updateRoom(roomNumber, r);
+    	if (roomRepository.exists(id)) {
+		    roomRepository.save(r);
+	    }
     }
 
     @RequestMapping(value="{id}", method = RequestMethod.DELETE)
     public void deleteRoom(@PathVariable long id){
-        int roomNumber = Long.valueOf(id).intValue();
-        roomRepository.deleteRoom(roomNumber);
+        roomRepository.delete(id);
     }
 
 
