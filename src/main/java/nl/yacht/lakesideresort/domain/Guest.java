@@ -1,10 +1,22 @@
 package nl.yacht.lakesideresort.domain;
 
+import javax.annotation.Generated;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
+
+@Entity
 public class Guest {
 
     //variabelen
-    private int guestNumber;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+    private long guestNumber;
+	@NotNull
     private String surName;
+	@NotNull
     private String firstName;
     private String address;
     private String postalCode;
@@ -16,7 +28,7 @@ public class Guest {
     public Guest(){}
 
     //Constructor met alle variabelen
-    public Guest(int guestNumber, String surName, String firstName, String address, String postalCode, String city, String country, String phoneNumber, String mailAddress) {
+    public Guest(long guestNumber, String surName, String firstName, String address, String postalCode, String city, String country, String phoneNumber, String mailAddress) {
         this.guestNumber = guestNumber;
         this.surName = surName;
         this.firstName = firstName;
@@ -39,11 +51,11 @@ public class Guest {
         this.mailAddress = mailAddress;
     }
     //Setters&getters
-    public int getGuestNumber() {
+    public long getGuestNumber() {
         return guestNumber;
     }
 
-    public void setGuestNumber(int guestNumber) {
+    public void setGuestNumber(long guestNumber) {
         this.guestNumber = guestNumber;
     }
 
