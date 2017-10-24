@@ -18,7 +18,9 @@ function createRoomDiv(){
     $("#roomnumber").val("");
     $("#roomtype").val("");
     $("#roomsize").val("");
+    $("#date").val("");
     $("#btnsubmit").attr('onclick', 'processFormPost();');
+    $("#confirmbutton").css('display', 'none');
 }
 function hideRoomModal(){
     //$("#room-div").css('display', 'none');
@@ -32,6 +34,9 @@ function fillUpdateModal(room){
     $("#roomsize").val(room.roomSize);
     $("#date").val(room.availableFrom);
     $("#modal-title").html("Update Room");
+    $("#confirmbutton").css('display', 'inline-block');
+    var elem = '<button type="button" class="btn btn-danger" onclick="apiDeleteRoom(' + room.id + ');">Confirm delete</button>';
+    $('#confirmbutton').popover({animation:true, content:elem, html:true});
 }
 function confirmDelete(id){
     var msg = "Delete room: " + id + "?"
@@ -41,7 +46,7 @@ function confirmDelete(id){
     }
 }
 function processFormPost(){
-    console.log("processFormPost");
+//    console.log("processFormPost");
     var rn = parseInt($("#roomnumber").val());
     var rs = $("#roomsize").val();
     var rt = $("#roomtype").val();
@@ -54,11 +59,11 @@ function processFormPost(){
         "roomType" : rt,
         "availableFrom" : af
     }
-    console.log("apiPostRoom with obj: " + JSON.stringify(room));
+//    console.log("apiPostRoom with obj: " + JSON.stringify(room));
     apiPostRoom(room);
 }
 function processFormPut(id){
-    console.log("processFormPut: " + id);
+//    console.log("processFormPut: " + id);
     var rn = parseInt($("#roomnumber").val());
     var rs = $("#roomsize").val();
     var rt = $("#roomtype").val();
@@ -71,7 +76,7 @@ function processFormPut(id){
         "roomType" : rt,
         "availableFrom" : af
     }
-    console.log("api put: " + id + "  " + JSON.stringify(room));
+//    console.log("api put: " + id + "  " + JSON.stringify(room));
     apiPutRoom(id, room);
 //    console.log("apiPostRoom with obj: " + JSON.stringify(room));
 }
@@ -100,7 +105,7 @@ function onDocumentReady(){
 //            $('#myModal').modal('toggle');
             var table = $('#roomtable').DataTable();
             var data = table.row( this ).data();
-            console.log("selected row: " + JSON.stringify(data));
+//            console.log("selected row: " + JSON.stringify(data));
             apiGetSingleRoom(data.id);
             // get room and show modal with correct values
         }
@@ -109,7 +114,7 @@ function onDocumentReady(){
     $('#datePicker').datepicker({
         autoclose: true,
         format: 'yyyy-mm-dd'
-    })
+    });
 }
 function apiLoadDatatables(){
     var api = "http://localhost:8080/api/room";
@@ -130,19 +135,17 @@ function apiLoadDatatables(){
 }
 function apiGetSingleRoom(id){
     // get query met id;
-    console.log("getSingle: " + id)
+//    console.log("getSingle: " + id)
     var api = "http://localhost:8080/api/room/" + id;
     $.get(api, function(data){
         if (data){
 //            $("#room-div").css('display','block');
             $('#myModal').modal('toggle');
 //            $("#room-div-title").html("Update Room");
-            console.log('data for update: ' + JSON.stringify(data));
+//            console.log('data for update: ' + JSON.stringify(data));
             data.availableFrom = "" + data.availableFrom.year + "-" + zeroPad(data.availableFrom.monthValue, 2) + "-" + zeroPad(data.availableFrom.dayOfMonth, 2);
-            console.log('data for update: ' + JSON.stringify(data));
+//            console.log('data for update: ' + JSON.stringify(data));
             fillUpdateModal(data);
-        } else {
-            $("#room-div").css('display', 'none');
         }
     });
 }
@@ -157,7 +160,7 @@ function apiLoadRooms() {
                 var roomTableEntry = roomToTable(item);
                 $("#tableBody").append(roomTableEntry);
 		    }
-            console.log("result of api call: " + data);
+//            console.log("result of api call: " + data);
 		    return data;
 		}
 	});
@@ -168,8 +171,9 @@ function apiDeleteRoom(id){
         url: api,
         type: 'DELETE',
         success: function(response){
-            console.log(response);
-            apiLoadRooms();
+//            console.log(response);
+            hideRoomModal()
+            apiLoadDatatables();
         }
     });
 }
@@ -180,8 +184,8 @@ function apiPostRoom(data){
         data: JSON.stringify(data),
         contentType: "application/json",
         success: function(response){
-            console.log("POST room request success");
-            console.log("Response: " + response);
+//            console.log("POST room request success");
+//            console.log("Response: " + response);
             hideRoomModal();
             apiLoadDatatables();
         },
@@ -201,8 +205,8 @@ function apiPutRoom(id, data){
         data: JSON.stringify(data),
         contentType: "application/json",
         success: function(response){
-            console.log("PUT room request success");
-            console.log("Response: " + response);
+//            console.log("PUT room request success");
+//            console.log("Response: " + response);
             hideRoomModal();
             apiLoadDatatables();
         }
