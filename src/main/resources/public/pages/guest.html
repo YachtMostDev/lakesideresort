@@ -36,97 +36,79 @@
     </div>
 
     <div class="container content">
+        <h1>Lakeside Resort</h1>
+
+
+        <h3>Guest List</h3>
+
         <table id="guestTable" class="display" cellspacing="0" width="100%">
             <thead>
             <tr>
-                <th>guestNumber</th>
-                <th>firstName</th>
-                <th>surName</th>
-                <th>address</th>
-                <th>postalCode</th>
-                <th>city</th>
-                <th>country</th>
-                <th>phoneNumber</th>
-                <th>mailAddress</th>
+                <th>First Name</th>
+                <th>Sur Name</th>
+                <th>Address</th>
+                <th>Postal Code</th>
+                <th>City</th>
+                <th>Country</th>
+                <th>Phone</th>
+                <th>Mail</th>
             </tr>
             </thead>
             <tfoot>
             <tr>
-                <th>guestNumber</th>
-                <th>firstName</th>
-                <th>surName</th>
-                <th>address</th>
-                <th>postalCode</th>
-                <th>city</th>
-                <th>country</th>
-                <th>phoneNumber</th>
-                <th>mailAddress</th>
+                <th>First Name</th>
+                <th>Sur Name</th>
+                <th>Address</th>
+                <th>Postal Code</th>
+                <th>City</th>
+                <th>Country</th>
+                <th>Phone</th>
+                <th>Mail</th>
             </tr>
             </tfoot>
         </table>
 
-        <div class="row">
-            <div class="col-sm-4">
-                <h2>Create guest</h2>
-                <form id="guestForm" enctype='text/plain'>
-                    First name:<br>
-                    <input type='text' name='firstName'><br>
-                    Last name:<br>
-                    <input type='text' name='surName'><br>
-                    Address:<br>
-                    <input type='text' name='address'><br>
-                    Postal code:<br>
-                    <input type='text' name='postalCode'><br>
-                    City:<br>
-                    <input type='text' name='city'><br>
-                    Country:<br>
-                    <input type='text' name='country'><br>
-                    Phone:<br>
-                    <input type='text' name='phoneNumber'><br>
-                    e-mail:<br>
-                    <input type='text' name='mailAddress'><br>
-                    <div class = "center">
-                        <button id="submitGuest" type='button'>submit</button>
+        <button onclick="updateTable()" class="btn">Get Guests</button>
+        <button onclick="createGuest()" class="btn" data-toggle="modal" data-target="#myModal">Create Guest</button>
+        <!--<button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">Open Modal</button>-->
+
+        <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" onclick="deselect()" data-dismiss="modal">&times;</button>
+                        <h3 class="modal-title" id="modal-title">Title</h3>
                     </div>
-                </form>
-            </div>
-            <div class="col-sm-4">
-                <h2>Edit guest</h2>
-                <form id="editForm" enctype='text/plain'>
-                    Guest number:<br>
-                    <input type='text' name='guestNumber'><br>
-                    First name:<br>
-                    <input type='text' name='firstName'><br>
-                    Last name:<br>
-                    <input type='text' name='surName'><br>
-                    Address:<br>
-                    <input type='text' name='address'><br>
-                    Postal code:<br>
-                    <input type='text' name='postalCode'><br>
-                    City:<br>
-                    <input type='text' name='city'><br>
-                    Country:<br>
-                    <input type='text' name='country'><br>
-                    Phone:<br>
-                    <input type='text' name='phoneNumber'><br>
-                    e-mail:<br>
-                    <input type='text' name='mailAddress'><br>
-                    <div class = "center">
-                        <button id="submitEdit" type='button'>submit</button>
+                    <div class="modal-body">
+                        <form id="guestForm" enctype='text/plain'>
+                            First name:<br>
+                            <input type='text' class="form-control" name='firstName' id="firstName"><br>
+                            Last name:<br>
+                            <input type='text' class="form-control" name='surName' id="surName"><br>
+                            Address:<br>
+                            <input type='text' class="form-control" name='address' id="address"><br>
+                            Postal code:<br>
+                            <input type='text' class="form-control" name='postalCode' id="postalCode"><br>
+                            City:<br>
+                            <input type='text' class="form-control" name='city' id="city"><br>
+                            Country:<br>
+                            <input type='text' class="form-control" name='country' id="country"><br>
+                            Phone:<br>
+                            <input type='text' class="form-control" name='phoneNumber' id="phoneNumber"><br>
+                            e-mail:<br>
+                            <input type='text' class="form-control" name='mailAddress' id="mailAddress"><br>
+                        </form>
+
                     </div>
-                </form>
-            </div>
-            <div class="col-sm-4">
-                <h2>Delete guest</h2>
-                <form id="deleteForm" enctype='text/plain'>
-                    Guest number:<br>
-                    <input type='text' name='guestNumber'><br>
-                    <div class = "center">
-                        <button id="submitDelete" type='button'>submit</button>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" id="btnsubmit">Submit</button>
+                        <a href="#" id="confirmbutton" data-title="Are you sure" data-trigger="focus" data-toggle="clickover" data-placement="top" class="btn btn-danger">Delete</a>
+                        <button type="button" class="btn btn-default" id="btnclose" onclick="deselect()" data-dismiss="modal">Close</button>
                     </div>
-                </form>
+                </div>
             </div>
         </div>
+
     </div>
 
     <div class="footer">
