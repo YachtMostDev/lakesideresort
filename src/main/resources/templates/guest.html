@@ -1,0 +1,96 @@
+{{>header}}
+{{>navigation}}
+<div class="container content">
+    <table id="guestTable" class="display" cellspacing="0" width="100%">
+        <thead>
+        <tr>
+            <th>guestNumber</th>
+            <th>firstName</th>
+            <th>surName</th>
+            <th>address</th>
+            <th>postalCode</th>
+            <th>city</th>
+            <th>country</th>
+            <th>phoneNumber</th>
+            <th>mailAddress</th>
+        </tr>
+        </thead>
+        <tfoot>
+        <tr>
+            <th>guestNumber</th>
+            <th>firstName</th>
+            <th>surName</th>
+            <th>address</th>
+            <th>postalCode</th>
+            <th>city</th>
+            <th>country</th>
+            <th>phoneNumber</th>
+            <th>mailAddress</th>
+        </tr>
+        </tfoot>
+    </table>
+
+    <div class="row">
+        <div class="col-sm-4">
+            <h2>Create guest</h2>
+            <form id="guestForm" enctype='text/plain'>
+                First name:<br>
+                <input type='text' name='firstName'><br>
+                Last name:<br>
+                <input type='text' name='surName'><br>
+                Address:<br>
+                <input type='text' name='address'><br>
+                Postal code:<br>
+                <input type='text' name='postalCode'><br>
+                City:<br>
+                <input type='text' name='city'><br>
+                Country:<br>
+                <input type='text' name='country'><br>
+                Phone:<br>
+                <input type='text' name='phoneNumber'><br>
+                e-mail:<br>
+                <input type='text' name='mailAddress'><br>
+                <div class = "center">
+                    <button id="submitGuest" type='button'>submit</button>
+                </div>
+            </form>
+        </div>
+        <div class="col-sm-4">
+            <h2>Edit guest</h2>
+            <form id="editForm" enctype='text/plain'>
+                Guest number:<br>
+                <input type='text' name='guestNumber'><br>
+                First name:<br>
+                <input type='text' name='firstName'><br>
+                Last name:<br>
+                <input type='text' name='surName'><br>
+                Address:<br>
+                <input type='text' name='address'><br>
+                Postal code:<br>
+                <input type='text' name='postalCode'><br>
+                City:<br>
+                <input type='text' name='city'><br>
+                Country:<br>
+                <input type='text' name='country'><br>
+                Phone:<br>
+                <input type='text' name='phoneNumber'><br>
+                e-mail:<br>
+                <input type='text' name='mailAddress'><br>
+                <div class = "center">
+                    <button id="submitEdit" type='button'>submit</button>
+                </div>
+            </form>
+        </div>
+        <div class="col-sm-4">
+            <h2>Delete guest</h2>
+            <form id="deleteForm" enctype='text/plain'>
+                Guest number:<br>
+                <input type='text' name='guestNumber'><br>
+                <div class = "center">
+                    <button id="submitDelete" type='button'>submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{{>footer}}
