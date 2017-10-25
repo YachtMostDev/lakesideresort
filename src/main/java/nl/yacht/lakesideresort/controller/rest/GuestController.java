@@ -32,21 +32,22 @@ public class GuestController {
     public void update(@PathVariable long guestNumber, @RequestBody Guest guest){
 		if(guestRepository.exists(guestNumber)){
 		    Guest dataGuest = guestRepository.findOne(guestNumber);
-            if (!guest.getSurName().equals(""))
+            System.out.println(guest);
+            if (guest.getSurName() != null)
                 dataGuest.setSurName(guest.getSurName());
-            if (!guest.getCountry().equals(""))
+            if (guest.getCountry() != null)
                 dataGuest.setCountry(guest.getCountry());
-            if (!guest.getAddress().equals(""))
+            if (guest.getAddress() != null)
                 dataGuest.setAddress(guest.getAddress());
-            if (!guest.getCity().equals(""))
+            if (guest.getCity() != null)
                 dataGuest.setCity(guest.getCity());
-            if (!guest.getFirstName().equals(""))
+            if (guest.getFirstName() != null)
                 dataGuest.setFirstName(guest.getFirstName());
-            if (!guest.getMailAddress().equals(""))
+            if (guest.getMailAddress() != null)
                 dataGuest.setMailAddress(guest.getMailAddress());
-            if (!guest.getPhoneNumber().equals(""))
+            if (guest.getPhoneNumber() != null)
                 dataGuest.setPhoneNumber(guest.getPhoneNumber());
-            if (!guest.getPostalCode().equals(""))
+            if (guest.getPostalCode() != null)
                 dataGuest.setPostalCode(guest.getPostalCode());
             guestRepository.save(dataGuest);
 	    }

@@ -34,7 +34,6 @@ $(document).ready(function(){
 // Submit the guestdata in the form to the database
 function submitGuest(){
       var formData = $("#guestForm").serializeArray().reduce(function(result, object){result[object.name] = object.value; return result}, {});
-      console.log(formData)
       $.ajax({
           url:"/api/guest",
           type:"post",
