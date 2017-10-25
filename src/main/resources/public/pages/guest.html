@@ -36,38 +36,40 @@
     </div>
 
     <div class="container content">
+        <h1>Lakeside Resort</h1>
+
+
+        <h3>Guest List</h3>
+
         <table id="guestTable" class="display" cellspacing="0" width="100%">
             <thead>
             <tr>
-                <th>firstName</th>
-                <th>surName</th>
-                <th>address</th>
-                <th>postalCode</th>
-                <th>city</th>
-                <th>country</th>
-                <th>phoneNumber</th>
-                <th>mailAddress</th>
+                <th>First Name</th>
+                <th>Sur Name</th>
+                <th>Address</th>
+                <th>Postal Code</th>
+                <th>City</th>
+                <th>Country</th>
+                <th>Phone</th>
+                <th>Mail</th>
             </tr>
             </thead>
             <tfoot>
             <tr>
-                <th>firstName</th>
-                <th>surName</th>
-                <th>address</th>
-                <th>postalCode</th>
-                <th>city</th>
-                <th>country</th>
-                <th>phoneNumber</th>
-                <th>mailAddress</th>
+                <th>First Name</th>
+                <th>Sur Name</th>
+                <th>Address</th>
+                <th>Postal Code</th>
+                <th>City</th>
+                <th>Country</th>
+                <th>Phone</th>
+                <th>Mail</th>
             </tr>
             </tfoot>
         </table>
 
-        <!--<button id="submitGuest" type='button'>submit</button>-->
-        <button onclick="apiLoadDatatables()" class="btn">Get Guests</button>
+        <button onclick="updateTable()" class="btn">Get Guests</button>
         <button onclick="createGuest()" class="btn" data-toggle="modal" data-target="#myModal">Create Guest</button>
-        <button onclick="editGuest()" class="btn" data-toggle="modal" data-target="#myModal">Edit Guest</button>
-        <button onclick="deleteGuest()" class="btn" data-toggle="modal" data-target="#myModal">Delete Guest</button>
         <!--<button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">Open Modal</button>-->
 
         <div class="modal fade" id="myModal" role="dialog">
@@ -79,31 +81,29 @@
                     </div>
                     <div class="modal-body">
                         <form id="guestForm" enctype='text/plain'>
-                            Guest number:<br>
-                            <input type='text' name='guestNumber'><br>
                             First name:<br>
-                            <input type='text' name='firstName'><br>
+                            <input type='text' class="form-control" name='firstName' id="firstName"><br>
                             Last name:<br>
-                            <input type='text' name='surName'><br>
+                            <input type='text' class="form-control" name='surName' id="surName"><br>
                             Address:<br>
-                            <input type='text' name='address'><br>
+                            <input type='text' class="form-control" name='address' id="address"><br>
                             Postal code:<br>
-                            <input type='text' name='postalCode'><br>
+                            <input type='text' class="form-control" name='postalCode' id="postalCode"><br>
                             City:<br>
-                            <input type='text' name='city'><br>
+                            <input type='text' class="form-control" name='city' id="city"><br>
                             Country:<br>
-                            <input type='text' name='country'><br>
+                            <input type='text' class="form-control" name='country' id="country"><br>
                             Phone:<br>
-                            <input type='text' name='phoneNumber'><br>
+                            <input type='text' class="form-control" name='phoneNumber' id="phoneNumber"><br>
                             e-mail:<br>
-                            <input type='text' name='mailAddress'><br>
-                            <button type="button" class="btn btn-primary" id="btnsubmit">Submit</button>
-                            <button type="button" class="btn btn-default" onclick="hideRoomModal();">Hide</button>
+                            <input type='text' class="form-control" name='mailAddress' id="mailAddress"><br>
                         </form>
 
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" id="btnsubmit">Submit</button>
+                        <button type="button" class="btn btn-primary" id="btndelete">Delete</button>
+                        <button type="button" class="btn btn-default" id="btnclose" onclick="deselect()" data-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>

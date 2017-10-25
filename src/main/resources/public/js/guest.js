@@ -1,5 +1,6 @@
 $(document).ready(function(){
 
+    // Fill the table with data
     $('#guestTable').DataTable({
         "ajax":{"url":"/api/guest","dataSrc":""},
         "columns": [
@@ -14,62 +15,49 @@ $(document).ready(function(){
         ]
     });
 
-    $("#submitGuest").click(function(e){
-      var formData = $("#guestForm").serializeArray().reduce(function(result, object){ result[object.name] = object.value; return result}, {});
-      $.ajax({
-          url:"/api/guest",
-          type:"post",
-          data: JSON.stringify(formData),
-          contentType: "application/json; charset=utf-8"
-      });
-      $('#guestTable').DataTable().ajax.reload();
-    });
-
-    $("#submitEdit").click(function(e){
-        var formData = $("#editForm").serializeArray().reduce(function(result, object){ result[object.name] = object.value; return result}, {});
-        var guestNumber = formData.guestNumber;
-        delete formData.guestNumber;
-        for(var key in formData){
-            if(formData[key] == "" || formData == null) delete formData[key];
+    // Functionality for interaction when clicking on rows of the table
+    $('#guestTable tbody').on( 'click', 'tr', function () {
+        if ( $(this).hasClass('selected') ) {
+            $(this).removeClass('selected');
         }
-        $.ajax({
-            url:"/api/guest/" + guestNumber,
-            type:"put",
-            data: JSON.stringify(formData),
-            contentType: "application/json; charset=utf-8"
-        });
-        $('#guestTable').DataTable().ajax.reload();
-    });
-
-    $("#submitDelete").click(function(e){
-        var formData = $("#deleteForm").serializeArray().reduce(function(result, object){ result[object.name] = object.value; return result}, {});
-        var guestNumber = formData.guestNumber;
-        $.ajax({
-            url:"/api/guest/" + guestNumber,
-            type:"delete",
-            data: JSON.stringify(formData),
-            contentType: "application/json; charset=utf-8"
-        });
-        $('#guestTable').DataTable().ajax.reload();
+        else {
+            deselect();
+            $(this).addClass('selected');
+            var table = $('#guestTable').DataTable();
+            var data = table.row(this).data();
+            apiGetSingleGuest(data.guestNumber);
+            $('#myModal').modal('toggle');
+        }
     });
 });
 
+// Submit the guestdata in the form to the database
 function submitGuest(){
-      var formData = $("#guestForm").serializeArray().reduce(function(result, object){ result[object.name] = object.value; return result}, {});
+      var formData = $("#guestForm").serializeArray().reduce(function(result, object){result[object.name] = object.value; return result}, {});
+      console.log(formData)
       $.ajax({
           url:"/api/guest",
           type:"post",
           data: JSON.stringify(formData),
-          contentType: "application/json; charset=utf-8"
+          contentType: "application/json; charset=utf-8",
+          success: function(result) {
+              updateTable();
+          }
       });
-      $('#guestTable').DataTable().ajax.reload();
+      document.getElementById("guestForm").reset();
+      $('#myModal').modal('toggle');
 }
 
-//$("#submitEdit").click(function(e){
-function submitEdit(){
+// Make modal ready for creating a guest
+function createGuest(){
+    $("#btnsubmit").attr('onclick', 'submitGuest();');
+    document.getElementById("modal-title").innerHTML="Create Guest";
+}
+
+// Submit the edited data in the form to the database
+function submitEdit(id){
     var formData = $("#guestForm").serializeArray().reduce(function(result, object){ result[object.name] = object.value; return result}, {});
-    var guestNumber = formData.guestNumber;
-    delete formData.guestNumber;
+    var guestNumber = id;
     for(var key in formData){
         if(formData[key] == "" || formData == null) delete formData[key];
     }
@@ -77,36 +65,63 @@ function submitEdit(){
         url:"/api/guest/" + guestNumber,
         type:"put",
         data: JSON.stringify(formData),
-        contentType: "application/json; charset=utf-8"
+        contentType: "application/json; charset=utf-8",
+        success: function(result) {
+            updateTable();
+        }
     });
-    $('#guestTable').DataTable().ajax.reload();
+    $('#myModal').modal('toggle');
+    document.getElementById("guestForm").reset();
 }
 
-//$("#submitDelete").click(function(e){
-function submitDelete(){
+// Delete the guest in the database with the corresponding id
+function submitDelete(id){
     var formData = $("#guestForm").serializeArray().reduce(function(result, object){ result[object.name] = object.value; return result}, {});
-    var guestNumber = formData.guestNumber;
+    var guestNumber = id;
     $.ajax({
         url:"/api/guest/" + guestNumber,
         type:"delete",
         data: JSON.stringify(formData),
-        contentType: "application/json; charset=utf-8"
+        contentType: "application/json; charset=utf-8",
+        success: function(result) {
+            updateTable();
+        }
     });
+
+    $('#myModal').modal('toggle');
+    document.getElementById("guestForm").reset();
+}
+
+// Fill the form with guestdata when updating the guest
+function fillUpdateDiv(guest){
+    $("#btndelete").attr('onclick', 'submitDelete(' + guest.guestNumber + ');');
+    $("#btnsubmit").attr('onclick', 'submitEdit(' + guest.guestNumber + ');');
+    document.getElementById("modal-title").innerHTML="Edit Guest";
+    $("#firstName").val(guest.firstName);
+    $("#surName").val(guest.surName);
+    $("#address").val(guest.address);
+    $("#postalCode").val(guest.postalCode);
+    $("#city").val(guest.city);
+    $("#country").val(guest.country);
+    $("#phoneNumber").val(guest.phoneNumber);
+    $("#mailAddress").val(guest.mailAddress);
+}
+
+// Get the data of a guest using an id
+function apiGetSingleGuest(id){
+    var api = "http://localhost:8080/api/guest/" + id;
+    $.get(api, function(data){
+        if (data){
+            fillUpdateDiv(data);
+        }
+    });
+}
+
+// Deselect all items in the table
+function deselect(){
+    $('#guestTable tr.selected').removeClass('selected');
+}
+
+function updateTable(){
     $('#guestTable').DataTable().ajax.reload();
-}
-
-function createGuest(){
-    $("#btnsubmit").attr('onclick', 'submitGuest();');
-}
-
-function editGuest(){
-    $("#btnsubmit").attr('onclick', 'submitEdit();');
-}
-
-function deleteGuest(){
-    $("#btnsubmit").attr('onclick', 'submitDelete()');
-}
-
-function refreshTable(){
-
 }
