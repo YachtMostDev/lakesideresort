@@ -44,12 +44,13 @@ function submitGuest(){
               updateTable();
           }
       });
-      document.getElementById("guestForm").reset();
+      deselect();
       $('#myModal').modal('toggle');
 }
 
 // Make modal ready for creating a guest
 function createGuest(){
+    $("#confirmbutton").css('display', 'none');
     $("#btnsubmit").attr('onclick', 'submitGuest();');
     document.getElementById("modal-title").innerHTML="Create Guest";
 }
@@ -70,8 +71,8 @@ function submitEdit(id){
             updateTable();
         }
     });
+    deselect();
     $('#myModal').modal('toggle');
-    document.getElementById("guestForm").reset();
 }
 
 // Delete the guest in the database with the corresponding id
@@ -89,7 +90,7 @@ function submitDelete(id){
     });
 
     $('#myModal').modal('toggle');
-    document.getElementById("guestForm").reset();
+    deselect();
 }
 
 // Fill the form with guestdata when updating the guest
@@ -105,6 +106,9 @@ function fillUpdateDiv(guest){
     $("#country").val(guest.country);
     $("#phoneNumber").val(guest.phoneNumber);
     $("#mailAddress").val(guest.mailAddress);
+    $("#confirmbutton").css('display', 'inline-block');
+    var elem = '<button type="button" class="btn btn-danger" onclick="submitDelete(' + guest.guestNumber + ');">Confirm delete</button>';
+    $('#confirmbutton').popover({animation:true, content:elem, html:true});
 }
 
 // Get the data of a guest using an id
@@ -120,6 +124,7 @@ function apiGetSingleGuest(id){
 // Deselect all items in the table
 function deselect(){
     $('#guestTable tr.selected').removeClass('selected');
+    document.getElementById("guestForm").reset();
 }
 
 function updateTable(){
