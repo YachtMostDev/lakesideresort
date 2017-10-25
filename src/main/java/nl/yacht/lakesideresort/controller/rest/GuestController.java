@@ -31,9 +31,26 @@ public class GuestController {
     @RequestMapping(value = "{guestNumber}", method = RequestMethod.PUT)
     public void update(@PathVariable long guestNumber, @RequestBody Guest guest){
 		if(guestRepository.exists(guestNumber)){
-		    guestRepository.save(guest);
+		    Guest dataGuest = guestRepository.findOne(guestNumber);
+            System.out.println(guest);
+            if (guest.getSurName() != null)
+                dataGuest.setSurName(guest.getSurName());
+            if (guest.getCountry() != null)
+                dataGuest.setCountry(guest.getCountry());
+            if (guest.getAddress() != null)
+                dataGuest.setAddress(guest.getAddress());
+            if (guest.getCity() != null)
+                dataGuest.setCity(guest.getCity());
+            if (guest.getFirstName() != null)
+                dataGuest.setFirstName(guest.getFirstName());
+            if (guest.getMailAddress() != null)
+                dataGuest.setMailAddress(guest.getMailAddress());
+            if (guest.getPhoneNumber() != null)
+                dataGuest.setPhoneNumber(guest.getPhoneNumber());
+            if (guest.getPostalCode() != null)
+                dataGuest.setPostalCode(guest.getPostalCode());
+            guestRepository.save(dataGuest);
 	    }
-
     }
 
     @RequestMapping(value = "{guestNumber}", method = RequestMethod.DELETE)
