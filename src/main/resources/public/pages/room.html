@@ -49,6 +49,7 @@
                 <li><a href="/">Home</a></li>
                 <li><a href="/pages/guest.html">Guests</a></li>
                 <li class="active"><a href="/pages/room.html">Rooms</a></li>
+                <li><a href="/pages/booking.html">Booking</a></li>
             </ul>
         </div>
     </nav>
@@ -58,6 +59,7 @@
 
 
         <h3>Room List</h3>
+
 
         <table id="roomtable" class="display" cellspacing="0" width="100%">
             <thead>
@@ -82,8 +84,6 @@
         </table>
         <button onclick="apiLoadDatatables()" class="btn">Get Rooms</button>
         <button onclick="createRoomDiv()" class="btn" data-toggle="modal" data-target="#myModal">Create Room</button>
-
-
 
         <div class="modal fade" id="myModal" role="dialog">
             <div class="modal-dialog">

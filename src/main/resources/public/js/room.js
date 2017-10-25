@@ -125,6 +125,7 @@ function apiLoadDatatables(){
             object.availableFrom = "" + object.availableFrom.year + "-" + zeroPad(object.availableFrom.monthValue, 2) + "-" + zeroPad(object.availableFrom.dayOfMonth, 2);
             return object;
         });
+
         //console.log("Adding dataset to table: \n" + JSON.stringify(dataSet));
         $("#roomtable").DataTable().clear();
         $("#roomtable").DataTable().rows.add(dataSet);
