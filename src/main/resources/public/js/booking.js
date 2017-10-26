@@ -27,14 +27,14 @@ function hideBookingModal(){
     $('#myModal').modal('toggle');
 }
 function fillUpdateModal(booking){
-    $("#btnsubmit").attr('onclick', 'processFormPut(' + booking.bookingNumber + ');');
-    $("#bookingNumber").val(booking.bookingNumber);
-    $("#guestNumber").val(guest.guestNumber);
-    $("#roomnumber").val(room.roomnumber);
+    $("#btnsubmit").attr('onclick', 'processFormPut(' + booking.bookingnumber + ');');
+    $("#bookingnumber").val(booking.bookingnumber);
+    $("#guestNumber").val(booking.guest.guestNumber);
+    $("#roomnumber").val(booking.room.id);
     $("#modal-title").html("Update Booking");
     $("#confirmbutton").css('display', 'inline-block');
-    var elem = '<button type="button" class="btn btn-danger" onclick="apiDeleteBooking(' + booking.id + ');">Confirm delete</button>';
-    $('#confirmbutton').popover({animation:true, content:elem, html:true});
+    var elem = '<button type="button" class="btn btn-danger" onclick="apiDeleteBooking(' + booking.bookingnumber + ');">Confirm delete</button>';
+    $('#confirmbutton').popover({animation:true, content:elem, html:true, container:myModal});
 }
 
 function confirmDelete(id){
@@ -113,8 +113,9 @@ function onDocumentReady(){
 //            $('#myModal').modal('toggle');
             var table = $('#bookingtable').DataTable();
             var data = table.row( this ).data();
-//            console.log("selected row: " + JSON.stringify(data));
-            apiGetBooking(data.id);
+
+            console.log("selected row: " + JSON.stringify(data));
+            apiGetBooking(data.bookingnumber);
             // get booking and show modal with correct values
         }
     });
@@ -125,12 +126,8 @@ function apiLoadDatatables(){
     var api = "http://localhost:8080/api/booking";
 
     $.get(api, function (dataSet) {
-        //console.log("Adding dataset to table: \n" + JSON.stringify(dataSet));
-        dataSet = dataSet.map(function(object){
-          return object;
-        });
 
-        //console.log("Adding dataset to table: \n" + JSON.stringify(dataSet));
+        console.log("Adding dataset to table: \n" + JSON.stringify(dataSet));
         $("#bookingtable").DataTable().clear();
         $("#bookingtable").DataTable().rows.add(dataSet);
         $("#bookingtable").DataTable().columns.adjust().draw();
@@ -148,6 +145,8 @@ function apiGetBooking(id){
 //            $("#booking-div-title").html("Update Booking");
 //            console.log('data for update: ' + JSON.stringify(data));
 //            console.log('data for update: ' + JSON.stringify(data));
+            console.log("got data:");
+            console.log(data);
             fillUpdateModal(data);
         }
     });
