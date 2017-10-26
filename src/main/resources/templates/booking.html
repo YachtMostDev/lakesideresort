@@ -1,31 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-
-    <!--jquery-->
-    <script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
-    <!--bootstrap js and css-->
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-    <!--datatable js and css-->
-    <script type="text/javascript" src="https://cdn.datatables.net/v/bs/dt-1.10.16/datatables.min.js"></script>
-    <link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet">
-    <!--jquery ui-->
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.min.css" />
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker3.min.css" />
-
-    <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.min.js"></script>
+{{>header}}
+{{>navigation}}
+<div class="container">
     <script src="../js/booking.js"></script>
-
-    <title>Lakeside Resort Booking</title>
-
-    <!--<script src="../js/booking.js"></script>-->
     <style>
         #confirmbutton {
             display: none;
@@ -36,29 +12,7 @@
         }
 
     </style>
-</head>
-<body>
-<script>
-        $(document).ready(onDocumentReady);
-    </script>
-
-<nav class="navbar navbar-default">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <a class="navbar-brand" href="/">Lakeside resort</a>
-        </div>
-        <ul class="nav navbar-nav">
-            <li><a href="/">Home</a></li>
-            <li><a href="/pages/guest.html">Guests</a></li>
-            <li><a href="/pages/room.html">Rooms</a></li>
-            <li class="active"><a href="/pages/booking.html">Booking</a></li>
-        </ul>
-    </div>
-</nav>
-<div class="container">
     <h1>Lakeside Resort</h1>
-
-
     <h3>Booking List</h3>
 
     <table id="bookingtable" class="display" cellspacing="0" width="100%">
@@ -131,5 +85,4 @@
     </div>
 
 </div>
-</body>
-</html>
+{{>footer}}

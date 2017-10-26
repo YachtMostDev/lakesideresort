@@ -93,10 +93,10 @@ function zeroPad(num, places) {
   var zero = places - num.toString().length + 1;
   return Array(+(zero > 0 && zero)).join("0") + num;
 }
-
+$(document).ready(onDocumentReady);
 // API FUNCTIONALITY
 function onDocumentReady(){
-    $('#bookingtable').DataTable({
+    dataTable = $('#bookingtable').DataTable({
         columns: [
         { "data": "bookingnumber" },
         { "data": "guest.guestNumber" },
@@ -118,6 +118,7 @@ function onDocumentReady(){
             // get booking and show modal with correct values
         }
     });
+    apiLoadDatatables();
 }
 
 function apiLoadDatatables(){
