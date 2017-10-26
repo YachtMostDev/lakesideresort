@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>RoomCalendar</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <link rel="stylesheet" href="../css/roomCalendar.css">
     <script
             src="https://code.jquery.com/jquery-3.2.1.js"
             integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
@@ -16,17 +17,37 @@
 </head>
 <body>
     <div class="container">
-        <div class="roomList">
+        <div class="row">
+            <div class="col-3">
+                <div class="roomList">
 
-        </div>
-        <div class="calendar">
-            <div class="calendarHeader">
-            </div>
-            <div class="calendarBody">
-                <table id="calendar">
-                </table>
-            </div>
-            <div class="calendarFooter">
+                </div>
+                <div class="calendar">
+                    <div class="calendarHeader">
+                        <button class="btn-primary" id="lastMonth" onclick="lastMonth()"><</button>
+                        <div class="dateInfo">
+                            <div id="year"></div>
+                            <div id="month"></div>
+                        </div>
+                        <button class="btn-primary" id="nextMonth" onclick="nextMonth()">></button>
+                    </div>
+                    <div class="calendarBody">
+
+                        <table id="calendar">
+                            <tr>
+                                <td>Mo</td>
+                                <td>Tu</td>
+                                <td>We</td>
+                                <td>Th</td>
+                                <td>Fr</td>
+                                <td>Sa</td>
+                                <td>So</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="calendarFooter">
+                    </div>
+                </div>
             </div>
         </div>
     </div>
