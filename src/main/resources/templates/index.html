@@ -1,4 +1,49 @@
 {{>header}}
 {{>navigation}}
-<h1>Saint Nicolais Resort</h1>
+<script src="../js/index.js"></script>
+<style>
+body{
+    background:
+        linear-gradient(
+          rgba(220, 220, 220, 0.6),
+          rgba(220, 220, 220, 0.6)
+        ),
+        url(background.jpg);
+        background-size: cover;
+}
+</style>
+<h1 style="margin-left: 20px">Saint Nicolais Resort</h1>
+<br><br>
+<div>
+    <div class="card" style="width: 20rem; padding: 20px 30px; margin: 10px; display: inline-block">
+        <div class="card-body">
+            <h4 class="card-title">Rooms availability</h4>
+            <p class="card-text">
+                There are
+                <span class="badge">5</span>
+                rooms available<br>and
+                <span class="badge">10</span>
+                rooms occupied
+            </p>
+            <a class="btn btn-primary">Show rooms</a>
+        </div>
+    </div>
+    <div class="card" style="width: 20rem; padding: 20px 30px; margin: 10px; display: inline-block">
+        <div class="card-body">
+            <h4 class="card-title">Guests arriving today</h4>
+            <p class="card-text">There are
+            <span class="badge" id="guests-arriving"></span>
+            guests arriving today</p>
+            <a class="btn btn-primary" onclick="showGuests();" id="showGuests" style="display: block">Show guests</a>
+            <a class="btn btn-secondary" onclick="hideGuests();" id="hideGuests" style="display: none">Hide guests</a>
+        </div>
+    </div>
+</div>
+<div id="guest-list" class="card" style="width: 20rem; padding: 20px 30px; margin: 10px; display: none">
+    <h4>Guests arriving today</h4>
+    <div class="card-body">
+        <ul id="guest-list-table">
+        </ul>
+    </div>
+</div>
 {{>footer}}
