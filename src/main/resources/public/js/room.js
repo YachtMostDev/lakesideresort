@@ -19,9 +19,7 @@ function setErrorRoomnumberDiv(){
 }
 function resetRoomnumberDiv(){
     $("#roomnumberdiv").removeClass('has-error has-feedback');
-//    $(".roomnumber").addClass('class', 'form-group');
 }
-
 function createRoomDiv(){
     $("#modal-title").html("Create Room");
     $("#roomnumber").val("");
@@ -119,14 +117,7 @@ function onDocumentReady(){
     });
     $("#roomnumber").keyup(function () {
         resetRoomnumberDiv();
-//            var VAL = this.value;
-
-//            var email = new RegExp('^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,4}$');
-
-//            if (email.test(VAL)) {
-//                alert('Great, you entered an E-Mail-address');
-//            }
-        });
+    });
 }
 function apiLoadDatatables(){
     var api = baseURL;
@@ -185,15 +176,12 @@ function apiPostRoom(data){
         data: JSON.stringify(data),
         contentType: "application/json",
         success: function(response){
-            console.log("post room result:")
             if (response){
                 hideRoomModal();
                 apiLoadDatatables();
             } else {
-                //alert("Roomnumber already exists");
                 setErrorRoomnumberDiv();
             }
-
         },
         error: function(req, status, err){
             console.log("Error during POST");
