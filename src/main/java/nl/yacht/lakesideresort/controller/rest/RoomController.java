@@ -5,9 +5,11 @@ import nl.yacht.lakesideresort.domain.Room;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.management.InstanceAlreadyExistsException;
+
 @RestController
 @RequestMapping("/api/room")
-public class RoomController {
+public class RoomController{
     @Autowired
     private RoomRepository roomRepository;
 
@@ -24,8 +26,14 @@ public class RoomController {
 
 
     @RequestMapping(method = RequestMethod.POST)
-    public void insertRoom(@RequestBody Room r){
-	    roomRepository.save(r);
+    public boolean insertRoom(@RequestBody Room r){
+    	Room foundRoom = roomRepository.findByRoomNumber(r.getRoomNumber());
+    	if (foundRoom == null){
+		    roomRepository.save(r);
+		    return true;
+	    }
+	    return false;
+
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.PUT)
