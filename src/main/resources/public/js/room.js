@@ -13,6 +13,15 @@ function roomToTable(room){
 }
 
 // GENERAL FUNCTIONS
+function setErrorRoomnumberDiv(){
+    console.log("setting ")
+    $("#roomnumberdiv").addClass('has-error has-feedback');
+}
+function resetRoomnumberDiv(){
+    $("#roomnumberdiv").removeClass('has-error has-feedback');
+//    $(".roomnumber").addClass('class', 'form-group');
+}
+
 function createRoomDiv(){
     $("#modal-title").html("Create Room");
     $("#roomnumber").val("");
@@ -34,7 +43,12 @@ function fillUpdateModal(room){
     $("#modal-title").html("Update Room");
     $("#confirmbutton").css('display', 'inline-block');
     var elem = '<button type="button" class="btn btn-danger" onclick="apiDeleteRoom(' + room.id + ');">Confirm delete</button>';
-    $('#confirmbutton').popover({animation:true, content:elem, html:true});
+    $('#confirmbutton').popover({
+        animation:true,
+        content:elem,
+        html:true,
+        container:myModal
+    });
 }
 function confirmDelete(id){
     var msg = "Delete room: " + id + "?"
@@ -103,6 +117,16 @@ function onDocumentReady(){
         autoclose: true,
         format: 'yyyy-mm-dd'
     });
+    $("#roomnumber").keyup(function () {
+        resetRoomnumberDiv();
+//            var VAL = this.value;
+
+//            var email = new RegExp('^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,4}$');
+
+//            if (email.test(VAL)) {
+//                alert('Great, you entered an E-Mail-address');
+//            }
+        });
 }
 function apiLoadDatatables(){
     var api = baseURL;
@@ -161,8 +185,15 @@ function apiPostRoom(data){
         data: JSON.stringify(data),
         contentType: "application/json",
         success: function(response){
-            hideRoomModal();
-            apiLoadDatatables();
+            console.log("post room result:")
+            if (response){
+                hideRoomModal();
+                apiLoadDatatables();
+            } else {
+                //alert("Roomnumber already exists");
+                setErrorRoomnumberDiv();
+            }
+
         },
         error: function(req, status, err){
             console.log("Error during POST");
