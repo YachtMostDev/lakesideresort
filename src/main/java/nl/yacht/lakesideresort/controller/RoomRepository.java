@@ -11,6 +11,7 @@ import java.util.Map;
 
 @Repository
 public interface RoomRepository extends CrudRepository<Room, Long>{
+	Room findByRoomNumber(int roomNumber);
 //    private Map<Integer, Room> roomMap = new HashMap<>();
 //
 //    public Room insertRoom(Room room){
