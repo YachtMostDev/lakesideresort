@@ -108,7 +108,7 @@ function onDocumentReady(){
             var table = $('#roomtable').DataTable();
             var data = table.row( this ).data();
             apiGetSingleRoom(data.id);
-            setRoom(data.id);
+            prepareCalendar(data.id);
         }
     });
     apiLoadDatatables();
