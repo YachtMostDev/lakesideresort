@@ -52,6 +52,9 @@ function processFormPost(){
     var gn = $("#guestNumber").val();
     var rn = $("#roomnumber").val();
 
+    var startDate = $("#dateStart").val();
+    var endDate = $("#dateEnd").val();
+
     var guest = {
         "guestNumber" : gn
     }
@@ -62,7 +65,9 @@ function processFormPost(){
 
     var booking = {
         "guest" : guest,
-        "room" : room
+        "room" : room,
+        "startDate" : startDate,
+         "endDate" : endDate
     }
 // console.log(JSON.stringify(booking));
 //    console.log("apiPostBooking with obj: " + JSON.stringify(room));
@@ -78,6 +83,9 @@ function processFormPut(id){
     var roomid = apiFindRoomIdByRoomNumber(rn);//find room by roomnumber
    // console.log('found room id: ' + roomid);
 
+    var startDate = $("#dateStart").val();
+    var endDate = $("#dateEnd").val();
+
     var guest = {
         "guestNumber" : gn
     }
@@ -88,7 +96,9 @@ function processFormPut(id){
 
     var booking = {
         "guest" : guest,
-        "room" : room
+        "room" : room,
+        "startDate" : startDate,
+        "endDate" : endDate
     }
 //    console.log("api put: " + id + "  " + JSON.stringify(booking));
     apiPutBooking(id, booking);
@@ -110,6 +120,14 @@ function onDocumentReady(){
         { "data": "room.roomNumber" }
                  ]
     });
+     $('#datePickerStart').datepicker({
+            autoclose: true,
+            format: 'yyyy-mm-dd'
+        });
+     $('#datePickerEnd').datepicker({
+            autoclose: true,
+            format: 'yyyy-mm-dd'
+        });
     $('#bookingtable tbody').on( 'click', 'tr', function () {
         if ( $(this).hasClass('selected') ) {
             $(this).removeClass('selected');
@@ -152,8 +170,11 @@ function apiGetBooking(id){
 //            $("#booking-div-title").html("Update Booking");
 //            console.log('data for update: ' + JSON.stringify(data));
 //            console.log('data for update: ' + JSON.stringify(data));
-           // console.log("got data:");
-           // console.log(data);
+         //   console.log("got data:");
+         //   console.log(data);
+            data.startDate = "" + data.startDate.year + "-" + zeroPad(data.startDate.monthValue, 2) + "-" + zeroPad(data.startDate.dayOfMonth, 2);
+            data.endDate = "" + data.endDate.year + "-" + zeroPad(data.endDate.monthValue, 2) + "-" + zeroPad(data.endDate.dayOfMonth, 2);
+
             fillUpdateModal(data);
         }
     });
