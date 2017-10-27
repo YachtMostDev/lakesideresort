@@ -31,7 +31,7 @@ function fillUpdateModal(booking){
     $("#btnsubmit").attr('onclick', 'processFormPut(' + booking.bookingnumber + ');');
     $("#bookingnumber").val(booking.bookingnumber);
     $("#guestNumber").val(booking.guest.guestNumber);
-    $("#roomnumber").val(booking.room.id);
+    $("#roomnumber").val(booking.room.roomNumber);
     $("#modal-title").html("Update Booking");
     $("#confirmbutton").css('display', 'inline-block');
     deleteID = booking.bookingnumber;
@@ -75,12 +75,15 @@ function processFormPut(id){
     var gn = $("#guestNumber").val();
     var rn = $("#roomnumber").val();
 
+    var roomid = apiFindRoomIdByRoomNumber(rn);//find room by roomnumber
+   // console.log('found room id: ' + roomid);
+
     var guest = {
         "guestNumber" : gn
     }
 
     var room = {
-        "id" : rn
+        "id" : roomid
     }
 
     var booking = {
@@ -101,7 +104,9 @@ function onDocumentReady(){
     dataTable = $('#bookingtable').DataTable({
         columns: [
         { "data": "bookingnumber" },
-        { "data": "guest.guestNumber" },
+        { "data": function(data, type, dataToSet){
+            return data.guest.surName + "," + data.guest.firstName;
+        }},
         { "data": "room.roomNumber" }
                  ]
     });
@@ -116,7 +121,7 @@ function onDocumentReady(){
             var table = $('#bookingtable').DataTable();
             var data = table.row( this ).data();
 
-            console.log("selected row: " + JSON.stringify(data));
+           // console.log("selected row: " + JSON.stringify(data));
             apiGetBooking(data.bookingnumber);
             // get booking and show modal with correct values
         }
@@ -129,7 +134,7 @@ function apiLoadDatatables(){
 
     $.get(api, function (dataSet) {
 
-        console.log("Adding dataset to table: \n" + JSON.stringify(dataSet));
+       // console.log("Adding dataset to table: \n" + JSON.stringify(dataSet));
         $("#bookingtable").DataTable().clear();
         $("#bookingtable").DataTable().rows.add(dataSet);
         $("#bookingtable").DataTable().columns.adjust().draw();
@@ -147,8 +152,8 @@ function apiGetBooking(id){
 //            $("#booking-div-title").html("Update Booking");
 //            console.log('data for update: ' + JSON.stringify(data));
 //            console.log('data for update: ' + JSON.stringify(data));
-            console.log("got data:");
-            console.log(data);
+           // console.log("got data:");
+           // console.log(data);
             fillUpdateModal(data);
         }
     });
@@ -216,4 +221,17 @@ function apiPutBooking(id, data){
             apiLoadDatatables();
         }
     });
+}
+function apiFindRoomIdByRoomNumber(rn){
+    var roomid = -1;
+    $.ajax({
+        url: 'http://localhost:8080/api/room/search/' + rn,
+        type: "GET",
+        async: false,
+        success: function(response){
+          //  console.log('search result: ' + response);
+            roomid = response;
+        }
+    });
+    return roomid;
 }
