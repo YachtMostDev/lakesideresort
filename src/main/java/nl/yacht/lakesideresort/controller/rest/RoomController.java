@@ -18,6 +18,11 @@ public class RoomController{
     	Iterable<Room> list = roomRepository.findAll();
         return list;
     }
+    @RequestMapping(value = "/search/{roomnumber}", method = RequestMethod.GET)
+    public long findRoomByRoomNumber(@PathVariable int roomnumber){
+        Room r = roomRepository.findByRoomNumber(roomnumber);
+        return r.getId();
+    }
 
     @RequestMapping(value="{id}", method = RequestMethod.GET)
     public Room getSingleRoom(@PathVariable long id){

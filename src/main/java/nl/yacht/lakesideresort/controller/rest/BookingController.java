@@ -35,12 +35,21 @@ public class BookingController {
 
     @RequestMapping(method = RequestMethod.POST)
     public void insertBooking(@RequestBody Booking b) {
-        if(b == null)throw new NotFoundException();
+        if(b == null) {
+            System.out.println("bookin is null");
+            throw new NotFoundException();
+        }
         Guest foundGuest = guestRepository.findOne(b.getGuest().getGuestNumber());
-        if(foundGuest == null) throw new NotFoundException();
+        if(foundGuest == null) {
+            System.out.println("guest is null");
+            throw new NotFoundException();
+        }
         b.setGuest(foundGuest);
         Room foundRoom = roomRepository.findOne(b.getRoom().getId());
-        if(foundRoom == null) throw new NotFoundException();
+        if(foundRoom == null) {
+            System.out.println("room is null");
+            throw new NotFoundException();
+        }
         b.setRoom(foundRoom);
         bookingRepository.save(b);
     }
