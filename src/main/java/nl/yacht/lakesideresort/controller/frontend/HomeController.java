@@ -25,4 +25,9 @@ public class HomeController {
     public String room(Map<String, Object> model){
         return "room";
     }
+
+    @RequestMapping(value="/booking", method= RequestMethod.GET)
+    public String booking(){
+        return "booking";
+    }
 }
