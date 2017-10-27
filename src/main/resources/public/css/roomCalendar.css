@@ -1,0 +1,69 @@
+.fullSize{
+    width:100%;
+    height:100%;
+}
+
+.calendarBody{
+    height: 175px;
+}
+
+.containerContainer{
+    text-align:center;
+    margin-top:30px;
+}
+
+.calendarButton{
+    border: 0;
+    background-color: #337ab7;
+    color: #fff;
+}
+
+.calendarButton:hover{
+    background-color: #245c8c;
+}
+
+#calendarContainer{
+    width: 175px;
+    text-align: center;
+    margin: auto;
+}
+
+#calendarContainer a, #calendarContainer a:hover, #calendarContainer a:active, #calendarContainer a:visited{
+    text-decoration: none;
+    color:#000;
+}
+
+.calendarHeader{
+    display: flex;
+}
+
+.dateInfo{
+    width: 100%
+}
+
+td{
+    width: 25px;
+    height: 25px;
+}
+
+.red{
+    background-color: rgb(153, 0, 0);
+    transition: background-color 0.3s;
+}
+
+#calendarContainer .red a{
+    color:#fff;
+}
+
+.red:hover{
+    background-color: rgb(255, 0, 0);
+}
+
+#month{
+    text-transform: lowercase;
+    background-color: #c0cce5;
+}
+
+#year{
+    background-color: #a2aec7;
+}

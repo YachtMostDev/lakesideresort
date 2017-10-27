@@ -1,6 +1,8 @@
 {{>header}}
 {{>navigation}}
 <script src="../js/room.js"></script>
+<script src="../js/roomCalendar.js"></script>
+<link rel="stylesheet" href="../css/roomCalendar.css">
 <style>
     #confirmbutton {
         display: none;
@@ -87,6 +89,33 @@
                             </div>
                         </div>
                     </form>
+
+                    <div class="containerContainer">
+                        <div id="calendarContainer" >
+                            <div class="calendarHeader">
+                                <button class="calendarButton" id="lastMonth" onclick="lastMonth()"><</button>
+                                <div class="dateInfo">
+                                    <div id="year"></div>
+                                    <div id="month"></div>
+                                </div>
+                                <button class="calendarButton" id="nextMonth" onclick="nextMonth()">></button>
+                            </div>
+                            <div class="calendarBody">
+
+                                <table id="calendar">
+                                    <tr>
+                                        <td>Mo</td>
+                                        <td>Tu</td>
+                                        <td>We</td>
+                                        <td>Th</td>
+                                        <td>Fr</td>
+                                        <td>Sa</td>
+                                        <td>So</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" id="btnsubmit">Submit</button>
