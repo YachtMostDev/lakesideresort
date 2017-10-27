@@ -1,7 +1,7 @@
 package nl.yacht.lakesideresort.domain;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
 
 @Entity
 public class Booking {
@@ -13,6 +13,8 @@ public class Booking {
     private Guest guest;
     @ManyToOne
     private Room room;
+    private LocalDate startDate;
+    private LocalDate endDate;
 
     public Booking() { //default constructor
     }
@@ -43,5 +45,28 @@ public class Booking {
 
     public void setRoom(Room room) {
         this.room = room;
+    }
+
+    public LocalDate getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = startDate;
+    }
+
+    public void setStartDate(String startDate) {
+        this.startDate = LocalDate.parse(startDate);
+    }
+
+    public LocalDate getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(LocalDate endDate) {
+        this.endDate = endDate;
+    }
+    public void setEndDate(String endDate) {
+        this.endDate = LocalDate.parse(endDate);
     }
 }

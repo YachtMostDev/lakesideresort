@@ -1,5 +1,6 @@
 // OBJECT CONVERTERS
 var baseURL = "http://localhost:8080/api/room/";
+var deleteID = -1;
 function roomToTable(room){
     var result = "<tr>";
     result += "<td>DB ID</td>";
@@ -13,6 +14,13 @@ function roomToTable(room){
 }
 
 // GENERAL FUNCTIONS
+function setErrorRoomnumberDiv(){
+    console.log("setting ")
+    $("#roomnumberdiv").addClass('has-error has-feedback');
+}
+function resetRoomnumberDiv(){
+    $("#roomnumberdiv").removeClass('has-error has-feedback');
+}
 function createRoomDiv(){
     $("#modal-title").html("Create Room");
     $("#roomnumber").val("");
@@ -33,8 +41,14 @@ function fillUpdateModal(room){
     $("#date").val(room.availableFrom);
     $("#modal-title").html("Update Room");
     $("#confirmbutton").css('display', 'inline-block');
-    var elem = '<button type="button" class="btn btn-danger" onclick="apiDeleteRoom(' + room.id + ');">Confirm delete</button>';
-    $('#confirmbutton').popover({animation:true, content:elem, html:true});
+    deleteID = room.id;
+    var elem = '<button type="button" class="btn btn-danger" onclick="apiDeleteRoom();">Confirm delete</button>';
+    $('#confirmbutton').popover({
+        animation:true,
+        content:elem,
+        html:true,
+        container:myModal
+    });
 }
 function confirmDelete(id){
     var msg = "Delete room: " + id + "?"
@@ -103,6 +117,9 @@ function onDocumentReady(){
         autoclose: true,
         format: 'yyyy-mm-dd'
     });
+    $("#roomnumber").keyup(function () {
+        resetRoomnumberDiv();
+    });
 }
 function apiLoadDatatables(){
     var api = baseURL;
@@ -143,16 +160,18 @@ function apiLoadRooms() {
 		}
 	});
 }
-function apiDeleteRoom(id){
-    var api = baseURL + id;
-    $.ajax({
-        url: api,
-        type: 'DELETE',
-        success: function(response){
-            hideRoomModal()
-            apiLoadDatatables();
-        }
-    });
+function apiDeleteRoom(){
+    if (deleteID > -1){
+        var api = baseURL + deleteID;
+        $.ajax({
+            url: api,
+            type: 'DELETE',
+            success: function(response){
+                hideRoomModal()
+                apiLoadDatatables();
+            }
+        });
+    }
 }
 function apiPostRoom(data){
     $.ajax ({
@@ -161,8 +180,12 @@ function apiPostRoom(data){
         data: JSON.stringify(data),
         contentType: "application/json",
         success: function(response){
-            hideRoomModal();
-            apiLoadDatatables();
+            if (response){
+                hideRoomModal();
+                apiLoadDatatables();
+            } else {
+                setErrorRoomnumberDiv();
+            }
         },
         error: function(req, status, err){
             console.log("Error during POST");
