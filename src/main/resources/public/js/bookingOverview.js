@@ -91,14 +91,18 @@ function refresh(){
 
 function buildOverview(table, input){
 // Create headers
+    var from = moment(new Date()).startOf('month');
+    var to = moment(from).endOf('month');
+
     var head = $("<thead></thead>");
     head.append("<td>Rooms</td>");
     table.append(head);
 
     // Create numbered headers
     var firstRoom = Object.values(input)[0];
-    for(var day in firstRoom){
-        head.append("<td>" + day + "</td>");
+
+    for(from = moment(new Date()).startOf('month');from <= to; from.add(1,"day")){
+        head.append("<td>" + from.date() + "</td>");
     }
 
     // Create body
@@ -111,10 +115,11 @@ function buildOverview(table, input){
         tr.append("<td>" + roomNumber + "</td>");
 
         var room = input[roomNumber];
-        for(var day in room){
+        console.log(room);
+        for(from = moment(new Date()).startOf('month');from <= to; from.add(1,"day")){
             var td = $("<td></td>");
 
-            var booked = room[day];
+            var booked = room[from.toISOString().slice(0,10)];
             if(booked) td.addClass("booked");
 
             tr.append(td);
