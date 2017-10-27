@@ -35,12 +35,21 @@ public class BookingController {
 
     @RequestMapping(method = RequestMethod.POST)
     public void insertBooking(@RequestBody Booking b) {
-        if(b == null)throw new NotFoundException();
+        if(b == null) {
+            System.out.println("bookin is null");
+            throw new NotFoundException();
+        }
         Guest foundGuest = guestRepository.findOne(b.getGuest().getGuestNumber());
-        if(foundGuest == null) throw new NotFoundException();
+        if(foundGuest == null) {
+            System.out.println("guest is null");
+            throw new NotFoundException();
+        }
         b.setGuest(foundGuest);
         Room foundRoom = roomRepository.findOne(b.getRoom().getId());
-        if(foundRoom == null) throw new NotFoundException();
+        if(foundRoom == null) {
+            System.out.println("room is null");
+            throw new NotFoundException();
+        }
         b.setRoom(foundRoom);
         bookingRepository.save(b);
     }
@@ -48,8 +57,19 @@ public class BookingController {
     @RequestMapping(value = "{id}",method = RequestMethod.PUT)
     public void changeBooking(@PathVariable long id, @RequestBody Booking b){
         if(b == null)throw new NotFoundException();
-        if(bookingRepository.exists(id)){
-            bookingRepository.save(b);
+        Booking foundBooking = bookingRepository.findOne(id);
+        if (foundBooking != null){
+            Guest g = guestRepository.findOne(b.getGuest().getGuestNumber());
+            if (g != null){
+                foundBooking.setGuest(b.getGuest());
+            }
+            Room r = roomRepository.findOne(b.getRoom().getId());
+            if (r != null){
+                foundBooking.setRoom(r);
+            }
+            foundBooking.setStartDate(b.getStartDate());
+            foundBooking.setEndDate(b.getEndDate());
+            bookingRepository.save(foundBooking);
         }
     }
 
