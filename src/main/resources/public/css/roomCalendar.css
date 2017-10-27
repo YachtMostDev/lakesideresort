@@ -7,6 +7,11 @@
     height: 175px;
 }
 
+.containerContainer{
+    text-align:center;
+    margin-top:30px;
+}
+
 .calendarButton{
     border: 0;
     background-color: #337ab7;
