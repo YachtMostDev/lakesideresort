@@ -67,16 +67,27 @@ var input = {
     }
 };
 
+var from;
+var table;
+
 $(document).ready(function(){
+    table = $("#booking-overview");
+    refresh();
+});
+
+function refresh(){
+    table.innerHTML = '';
+
     // Get current month
     var from = moment(new Date()).startOf('month');
     var to = moment(from).endOf('month');
 
     var url = "/api/availability/all/" + from.toISOString().slice(0,10) + ":" + to.toISOString().slice(0,10);
 
-    var table = $("#booking-overview");
-    buildOverview(table, input);
-});
+    $.get(url, function (input) {
+        buildOverview(table, input);
+    });
+}
 
 function buildOverview(table, input){
 // Create headers
