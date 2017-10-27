@@ -17,6 +17,8 @@ function createBookingDiv(){
     $("#modal-title").html("Create Booking");
     $("#bookingnumber").val("");
     $("#guestNumber").val("");
+    $("#dateStart").val("");
+    $("#dateEnd").val("");
     $("#roomnumber").val("");
     $("#btnsubmit").attr('onclick', 'processFormPost();');
     $("#confirmbutton").css('display', 'none');
@@ -54,23 +56,23 @@ function processFormPost(){
 
     var startDate = $("#dateStart").val();
     var endDate = $("#dateEnd").val();
-
+    var roomid = apiFindRoomIdByRoomNumber(rn);//find room by roomnumber
     var guest = {
         "guestNumber" : gn
     }
 
     var room = {
-        "id" : rn
+        "id" : roomid
     }
 
     var booking = {
         "guest" : guest,
         "room" : room,
         "startDate" : startDate,
-         "endDate" : endDate
+        "endDate" : endDate
     }
-// console.log(JSON.stringify(booking));
-//    console.log("apiPostBooking with obj: " + JSON.stringify(room));
+ console.log(JSON.stringify(booking));
+   // console.log("apiPostBooking with obj: " + JSON.stringify(room));
     apiPostBooking(booking);
 }
 
@@ -210,6 +212,7 @@ if (deleteID > -1){
     }
 }
 function apiPostBooking(data){
+console.log(JSON.stringify(data));
     $.ajax ({
         url: 'http://localhost:8080/api/booking',
         type: "POST",
