@@ -91,6 +91,8 @@ function refresh(){
     from.add(monthOffset, 'month');
     var to = moment(from).endOf('month');
 
+    $("#month").text(from.format('MMMM'));
+
     var url = "/api/availability/all/" + from.toISOString().slice(0,10) + ":" + to.toISOString().slice(0,10);
 
     $.get(url, function (input) {
