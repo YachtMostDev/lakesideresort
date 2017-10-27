@@ -28,6 +28,7 @@ function createRoomDiv(){
     $("#date").val("");
     $("#btnsubmit").attr('onclick', 'processFormPost();');
     $("#confirmbutton").css('display', 'none');
+    $("#calendarContainer").css('display', 'none');
 }
 function hideRoomModal(){
     $('#myModal').modal('toggle');
@@ -40,6 +41,7 @@ function fillUpdateModal(room){
     $("#date").val(room.availableFrom);
     $("#modal-title").html("Update Room");
     $("#confirmbutton").css('display', 'inline-block');
+    $("#calendarContainer").css('display', 'inline-block');
     var elem = '<button type="button" class="btn btn-danger" onclick="apiDeleteRoom(' + room.id + ');">Confirm delete</button>';
     $('#confirmbutton').popover({
         animation:true,
@@ -132,7 +134,6 @@ function apiLoadDatatables(){
             $("#roomtable").DataTable().rows.add(dataSet);
             $("#roomtable").DataTable().columns.adjust().draw();
         }
-
     });
 }
 function apiGetSingleRoom(id){

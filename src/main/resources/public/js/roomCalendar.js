@@ -1,9 +1,15 @@
 var monthDifference = 0;
 var roomId;
 var roomData;
-var monthNames = ["January", "February", "March", "April", "May", "June",
-  "July", "August", "September", "October", "November", "December"
+var monthNames = ["JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE",
+  "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER"
 ];
+
+/**Increase efficiency by:
+    - getting only the relevant information (startDate, endDate and id's)
+    - creating a roomlist with only relevant information
+    - creating a get in which you only get the room corresponding with the given id
+**/
 
 function prepareCalendar(id){
 
@@ -11,14 +17,12 @@ function prepareCalendar(id){
 
     $.ajax({
         type: "GET",
-        url:"/api/booking",
+        url:"/api/booking/",
         dataType: 'json',
         async:true,
         success: function(data) {
+            monthDifference = 0;
             drawCalendar(id, data);
-            //console.log(booking[0].guest);
-            //console.log(booking[0].startDate);
-            //console.log(booking[1].startDate);
         }
     });
 }
@@ -34,34 +38,23 @@ function drawCalendar(id, data){
 
     roomData = data;
     today.setMonth(today.getMonth()+monthDifference);
-    var month = monthNames[today.getMonth()%12]
-    document.getElementById("month").innerHTML = month;
+    var currentMonth = today.getMonth()%12;
+
+    document.getElementById("month").innerHTML = monthNames[currentMonth];
     document.getElementById("year").innerHTML = today.getFullYear();
     deleteRows();
 
-    //console.log(roomData);
-
-    //console.log("year: " + (roomData[0].startDate.year == today.getFullYear()));
-    //console.log(roomData[0].startDate.year);
-    //console.log(today.getFullYear());
-
-    //console.log("month: " + (roomData[0].startDate.month == month.toUpperCase()));
-    //console.log(month.toUpperCase());
-    //console.log(roomData[0].startDate.month);
-
-    //console.log("day: " + (roomData[0].startDate.dayOfMonth == today.getDate()));
-    //console.log(roomData[0].startDate.dayOfMonth);
-    //console.log(today.getDate());
-    //console.log(id);
-    //console.log(roomData[0].room.id);
-
     var roomList = [];
 
-    for (i=0; i < roomData.length; i++){
-        if (roomData[i].room.id == id){
-            if ((roomData[i].startDate.year == today.getFullYear()) || (roomData[i].endDate.year == today.getFullYear()) ){
-                if( (roomData[i].startDate.month == month.toUpperCase()) || (roomData[i].endDate.month == month.toUpperCase()) ){
-                    //console.log(roomData[i]);
+    if (roomData != null){
+        for (i=0; i < roomData.length; i++){
+            var startDate = (new Date(roomData[i].startDate.year, monthNames.indexOf(roomData[i].startDate.month), roomData[i].startDate.dayOfMonth)).getMonth();
+            var endDate = (new Date(roomData[i].endDate.year, monthNames.indexOf(roomData[i].endDate.month), roomData[i].endDate.dayOfMonth)).getMonth();
+            var month = today.getMonth();
+
+            if (roomData[i].room.id == id){
+                if (startDate <= month && endDate >= month){
+                    console.log(roomData[i]);
                     roomList.push(roomData[i]);
                 }
             }
@@ -76,17 +69,24 @@ function drawCalendar(id, data){
         var td = document.createElement("td");
         var a = document.createElement("a");
         var div = document.createElement("div");
-        for(i=0; i < roomList.length; i++){
-            if(index >= roomData[0].startDate.dayOfMonth && index <= index)
-            {
-                td.className = "red";
+        if (index - start > 0){
+            for(i=0; i < roomList.length; i++){
+                var startDate = new Date(roomData[i].startDate.year, monthNames.indexOf(roomData[i].startDate.month), roomData[i].startDate.dayOfMonth);
+                var endDate = new Date(roomData[i].endDate.year, monthNames.indexOf(roomData[i].endDate.month), roomData[i].endDate.dayOfMonth);
+                var currentDate = new Date(today.getFullYear(), today.getMonth(), index-start);
+                if(startDate <= currentDate && endDate >= currentDate){
+                    td.className = "red";
+                    a.href = "#";
+                }
             }
         }
         row.appendChild(td);
+        td.appendChild(a);
         div.className = "fullSize";
-        td.appendChild(a)
-        a.href = "#";
         div.innerHTML = (index - start < 1)? "": index-start;
+        if (index - start < 1){
+            td.className = "unavailable";
+        }
         a.appendChild(div);
         if(index % 7 == 0){
            row.className = "tableRow";

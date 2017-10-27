@@ -89,6 +89,33 @@
                             </div>
                         </div>
                     </form>
+
+                    <div style="text-align:center">
+                        <div id="calendarContainer" >
+                            <div class="calendarHeader">
+                                <button class="calendarButton" id="lastMonth" onclick="lastMonth()"><</button>
+                                <div class="dateInfo">
+                                    <div id="year"></div>
+                                    <div id="month"></div>
+                                </div>
+                                <button class="calendarButton" id="nextMonth" onclick="nextMonth()">></button>
+                            </div>
+                            <div class="calendarBody">
+
+                                <table id="calendar">
+                                    <tr>
+                                        <td>Mo</td>
+                                        <td>Tu</td>
+                                        <td>We</td>
+                                        <td>Th</td>
+                                        <td>Fr</td>
+                                        <td>Sa</td>
+                                        <td>So</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" id="btnsubmit">Submit</button>
@@ -96,31 +123,6 @@
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>
             </div>
-        </div>
-    </div>
-
-    <div id="calendarContainer" >
-        <div class="calendarHeader">
-            <button class="btn btn-primary" id="lastMonth" onclick="lastMonth()"><</button>
-            <div class="dateInfo">
-                <div id="year"></div>
-                <div id="month"></div>
-            </div>
-            <button class="btn btn-primary" id="nextMonth" onclick="nextMonth()">></button>
-        </div>
-        <div class="calendarBody">
-
-            <table id="calendar">
-                <tr>
-                    <td>Mo</td>
-                    <td>Tu</td>
-                    <td>We</td>
-                    <td>Th</td>
-                    <td>Fr</td>
-                    <td>Sa</td>
-                    <td>So</td>
-                </tr>
-            </table>
         </div>
     </div>
 </div>
