@@ -30,8 +30,8 @@ $(document).ready(function(){
                     availableRooms.push(key);
                 }
             }
-            document.getElementById("rooms-available").innerHTML = occupiedRooms.length;
-            document.getElementById("rooms-occupied").innerHTML = availableRooms.length;
+            document.getElementById("rooms-occupied").innerHTML = occupiedRooms.length;
+            document.getElementById("rooms-available").innerHTML = availableRooms.length;
         }
     });
 });
