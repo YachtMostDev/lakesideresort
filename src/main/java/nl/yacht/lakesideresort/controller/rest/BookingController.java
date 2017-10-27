@@ -58,6 +58,8 @@ public class BookingController {
             if (r != null){
                 foundBooking.setRoom(r);
             }
+            foundBooking.setStartDate(b.getStartDate());
+            foundBooking.setEndDate(b.getEndDate());
             bookingRepository.save(foundBooking);
         }
     }
