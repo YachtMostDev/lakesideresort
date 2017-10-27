@@ -17,6 +17,8 @@ function createBookingDiv(){
     $("#modal-title").html("Create Booking");
     $("#bookingnumber").val("");
     $("#guestNumber").val("");
+    $("#dateStart").val("");
+    $("#dateEnd").val("");
     $("#roomnumber").val("");
     $("#btnsubmit").attr('onclick', 'processFormPost();');
     $("#confirmbutton").css('display', 'none');
@@ -31,7 +33,7 @@ function fillUpdateModal(booking){
     $("#btnsubmit").attr('onclick', 'processFormPut(' + booking.bookingnumber + ');');
     $("#bookingnumber").val(booking.bookingnumber);
     $("#guestNumber").val(booking.guest.guestNumber);
-    $("#roomnumber").val(booking.room.id);
+    $("#roomnumber").val(booking.room.roomNumber);
     $("#modal-title").html("Update Booking");
     $("#confirmbutton").css('display', 'inline-block');
     deleteID = booking.bookingnumber;
@@ -52,20 +54,25 @@ function processFormPost(){
     var gn = $("#guestNumber").val();
     var rn = $("#roomnumber").val();
 
+    var startDate = $("#dateStart").val();
+    var endDate = $("#dateEnd").val();
+    var roomid = apiFindRoomIdByRoomNumber(rn);//find room by roomnumber
     var guest = {
         "guestNumber" : gn
     }
 
     var room = {
-        "id" : rn
+        "id" : roomid
     }
 
     var booking = {
         "guest" : guest,
-        "room" : room
+        "room" : room,
+        "startDate" : startDate,
+        "endDate" : endDate
     }
-// console.log(JSON.stringify(booking));
-//    console.log("apiPostBooking with obj: " + JSON.stringify(room));
+ console.log(JSON.stringify(booking));
+   // console.log("apiPostBooking with obj: " + JSON.stringify(room));
     apiPostBooking(booking);
 }
 
@@ -75,17 +82,25 @@ function processFormPut(id){
     var gn = $("#guestNumber").val();
     var rn = $("#roomnumber").val();
 
+    var roomid = apiFindRoomIdByRoomNumber(rn);//find room by roomnumber
+   // console.log('found room id: ' + roomid);
+
+    var startDate = $("#dateStart").val();
+    var endDate = $("#dateEnd").val();
+
     var guest = {
         "guestNumber" : gn
     }
 
     var room = {
-        "id" : rn
+        "id" : roomid
     }
 
     var booking = {
         "guest" : guest,
-        "room" : room
+        "room" : room,
+        "startDate" : startDate,
+        "endDate" : endDate
     }
 //    console.log("api put: " + id + "  " + JSON.stringify(booking));
     apiPutBooking(id, booking);
@@ -101,10 +116,20 @@ function onDocumentReady(){
     dataTable = $('#bookingtable').DataTable({
         columns: [
         { "data": "bookingnumber" },
-        { "data": "guest.guestNumber" },
+        { "data": function(data, type, dataToSet){
+            return data.guest.surName + "," + data.guest.firstName;
+        }},
         { "data": "room.roomNumber" }
                  ]
     });
+     $('#datePickerStart').datepicker({
+            autoclose: true,
+            format: 'yyyy-mm-dd'
+        });
+     $('#datePickerEnd').datepicker({
+            autoclose: true,
+            format: 'yyyy-mm-dd'
+        });
     $('#bookingtable tbody').on( 'click', 'tr', function () {
         if ( $(this).hasClass('selected') ) {
             $(this).removeClass('selected');
@@ -116,7 +141,7 @@ function onDocumentReady(){
             var table = $('#bookingtable').DataTable();
             var data = table.row( this ).data();
 
-            console.log("selected row: " + JSON.stringify(data));
+           // console.log("selected row: " + JSON.stringify(data));
             apiGetBooking(data.bookingnumber);
             // get booking and show modal with correct values
         }
@@ -129,7 +154,7 @@ function apiLoadDatatables(){
 
     $.get(api, function (dataSet) {
 
-        console.log("Adding dataset to table: \n" + JSON.stringify(dataSet));
+       // console.log("Adding dataset to table: \n" + JSON.stringify(dataSet));
         $("#bookingtable").DataTable().clear();
         $("#bookingtable").DataTable().rows.add(dataSet);
         $("#bookingtable").DataTable().columns.adjust().draw();
@@ -147,8 +172,11 @@ function apiGetBooking(id){
 //            $("#booking-div-title").html("Update Booking");
 //            console.log('data for update: ' + JSON.stringify(data));
 //            console.log('data for update: ' + JSON.stringify(data));
-            console.log("got data:");
-            console.log(data);
+         //   console.log("got data:");
+         //   console.log(data);
+            data.startDate = "" + data.startDate.year + "-" + zeroPad(data.startDate.monthValue, 2) + "-" + zeroPad(data.startDate.dayOfMonth, 2);
+            data.endDate = "" + data.endDate.year + "-" + zeroPad(data.endDate.monthValue, 2) + "-" + zeroPad(data.endDate.dayOfMonth, 2);
+
             fillUpdateModal(data);
         }
     });
@@ -184,6 +212,7 @@ if (deleteID > -1){
     }
 }
 function apiPostBooking(data){
+console.log(JSON.stringify(data));
     $.ajax ({
         url: 'http://localhost:8080/api/booking',
         type: "POST",
@@ -216,4 +245,17 @@ function apiPutBooking(id, data){
             apiLoadDatatables();
         }
     });
+}
+function apiFindRoomIdByRoomNumber(rn){
+    var roomid = -1;
+    $.ajax({
+        url: 'http://localhost:8080/api/room/search/' + rn,
+        type: "GET",
+        async: false,
+        success: function(response){
+          //  console.log('search result: ' + response);
+            roomid = response;
+        }
+    });
+    return roomid;
 }

@@ -29,6 +29,7 @@ function createRoomDiv(){
     $("#date").val("");
     $("#btnsubmit").attr('onclick', 'processFormPost();');
     $("#confirmbutton").css('display', 'none');
+    $("#calendarContainer").css('display', 'none');
 }
 function hideRoomModal(){
     $('#myModal').modal('toggle');
@@ -41,6 +42,7 @@ function fillUpdateModal(room){
     $("#date").val(room.availableFrom);
     $("#modal-title").html("Update Room");
     $("#confirmbutton").css('display', 'inline-block');
+    $("#calendarContainer").css('display', 'inline-block');
     deleteID = room.id;
     var elem = '<button type="button" class="btn btn-danger" onclick="apiDeleteRoom();">Confirm delete</button>';
     $('#confirmbutton').popover({
@@ -110,6 +112,7 @@ function onDocumentReady(){
             var table = $('#roomtable').DataTable();
             var data = table.row( this ).data();
             apiGetSingleRoom(data.id);
+            prepareCalendar(data.id);
         }
     });
     apiLoadDatatables();

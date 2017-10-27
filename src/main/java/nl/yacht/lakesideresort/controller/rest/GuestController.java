@@ -1,11 +1,14 @@
 package nl.yacht.lakesideresort.controller.rest;
 
+import nl.yacht.lakesideresort.controller.BookingRepository;
 import nl.yacht.lakesideresort.controller.GuestRepository;
+import nl.yacht.lakesideresort.domain.Booking;
 import nl.yacht.lakesideresort.domain.Guest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
+import java.time.LocalDate;
+import java.util.ArrayList;
 
 @RestController
 @RequestMapping("/api/guest")
@@ -13,9 +16,26 @@ public class GuestController {
     @Autowired
     private GuestRepository guestRepository;
 
+    @Autowired
+    private BookingRepository bookingRepository;
+
     @RequestMapping(method = RequestMethod.GET)
     public Iterable<Guest> getGuests(){
         return guestRepository.findAll();
+    }
+
+    @RequestMapping(value = "today", method = RequestMethod.GET)
+    public Iterable<Guest> getGuestsArrivingToday(){
+        ArrayList<Guest> result = new ArrayList<>();
+        ArrayList<Booking> bookings = (ArrayList<Booking>) bookingRepository.findAll();
+        for(Booking booking : bookings){
+            if(booking.getStartDate().isEqual(LocalDate.now())) {
+                if (!result.contains(booking.getGuest())) {
+                    result.add(booking.getGuest());
+                }
+            }
+        }
+        return result;
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.GET)

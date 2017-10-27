@@ -19,14 +19,14 @@
         <thead>
         <tr>
             <th>Bookingnumber</th>
-            <th>Guestnumber</th>
+            <th>Guestname</th>
             <th>Roomnumber</th>
         </tr>
         </thead>
         <tfoot>
         <tr>
             <th>Bookingnumber</th>
-            <th>Guestnumber</th>
+            <th>Guestname</th>
             <th>Roomnumber</th>
         </tr>
         </tfoot>
@@ -47,34 +47,51 @@
                 <div class="modal-body">
                     <form id="form-booking" class="form-horizontal">
                         <div class="form-group">
-                            <label class="control-label col-sm-2" for="bookingnumber">BookingNumber:</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" id="bookingnumber">
+                            <label class="control-label col-sm-3" for="bookingnumber">BookingNumber:</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="bookingnumber" disabled>
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label class="control-label col-sm-2" for="guestNumber">GuestNumber:</label>
-                            <div class="col-sm-10">
+                            <label class="control-label col-sm-3" for="guestNumber">GuestNumber:</label>
+                            <div class="col-sm-9">
                                 <input type="text" class="form-control" id="guestNumber">
                                 <!--<select class="form-control" id="roomsize">-->
-                                    <!--<option value="ONE_PERSON">1</option>-->
-                                    <!--<option value="TWO_PERSON">2</option>-->
-                                    <!--<option value="THREE_FOUR_PERSON">3-4</option>-->
-                                    <!--<option value="FIVE_SIX_PERSON">5-6</option>-->
+                                <!--<option value="ONE_PERSON">1</option>-->
+                                <!--<option value="TWO_PERSON">2</option>-->
+                                <!--<option value="THREE_FOUR_PERSON">3-4</option>-->
+                                <!--<option value="FIVE_SIX_PERSON">5-6</option>-->
                                 <!--</select>-->
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label class="control-label col-sm-2" for="roomnumber">RoomNumber:</label>
-                            <div class="col-sm-10">
+                            <label class="control-label col-sm-3" for="roomnumber">RoomNumber:</label>
+                            <div class="col-sm-9">
                                 <input type="text" class="form-control" id="roomnumber">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Start Date:</label>
+                            <div class="col-sm-9 date">
+                                <div class="input-group input-append date" id="datePickerStart">
+                                    <input type="text" class="form-control" id="dateStart" name="date" />
+                                    <span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar"></span></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">End Date:</label>
+                            <div class="col-sm-9 date">
+                                <div class="input-group input-append date" id="datePickerEnd">
+                                    <input type="text" class="form-control" id="dateEnd" name="date" />
+                                    <span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar"></span></span>
+                                </div>
                             </div>
                         </div>
                     </form>
                 </div>
-
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" id="btnsubmit">Submit</button>
                     <a href="#" id="confirmbutton" data-title="Are you sure" data-trigger="focus" data-toggle="clickover" data-placement="top" class="btn btn-danger">Delete</a>

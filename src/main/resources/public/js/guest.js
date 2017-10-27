@@ -1,3 +1,5 @@
+var deleteID = -1;
+
 $(document).ready(function(){
 
     // Fill the table with data
@@ -75,9 +77,9 @@ function submitEdit(id){
 }
 
 // Delete the guest in the database with the corresponding id
-function submitDelete(id){
+function submitDelete(){
     var formData = $("#guestForm").serializeArray().reduce(function(result, object){ result[object.name] = object.value; return result}, {});
-    var guestNumber = id;
+    var guestNumber = deleteID;
     $.ajax({
         url:"/api/guest/" + guestNumber,
         type:"delete",
@@ -106,7 +108,8 @@ function fillUpdateDiv(guest){
     $("#phoneNumber").val(guest.phoneNumber);
     $("#mailAddress").val(guest.mailAddress);
     $("#confirmbutton").css('display', 'inline-block');
-    var elem = '<button type="button" class="btn btn-danger" onclick="submitDelete(' + guest.guestNumber + ');">Confirm delete</button>';
+    deleteID = guest.guestNumber;
+    var elem = '<button type="button" class="btn btn-danger" onclick="submitDelete();">Confirm delete</button>';
     $('#confirmbutton').popover({animation:true, content:elem, html:true});
 }
 
