@@ -69,17 +69,26 @@ var input = {
 
 var from;
 var table;
+var monthOffset = 0;
 
 $(document).ready(function(){
+    $("#previousMonth").click(function(){
+        monthOffset--;
+        refresh();
+    });
+    $("#nextMonth").click(function(){
+        monthOffset++;
+        refresh();
+    });
     table = $("#booking-overview");
     refresh();
 });
 
 function refresh(){
-    table.innerHTML = '';
-
+    table.empty();
     // Get current month
     var from = moment(new Date()).startOf('month');
+    from.add(monthOffset, 'month');
     var to = moment(from).endOf('month');
 
     var url = "/api/availability/all/" + from.toISOString().slice(0,10) + ":" + to.toISOString().slice(0,10);
@@ -90,7 +99,7 @@ function refresh(){
 }
 
 function buildOverview(table, input){
-// Create headers
+    // Create headers
     var head = $("<thead></thead>");
     head.append("<td>Rooms</td>");
     table.append(head);
