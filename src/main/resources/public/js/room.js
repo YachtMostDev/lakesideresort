@@ -1,5 +1,6 @@
 // OBJECT CONVERTERS
 var baseURL = "http://localhost:8080/api/room/";
+var deleteID = -1;
 function roomToTable(room){
     var result = "<tr>";
     result += "<td>DB ID</td>";
@@ -40,7 +41,8 @@ function fillUpdateModal(room){
     $("#date").val(room.availableFrom);
     $("#modal-title").html("Update Room");
     $("#confirmbutton").css('display', 'inline-block');
-    var elem = '<button type="button" class="btn btn-danger" onclick="apiDeleteRoom(' + room.id + ');">Confirm delete</button>';
+    deleteID = room.id;
+    var elem = '<button type="button" class="btn btn-danger" onclick="apiDeleteRoom();">Confirm delete</button>';
     $('#confirmbutton').popover({
         animation:true,
         content:elem,
@@ -158,16 +160,18 @@ function apiLoadRooms() {
 		}
 	});
 }
-function apiDeleteRoom(id){
-    var api = baseURL + id;
-    $.ajax({
-        url: api,
-        type: 'DELETE',
-        success: function(response){
-            hideRoomModal()
-            apiLoadDatatables();
-        }
-    });
+function apiDeleteRoom(){
+    if (deleteID > -1){
+        var api = baseURL + deleteID;
+        $.ajax({
+            url: api,
+            type: 'DELETE',
+            success: function(response){
+                hideRoomModal()
+                apiLoadDatatables();
+            }
+        });
+    }
 }
 function apiPostRoom(data){
     $.ajax ({
