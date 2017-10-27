@@ -48,8 +48,17 @@ public class BookingController {
     @RequestMapping(value = "{id}",method = RequestMethod.PUT)
     public void changeBooking(@PathVariable long id, @RequestBody Booking b){
         if(b == null)throw new NotFoundException();
-        if(bookingRepository.exists(id)){
-            bookingRepository.save(b);
+        Booking foundBooking = bookingRepository.findOne(id);
+        if (foundBooking != null){
+            Guest g = guestRepository.findOne(b.getGuest().getGuestNumber());
+            if (g != null){
+                foundBooking.setGuest(b.getGuest());
+            }
+            Room r = roomRepository.findOne(b.getRoom().getId());
+            if (r != null){
+                foundBooking.setRoom(r);
+            }
+            bookingRepository.save(foundBooking);
         }
     }
 
