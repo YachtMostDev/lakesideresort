@@ -30,4 +30,9 @@ public class HomeController {
     public String booking(){
         return "booking";
     }
+
+    @RequestMapping(value="/booking/overview", method= RequestMethod.GET)
+    public String bookingOverview(){
+        return "bookingOverview";
+    }
 }
