@@ -1,4 +1,5 @@
 // OBJECT CONVERTERS
+var deleteID = -1;
 function bookingToTable(booking){
     var result = "<tr>";
     result += "<td>DB ID</td>";
@@ -33,6 +34,7 @@ function fillUpdateModal(booking){
     $("#roomnumber").val(booking.room.id);
     $("#modal-title").html("Update Booking");
     $("#confirmbutton").css('display', 'inline-block');
+    deleteID = booking.bookingnumber;
     var elem = '<button type="button" class="btn btn-danger" onclick="apiDeleteBooking(' + booking.bookingnumber + ');">Confirm delete</button>';
     $('#confirmbutton').popover({animation:true, content:elem, html:true, container:myModal});
 }
@@ -167,8 +169,9 @@ function apiLoadBooking() {
 		}
 	});
 }
-function apiDeleteBooking(id){
-    var api = "http://localhost:8080/api/booking/" + id;
+function apiDeleteBooking(){
+if (deleteID > -1){
+    var api = "http://localhost:8080/api/booking/" + deleteID;
     $.ajax({
         url: api,
         type: 'DELETE',
@@ -177,7 +180,8 @@ function apiDeleteBooking(id){
             hideBookingModal()
             apiLoadDatatables();
         }
-    });
+      });
+    }
 }
 function apiPostBooking(data){
     $.ajax ({
