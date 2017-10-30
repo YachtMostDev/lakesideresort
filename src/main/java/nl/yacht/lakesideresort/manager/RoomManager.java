@@ -25,7 +25,7 @@ public class RoomManager {
 	}
 
 	public boolean insertRoom(Room r){
-		Room foundRoom = roomRepository.findByRoomNumber(r.getRoomNumber());
+		Room foundRoom = getSingleRoom(r.getId());
 		if (foundRoom == null){
 			roomRepository.save(r);
 			return true;

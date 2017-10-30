@@ -1,6 +1,7 @@
 package nl.yacht.lakesideresort.manager;
 
 import nl.yacht.lakesideresort.domain.Room;
+import nl.yacht.lakesideresort.exception.NotFoundException;
 import nl.yacht.lakesideresort.repository.RoomRepository;
 import org.junit.Assert;
 import org.junit.Before;
@@ -15,9 +16,11 @@ import static org.mockito.Mockito.*;
 import static org.junit.Assert.*;
 
 public class RoomManagerTest {
+
+
 	private RoomManager roomManager;
 	private List<Room> listRooms;
-	private Room r1;
+	private Room r1, r2;
 
 	@Before
 	public void setUp() throws Exception {
@@ -25,8 +28,8 @@ public class RoomManagerTest {
 		roomManager = new RoomManager(roomRepository);
 
 		r1 = new Room(101, Room.RoomType.BUDGET, Room.RoomSize.ONE_PERSON, LocalDate.now());
-		Room r2 = new Room(201, Room.RoomType.NORMAL, Room.RoomSize.TWO_PERSON, LocalDate.now());
-
+		r2 = new Room(201, Room.RoomType.NORMAL, Room.RoomSize.TWO_PERSON, LocalDate.now());
+		r2.setId(1);
 
 		listRooms = new ArrayList<>();
 		listRooms.add(r1);
@@ -34,8 +37,10 @@ public class RoomManagerTest {
 		when(roomRepository.findAll()).thenReturn(listRooms);
 		long id = 1L;
 		when(roomRepository.findOne(id)).thenReturn(r1);
+		when(roomRepository.findOne(2L)).thenReturn(r2);
 		when(roomRepository.findByRoomNumber(101)).thenReturn(r1);
 		when(roomRepository.exists(1L)).thenReturn(true);
+		when(roomRepository.exists(2L)).thenReturn(false);
 	}
 
 	@Test
@@ -65,5 +70,21 @@ public class RoomManagerTest {
 	public void updateRoom() throws Exception {
 		roomManager.updateRoom(1L, r1);
 	}
+
+	@Test(expected = NotFoundException.class)
+	public void updateRoom2() throws Exception {
+		roomManager.updateRoom(2L, r2);
+	}
+
+	@Test
+	public void insertRoom() throws Exception {
+		assertTrue(roomManager.insertRoom(r1));
+	}
+
+	@Test
+	public void insertRoom2() throws Exception {
+		assertFalse(roomManager.insertRoom(r2));
+	}
+
 
 }
