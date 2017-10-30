@@ -17,7 +17,7 @@ public class BookingManager {
     private final GuestRepository guestRepository;
     private final RoomRepository roomRepository;
 
-    public BookingManager(BookingRepository bookingRepository, GuestRepository guestRepository, RoomRepository roomRepository) {
+    BookingManager(BookingRepository bookingRepository, GuestRepository guestRepository, RoomRepository roomRepository) {
         this.bookingRepository = bookingRepository;
         this.guestRepository = guestRepository;
         this.roomRepository = roomRepository;
@@ -28,8 +28,10 @@ public class BookingManager {
     }
 
     public Booking getBooking(long id) {
-        if (bookingRepository == null) throw new NotFoundException();
-        return bookingRepository.findOne(id);
+        Booking booking = bookingRepository.findOne(id);
+        if (booking == null)
+            throw new NotFoundException();
+        return booking;
     }
 
     public void insertBooking(Booking b) {
