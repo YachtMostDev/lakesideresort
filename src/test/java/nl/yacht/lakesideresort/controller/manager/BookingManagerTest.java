@@ -178,4 +178,14 @@ public class BookingManagerTest {
     public void changeBookingNullBooking(){
         Booking booking = bookingManager.changeBooking(2, null);
     }
+
+    @Test
+    public void deleteBooking(){
+        bookingManager.deleteBooking(2);
+    }
+
+    @Test(expected = NotFoundException.class)
+    public void deleteBookingNonExisting(){
+        bookingManager.deleteBooking(99);
+    }
 }
