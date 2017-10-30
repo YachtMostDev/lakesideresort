@@ -78,6 +78,7 @@ public class BookingManagerTest {
         Guest guest = new Guest(1, "Henker", "Henk", "Somewhere 2", "8118PA", "There", "Nederland", "0612345678", "henk@henker.nl");
         booking.setGuest(guest);
         Room room = new Room(201, Room.RoomType.LUXURY, Room.RoomSize.FIVE_SIX_PERSON, LocalDate.now());
+        room.setId(1);
         booking.setRoom(room);
 
         Booking newBooking = bookingManager.changeBooking(2, booking);
