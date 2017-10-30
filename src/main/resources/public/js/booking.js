@@ -49,7 +49,7 @@ function confirmDelete(id){
     }
 }
 function processFormPost(){
-//    console.log("processFormPost");
+    console.log("processFormPost");
     var bn = parseInt($("#bookingNumber").val());
     var gn = $("#guestNumber").val();
     var rn = $("#roomnumber").val();
@@ -72,7 +72,7 @@ function processFormPost(){
         "endDate" : endDate
     }
  console.log(JSON.stringify(booking));
-   // console.log("apiPostBooking with obj: " + JSON.stringify(room));
+    console.log("apiPostBooking with obj: " + JSON.stringify(room));
     apiPostBooking(booking);
 }
 
@@ -102,9 +102,9 @@ function processFormPut(id){
         "startDate" : startDate,
         "endDate" : endDate
     }
-//    console.log("api put: " + id + "  " + JSON.stringify(booking));
-    apiPutBooking(id, booking);
-//    console.log("apiPostBooking with obj: " + JSON.stringify(booking));
+    console.log("api put: " + id + "  " + JSON.stringify(booking));
+    apiPutBooking(booking);
+   console.log("apiPostBooking with obj: " + JSON.stringify(booking));
 }
 function zeroPad(num, places) {
   var zero = places - num.toString().length + 1;
@@ -211,16 +211,16 @@ if (deleteID > -1){
       });
     }
 }
-function apiPostBooking(data){
+function apiPostBooking(id, data){
 console.log(JSON.stringify(data));
     $.ajax ({
-        url: 'http://localhost:8080/api/booking',
+        url: 'http://localhost:8080/api/booking' +id,
         type: "POST",
         data: JSON.stringify(data),
         contentType: "application/json",
         success: function(response){
-//            console.log("POST booking request success");
-//            console.log("Response: " + response);
+            console.log("POST booking request success");
+            console.log("Response: " + response);
             hideBookingModal();
             apiLoadDatatables();
         },
@@ -232,9 +232,9 @@ console.log(JSON.stringify(data));
         }
     });
 }
-function apiPutBooking(id, data){
+function apiPutBooking(data){
     $.ajax ({
-        url: 'http://localhost:8080/api/booking/' + id,
+        url: 'http://localhost:8080/api/booking/',
         type: "PUT",
         data: JSON.stringify(data),
         contentType: "application/json",
