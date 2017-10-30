@@ -7,6 +7,7 @@ import nl.yacht.lakesideresort.domain.Booking;
 import nl.yacht.lakesideresort.domain.Guest;
 import nl.yacht.lakesideresort.domain.Room;
 import nl.yacht.lakesideresort.exception.NotFoundException;
+import org.omg.CosNaming.NamingContextPackage.NotFound;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -54,22 +55,24 @@ public class BookingManager {
         bookingRepository.save(b);
     }
 
-    public void changeBooking(long id, Booking b){
-        if(b == null)throw new NotFoundException();
+    public Booking changeBooking(long id, Booking booking){
+        if(booking == null) throw new NotFoundException();
+
         Booking foundBooking = bookingRepository.findOne(id);
-        if (foundBooking != null){
-            Guest g = guestRepository.findOne(b.getGuest().getGuestNumber());
-            if (g != null){
-                foundBooking.setGuest(b.getGuest());
-            }
-            Room r = roomRepository.findOne(b.getRoom().getId());
-            if (r != null){
-                foundBooking.setRoom(r);
-            }
-            foundBooking.setStartDate(b.getStartDate());
-            foundBooking.setEndDate(b.getEndDate());
-            bookingRepository.save(foundBooking);
-        }
+        if(foundBooking == null) throw new NotFoundException();
+
+        Guest guest = guestRepository.findOne(booking.getGuest().getGuestNumber());
+        if(guest == null) throw new NotFoundException();
+        foundBooking.setGuest(guest);
+
+        Room room = roomRepository.findOne(booking.getRoom().getId());
+        if(room == null) throw new NotFoundException();
+        foundBooking.setRoom(room);
+
+        foundBooking.setStartDate(booking.getStartDate());
+        foundBooking.setEndDate(booking.getEndDate());
+
+        return foundBooking;
     }
 
     public void deleteBooking(long id) {
