@@ -10,11 +10,6 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/room")
 public class RoomController{
 
-	//private RoomManager roomManager = new RoomManager(roomRepository);
-
-    @Autowired
-    private RoomRepository roomRepository;
-
     @Autowired
     private RoomManager roomManager;
 
