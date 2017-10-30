@@ -34,24 +34,25 @@ public class BookingManager {
         return booking;
     }
 
-    public void insertBooking(Booking b) {
-        if(b == null) {
+    public Booking insertBooking(Booking booking) {
+        if(booking == null) {
             System.out.println("booking is null");
             throw new NotFoundException();
         }
-        Guest foundGuest = guestRepository.findOne(b.getGuest().getGuestNumber());
+        Guest foundGuest = guestRepository.findOne(booking.getGuest().getGuestNumber());
         if(foundGuest == null) {
             System.out.println("guest is null");
             throw new NotFoundException();
         }
-        b.setGuest(foundGuest);
-        Room foundRoom = roomRepository.findOne(b.getRoom().getId());
+        booking.setGuest(foundGuest);
+        Room foundRoom = roomRepository.findOne(booking.getRoom().getId());
         if(foundRoom == null) {
             System.out.println("room is null");
             throw new NotFoundException();
         }
-        b.setRoom(foundRoom);
-        bookingRepository.save(b);
+        booking.setRoom(foundRoom);
+        bookingRepository.save(booking);
+        return booking;
     }
 
     public void changeBooking(long id, Booking b){

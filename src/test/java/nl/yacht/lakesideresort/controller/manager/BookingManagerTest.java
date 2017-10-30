@@ -27,16 +27,22 @@ public class BookingManagerTest {
         bookingManager = new BookingManager(bookingRepository, guestRepository, roomRepository);
 
         List<Booking> bookingList = new ArrayList<>();
+
         Booking booking1 = new Booking();
         booking1.setBookingnumber(1);
         //booking1.setGuest(new Guest(1, "Henker", "Henk", "Somewhere 2", "8118PA", "There", "Nederland", "0612345678", "henk@henker.nl"));
         bookingList.add(booking1);
+
         Booking booking2 = new Booking();
         booking2.setBookingnumber(2);
         bookingList.add(booking2);
 
+        Booking booking3 = new Booking();
+        booking3.setBookingnumber(3);
+
         when(bookingRepository.findAll()).thenReturn(bookingList);
         when(bookingRepository.findOne(2L)).thenReturn(booking2);
+        when(bookingRepository.save(booking3)).thenReturn(booking3);
     }
 
     @Test
@@ -53,6 +59,16 @@ public class BookingManagerTest {
 
     @Test(expected = NotFoundException.class)
     public void getNonExistingBooking() throws Exception {
-        Booking booking = bookingManager.getBooking(99);
+        Booking bookings = bookingManager.getBooking(99);
+    }
+
+    @Test
+    public void insertBooking() throws Exception {
+        Booking booking = new Booking();
+        Booking newBooking = bookingManager.insertBooking(booking);
+        assertTrue(newBooking.getBookingnumber() == 3);
+
+        Collection<Booking> bookings = (Collection<Booking>) bookingManager.getBookings();
+        assertTrue(bookings.size() == 3);
     }
 }
