@@ -13,12 +13,15 @@ import org.springframework.stereotype.Component;
 @Component
 public class BookingManager {
 
-    @Autowired
-    private BookingRepository bookingRepository;
-    @Autowired
-    private GuestRepository guestRepository;
-    @Autowired
-    private RoomRepository roomRepository;
+    private final BookingRepository bookingRepository;
+    private final GuestRepository guestRepository;
+    private final RoomRepository roomRepository;
+
+    public BookingManager(BookingRepository bookingRepository, GuestRepository guestRepository, RoomRepository roomRepository) {
+        this.bookingRepository = bookingRepository;
+        this.guestRepository = guestRepository;
+        this.roomRepository = roomRepository;
+    }
 
     public Iterable<Booking> getBookings(){
         return bookingRepository.findAll();

@@ -2,15 +2,17 @@ package nl.yacht.lakesideresort.controller.rest;
 
 import nl.yacht.lakesideresort.controller.manager.BookingManager;
 import nl.yacht.lakesideresort.domain.Booking;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/booking")
 public class BookingController {
 
-    @Autowired
-    private BookingManager bookingManager;
+    private final BookingManager bookingManager;
+
+    public BookingController(BookingManager bookingManager) {
+        this.bookingManager = bookingManager;
+    }
 
     @RequestMapping(method = RequestMethod.GET)
     public Iterable<Booking> getBookings(){
