@@ -8,8 +8,9 @@ import nl.yacht.lakesideresort.domain.Guest;
 import nl.yacht.lakesideresort.domain.Room;
 import nl.yacht.lakesideresort.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.stereotype.Component;
 
+@Component
 public class BookingManager {
 
     @Autowired

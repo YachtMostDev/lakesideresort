@@ -2,16 +2,15 @@ package nl.yacht.lakesideresort.controller.rest;
 
 import nl.yacht.lakesideresort.controller.manager.BookingManager;
 import nl.yacht.lakesideresort.domain.Booking;
-import nl.yacht.lakesideresort.domain.Guest;
-import nl.yacht.lakesideresort.domain.Room;
-import nl.yacht.lakesideresort.exception.NotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/booking")
 public class BookingController {
 
-    private BookingManager bookingManager = new BookingManager();
+    @Autowired
+    private BookingManager bookingManager;
 
     @RequestMapping(method = RequestMethod.GET)
     public Iterable<Booking> getBookings(){

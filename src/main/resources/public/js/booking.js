@@ -76,7 +76,7 @@ function processFormPost(){
     apiPostBooking(booking);
 }
 
-function processFormPut(id){
+function processFormPut(id, data){
 //    console.log("processFormPut: " + id);
     var bn = parseInt($("#bookingNumber").val());
     var gn = $("#guestNumber").val();
@@ -232,7 +232,7 @@ console.log(JSON.stringify(data));
         }
     });
 }
-function apiPutBooking(data){
+function apiPutBooking(id, data){
     $.ajax ({
         url: 'http://localhost:8080/api/booking/',
         type: "PUT",
