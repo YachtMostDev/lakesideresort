@@ -54,16 +54,16 @@ function drawCalendar(id, data){
 
             if (roomData[i].room.id == id){
                 if (startDate <= month && endDate >= month){
-                    console.log(roomData[i]);
+//                    console.log(roomData[i]);
                     roomList.push(roomData[i]);
                 }
             }
         }
     }
 
-    if(roomList != []){
-        console.log(roomList);
-    }
+//    if(roomList != []){
+//        console.log(roomList);
+//    }
 
     for (var index = 1; index-start <= daysOfMonth; index++){
         var td = document.createElement("td");
