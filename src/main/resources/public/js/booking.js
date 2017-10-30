@@ -76,7 +76,7 @@ function processFormPost(){
     apiPostBooking(booking);
 }
 
-function processFormPut(id, data){
+function processFormPut(id){
 //    console.log("processFormPut: " + id);
     var bn = parseInt($("#bookingNumber").val());
     var gn = $("#guestNumber").val();
@@ -211,10 +211,10 @@ if (deleteID > -1){
       });
     }
 }
-function apiPostBooking(id, data){
+function apiPostBooking(data){
 console.log(JSON.stringify(data));
     $.ajax ({
-        url: 'http://localhost:8080/api/booking' +id,
+        url: 'http://localhost:8080/api/booking',
         type: "POST",
         data: JSON.stringify(data),
         contentType: "application/json",
@@ -234,13 +234,11 @@ console.log(JSON.stringify(data));
 }
 function apiPutBooking(id, data){
     $.ajax ({
-        url: 'http://localhost:8080/api/booking/',
+        url: 'http://localhost:8080/api/booking/ + id',
         type: "PUT",
         data: JSON.stringify(data),
         contentType: "application/json",
         success: function(response){
-//            console.log("PUT booking request success");
-//            console.log("Response: " + response);
             hideBookingModal();
             apiLoadDatatables();
         }
