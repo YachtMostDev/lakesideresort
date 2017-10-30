@@ -103,7 +103,7 @@ function processFormPut(id){
         "endDate" : endDate
     }
     console.log("api put: " + id + "  " + JSON.stringify(booking));
-    apiPutBooking(booking);
+    apiPutBooking(id, booking);
    console.log("apiPostBooking with obj: " + JSON.stringify(booking));
 }
 function zeroPad(num, places) {
@@ -234,7 +234,7 @@ console.log(JSON.stringify(data));
 }
 function apiPutBooking(id, data){
     $.ajax ({
-        url: 'http://localhost:8080/api/booking/ + id',
+        url: 'http://localhost:8080/api/booking/' + id,
         type: "PUT",
         data: JSON.stringify(data),
         contentType: "application/json",
