@@ -119,4 +119,9 @@ public class BookingManagerTest {
 
         Booking newBooking = bookingManager.changeBooking(99, booking);
     }
+
+    @Test(expected = NotFoundException.class)
+    public void changeBookingNullBooking(){
+        Booking booking = bookingManager.changeBooking(2, null);
+    }
 }
