@@ -2,12 +2,11 @@ package nl.yacht.lakesideresort.controller.manager;
 
 import nl.yacht.lakesideresort.controller.BookingRepository;
 import nl.yacht.lakesideresort.controller.GuestRepository;
-import nl.yacht.lakesideresort.controller.RoomRepository;
+import nl.yacht.lakesideresort.repository.RoomRepository;
 import nl.yacht.lakesideresort.domain.Booking;
 import nl.yacht.lakesideresort.domain.Guest;
 import nl.yacht.lakesideresort.domain.Room;
 import nl.yacht.lakesideresort.exception.NotFoundException;
-import org.aspectj.weaver.ast.Not;
 import org.junit.Before;
 import org.junit.Test;
 
