@@ -1,6 +1,6 @@
 //package nl.yacht.lakesideresort.controller.gui;
 //
-//import nl.yacht.lakesideresort.controller.RoomRepository;
+//import nl.yacht.lakesideresort.repository.RoomRepository;
 //import nl.yacht.lakesideresort.domain.Room;
 //
 //import java.io.IOException;
