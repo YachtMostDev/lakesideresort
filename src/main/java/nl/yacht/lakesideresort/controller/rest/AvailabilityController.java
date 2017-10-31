@@ -1,7 +1,7 @@
 package nl.yacht.lakesideresort.controller.rest;
 
 import nl.yacht.lakesideresort.controller.BookingRepository;
-import nl.yacht.lakesideresort.controller.RoomRepository;
+import nl.yacht.lakesideresort.repository.RoomRepository;
 import nl.yacht.lakesideresort.domain.Booking;
 import nl.yacht.lakesideresort.domain.Room;
 import nl.yacht.lakesideresort.manager.AvailabilityManager;
@@ -15,8 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  * Created by njvan on 27-Oct-17.
