@@ -74,16 +74,17 @@ function processFormPost(){
     apiPostRoom(room);
 }
 function processFormPut(id){
-    var rn = parseInt($("#roomnumber").val());
-    var rs = $("#roomsize").val();
-    var rt = $("#roomtype").val();
-    var af = $("#date").val();
+    var roomNumber = parseInt($("#roomnumber").val());
+    var roomSize = $("#roomsize").val();
+    var roomType = $("#roomtype").val();
+    var availableFrom = $("#date").val();
 
     var room = {
-        "roomNumber" : rn,
-        "roomSize" : rs,
-        "roomType" : rt,
-        "availableFrom" : af
+        id : id,
+        roomNumber : roomNumber,
+        roomSize : roomSize,
+        roomType : roomType,
+        availableFrom : availableFrom
     }
     apiPutRoom(id, room);
 }
