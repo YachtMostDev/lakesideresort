@@ -1,9 +1,9 @@
 package nl.yacht.lakesideresort.manager;
 
 import nl.yacht.lakesideresort.controller.BookingRepository;
-import nl.yacht.lakesideresort.controller.RoomRepository;
 import nl.yacht.lakesideresort.domain.Booking;
 import nl.yacht.lakesideresort.domain.Room;
+import nl.yacht.lakesideresort.repository.RoomRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
