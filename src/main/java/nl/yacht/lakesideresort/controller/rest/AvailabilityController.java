@@ -4,7 +4,9 @@ import nl.yacht.lakesideresort.controller.BookingRepository;
 import nl.yacht.lakesideresort.repository.RoomRepository;
 import nl.yacht.lakesideresort.domain.Booking;
 import nl.yacht.lakesideresort.domain.Room;
+import nl.yacht.lakesideresort.manager.AvailabilityManager;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cglib.core.Local;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -21,67 +23,29 @@ import java.util.HashMap;
 @RequestMapping("/api/availability")
 public class AvailabilityController {
     @Autowired
-    private BookingRepository bookingRepository;
-    @Autowired
-    private RoomRepository roomRepository;
+    AvailabilityManager availabilityManager;
 
-    @RequestMapping(value = "{roomString}/{dates}", method = RequestMethod.GET)
-    public HashMap<String, HashMap<String, Boolean>> getAvailability(@PathVariable String roomString, @PathVariable String dates){
-        HashMap<String, HashMap<String, Boolean>> result = new HashMap<>();
-        ArrayList<Room> rooms = new ArrayList<>();
-        if("all".equals(roomString)){
-            rooms = (ArrayList<Room>) roomRepository.findAll();
-        } else {
-            rooms.add(roomRepository.findOne(new Long(roomString)));
-        }
-        String[] parts = dates.split(":");
-        LocalDate startDate = LocalDate.parse(parts[0]);
-        LocalDate endDate = LocalDate.parse(parts[1]);
-        LocalDate forStartDate = startDate;
-        LocalDate forEndDate = endDate;
-        for(Booking booking : bookingRepository.findAll()){
-            boolean overlap = false;
-            if(rooms.contains(booking.getRoom())){
-                boolean startDateBetween = betweenDates(booking.getStartDate(),booking.getEndDate(),startDate);
-                boolean endDateBetween = betweenDates(booking.getStartDate(),booking.getEndDate(),endDate);
-                if(startDateBetween){
-                    overlap = true;
-                    forStartDate = startDate;
-                    if(endDateBetween){
-                        forEndDate = endDate;
-                    } else {
-                        forEndDate = booking.getEndDate();
-                    }
-                } else if(endDateBetween){
-                    overlap = true;
-                    forStartDate = booking.getStartDate();
-                    forEndDate = endDate;
-                } else if(startDate.isBefore(booking.getStartDate()) && endDate.isAfter(booking.getEndDate())){
-                    overlap = true;
-                    startDate = booking.getStartDate();
-                    endDate = booking.getEndDate();
-                }
-                if(overlap){
-                    for(;!forStartDate.isAfter(forEndDate);forStartDate = forStartDate.plusDays(1)){
-                        String roomNumber = Integer.toString(booking.getRoom().getRoomNumber());
-                        result.putIfAbsent(roomNumber, new HashMap<>());
-                        result.get(roomNumber).put(forStartDate.toString(), true);
-                    }
-                }
-            }
-        }
-        for(Room r : rooms){
-            String roomNumber = Integer.toString(r.getRoomNumber());
-            result.putIfAbsent(roomNumber, new HashMap<>());
-            for(startDate = LocalDate.parse(parts[0]);!startDate.isAfter(endDate);startDate = startDate.plusDays(1)){
-                result.get(roomNumber).putIfAbsent(startDate.toString(), false);
-            }
-        }
-        return result;
+    @RequestMapping(value = "all/{date1}/{date2}", method = RequestMethod.GET)
+    public HashMap<String, HashMap<String, Boolean>> getAvailability(@PathVariable String date1, @PathVariable String date2){
+        LocalDate startDate = LocalDate.parse(date1);
+        LocalDate endDate = LocalDate.parse(date2);
+
+        return availabilityManager.getAvailabilityOfAllRooms(startDate, endDate);
     }
 
-    private boolean betweenDates(LocalDate startDate, LocalDate endDate, LocalDate checkDate){
-        return (checkDate.isEqual(startDate) || checkDate.isAfter(startDate)) &&
-                (checkDate.isEqual(endDate) || checkDate.isBefore(endDate));
+    @RequestMapping(value = "byRoom/{roomString}/{date1}/{date2}", method = RequestMethod.GET)
+    public HashMap<String, Boolean> getAvailability(@PathVariable String roomString, @PathVariable String date1, @PathVariable String date2){
+        LocalDate startDate = LocalDate.parse(date1);
+        LocalDate endDate = LocalDate.parse(date2);
+
+        return availabilityManager.getAvailabilityOfRoom(roomString, startDate, endDate);
     }
+
+    @RequestMapping(value = "byDate/{date1}", method = RequestMethod.GET)
+    public HashMap<String, Boolean> getAvailability(@PathVariable String date1){
+        LocalDate date = LocalDate.parse(date1);
+
+        return availabilityManager.getAvailabilityOnDate(date);
+    }
+
 }

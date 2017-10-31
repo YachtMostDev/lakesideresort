@@ -20,7 +20,7 @@ $(document).ready(function(){
     });
     var today = new Date();
     $.ajax({
-        url:"/api/availability/all/" + dateToString(today) + ":" + dateToString(today),
+        url:"/api/availability/byDate/" + dateToString(today),
         type:"get",
         success: function(result) {
             for(var key in result){

@@ -113,7 +113,7 @@ function onDocumentReady(){
             var table = $('#roomtable').DataTable();
             var data = table.row( this ).data();
             apiGetSingleRoom(data.id);
-            prepareCalendar(data.id);
+            retrieveDataForCalendar(data.id);
         }
     });
     apiLoadDatatables();
