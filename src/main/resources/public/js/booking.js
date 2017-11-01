@@ -49,7 +49,7 @@ function confirmDelete(id){
     }
 }
 function processFormPost(){
-//    console.log("processFormPost");
+    console.log("processFormPost");
     var bn = parseInt($("#bookingNumber").val());
     var gn = $("#guestNumber").val();
     var rn = $("#roomnumber").val();
@@ -72,7 +72,7 @@ function processFormPost(){
         "endDate" : endDate
     }
  console.log(JSON.stringify(booking));
-   // console.log("apiPostBooking with obj: " + JSON.stringify(room));
+    console.log("apiPostBooking with obj: " + JSON.stringify(room));
     apiPostBooking(booking);
 }
 
@@ -102,9 +102,9 @@ function processFormPut(id){
         "startDate" : startDate,
         "endDate" : endDate
     }
-//    console.log("api put: " + id + "  " + JSON.stringify(booking));
+    console.log("api put: " + id + "  " + JSON.stringify(booking));
     apiPutBooking(id, booking);
-//    console.log("apiPostBooking with obj: " + JSON.stringify(booking));
+   console.log("apiPostBooking with obj: " + JSON.stringify(booking));
 }
 function zeroPad(num, places) {
   var zero = places - num.toString().length + 1;
@@ -219,8 +219,8 @@ console.log(JSON.stringify(data));
         data: JSON.stringify(data),
         contentType: "application/json",
         success: function(response){
-//            console.log("POST booking request success");
-//            console.log("Response: " + response);
+            console.log("POST booking request success");
+            console.log("Response: " + response);
             hideBookingModal();
             apiLoadDatatables();
         },
@@ -239,8 +239,6 @@ function apiPutBooking(id, data){
         data: JSON.stringify(data),
         contentType: "application/json",
         success: function(response){
-//            console.log("PUT booking request success");
-//            console.log("Response: " + response);
             hideBookingModal();
             apiLoadDatatables();
         }
