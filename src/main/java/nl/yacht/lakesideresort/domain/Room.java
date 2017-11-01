@@ -1,10 +1,19 @@
 package nl.yacht.lakesideresort.domain;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
+@Entity
 public class Room {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
     private long id; // database id
+	@NotNull
     private int roomNumber;
     private RoomType roomType;
     private RoomSize roomSize;
@@ -17,9 +26,7 @@ public class Room {
         ONE_PERSON, TWO_PERSON, THREE_FOUR_PERSON, FIVE_SIX_PERSON
     }
 
-    public Room(){
-
-    }
+    public Room(){}
 
     public Room(int roomNumber, RoomType roomType, RoomSize roomSize, LocalDate availableFrom) {
         this.roomNumber = roomNumber;
@@ -36,6 +43,14 @@ public class Room {
         s += "\nAvailable from: " +this.availableFrom;
         return s;
     }
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
 
     public int getRoomNumber() {
         return roomNumber;
@@ -68,4 +83,7 @@ public class Room {
     public void setAvailableFrom(String ld){
         this.availableFrom = LocalDate.parse(ld);
     }
+	public void setAvailableFrom(LocalDate ld){
+		this.availableFrom = ld;
+	}
 }
