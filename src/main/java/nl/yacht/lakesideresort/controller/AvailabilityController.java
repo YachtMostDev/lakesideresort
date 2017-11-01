@@ -1,6 +1,6 @@
-package nl.yacht.lakesideresort.controller.rest;
+package nl.yacht.lakesideresort.controller;
 
-import nl.yacht.lakesideresort.controller.BookingRepository;
+import nl.yacht.lakesideresort.repository.BookingRepository;
 import nl.yacht.lakesideresort.repository.RoomRepository;
 import nl.yacht.lakesideresort.domain.Booking;
 import nl.yacht.lakesideresort.domain.Room;

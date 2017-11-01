@@ -1,7 +1,8 @@
-package nl.yacht.lakesideresort.controller.manager;
+package nl.yacht.lakesideresort.manager;
 
-import nl.yacht.lakesideresort.controller.BookingRepository;
-import nl.yacht.lakesideresort.controller.GuestRepository;
+import nl.yacht.lakesideresort.repository.BookingRepository;
+import nl.yacht.lakesideresort.repository.GuestRepository;
+import nl.yacht.lakesideresort.manager.BookingManager;
 import nl.yacht.lakesideresort.repository.RoomRepository;
 import nl.yacht.lakesideresort.domain.Booking;
 import nl.yacht.lakesideresort.domain.Guest;

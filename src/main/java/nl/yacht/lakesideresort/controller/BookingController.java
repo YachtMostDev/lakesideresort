@@ -1,6 +1,6 @@
-package nl.yacht.lakesideresort.controller.rest;
+package nl.yacht.lakesideresort.controller;
 
-import nl.yacht.lakesideresort.controller.manager.BookingManager;
+import nl.yacht.lakesideresort.manager.BookingManager;
 import nl.yacht.lakesideresort.domain.Booking;
 import org.springframework.web.bind.annotation.*;
 

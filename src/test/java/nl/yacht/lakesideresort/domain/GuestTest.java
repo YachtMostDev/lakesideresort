@@ -1,6 +1,6 @@
 //package nl.yacht.lakesideresort.domain;
 //
-//import nl.yacht.lakesideresort.controller.GuestRepository;
+//import nl.yacht.lakesideresort.repository.GuestRepository;
 //import org.junit.Before;
 //import org.junit.Test;
 //import org.junit.Assert;
