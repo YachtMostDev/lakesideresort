@@ -43,16 +43,16 @@ public class GuestManagerTest {
     @Test
     public void getGuests() throws Exception {
 
-        when(guestManager.getGuests()).thenReturn(guestList);
-
+        when(guestRepository.findAll()).thenReturn(guestList);
+        guestManager.getGuests();
         assertEquals(guestManager.getGuests(), guestList);
     }
 
     @Test
     public void getGuest() throws Exception {
 
-        when(guestManager.getGuest(1L)).thenReturn(guestList.get(1));
-
+        when(guestRepository.findOne(1L)).thenReturn(guestList.get(1));
+        guestManager.getGuest(1L);
         assertEquals(guestManager.getGuest(1L), guestList.get(1));
     }
 
@@ -61,8 +61,8 @@ public class GuestManagerTest {
 
         Guest guest = new Guest(3, "Tom", "Herensma", "Astraat 12", "9876RK", "Groningen", "Nederland", "1234567890", "a.a@gmail.com");
 
-        when(guestManager.insert(guest)).thenReturn(guest);
-
+        when(guestRepository.save(guest)).thenReturn(guest);
+        guestManager.insert(guest);
         assertTrue(guestManager.insert(guest).equals(guest));
     }
 
