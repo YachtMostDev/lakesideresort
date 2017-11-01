@@ -1,6 +1,8 @@
 // OBJECT CONVERTERS
 var baseURL = "http://localhost:8080/api/room/";
 var deleteID = -1;
+var client;
+
 function roomToTable(room){
     var result = "<tr>";
     result += "<td>DB ID</td>";
@@ -70,7 +72,7 @@ function processFormPost(){
         "roomSize" : rs,
         "roomType" : rt,
         "availableFrom" : af
-    }
+    };
     apiPostRoom(room);
 }
 function processFormPut(id){
@@ -95,6 +97,13 @@ function zeroPad(num, places) {
 
 // API FUNCTIONALITY
 function onDocumentReady(){
+    client = Stomp.over(new SockJS('/gs-guide-websocket'));
+    client.connect({}, function (frame) {
+        client.subscribe('/room', function (data) {
+            setData(JSON.parse(data.body));
+        });
+    });
+
     $('#roomtable').DataTable({
         columns: [
             { "data": "roomNumber" },
@@ -125,19 +134,22 @@ function onDocumentReady(){
         resetRoomnumberDiv();
     });
 }
+function setData(data){
+    data = data.map(function(object){
+        object.availableFrom = "" + object.availableFrom.year + "-" + zeroPad(object.availableFrom.monthValue, 2) + "-" + zeroPad(object.availableFrom.dayOfMonth, 2);
+        return object;
+    });
+    $("#roomtable").DataTable().clear();
+    $("#roomtable").DataTable().rows.add(data);
+    $("#roomtable").DataTable().columns.adjust().draw();
+}
+
 function apiLoadDatatables(){
     var api = baseURL;
     $.get(api, function (dataSet) {
         if (dataSet){
-            dataSet = dataSet.map(function(object){
-                object.availableFrom = "" + object.availableFrom.year + "-" + zeroPad(object.availableFrom.monthValue, 2) + "-" + zeroPad(object.availableFrom.dayOfMonth, 2);
-                return object;
-            });
-            $("#roomtable").DataTable().clear();
-            $("#roomtable").DataTable().rows.add(dataSet);
-            $("#roomtable").DataTable().columns.adjust().draw();
+            setData(dataSet);
         }
-
     });
 }
 function apiGetSingleRoom(id){
@@ -172,7 +184,7 @@ function apiDeleteRoom(){
             type: 'DELETE',
             success: function(response){
                 hideRoomModal()
-                apiLoadDatatables();
+                // apiLoadDatatables();
             }
         });
     }
@@ -186,7 +198,7 @@ function apiPostRoom(data){
         success: function(response){
             if (response){
                 hideRoomModal();
-                apiLoadDatatables();
+                // apiLoadDatatables();
             } else {
                 setErrorRoomnumberDiv();
             }
@@ -207,7 +219,7 @@ function apiPutRoom(id, data){
         contentType: "application/json",
         success: function(response){
             hideRoomModal();
-            apiLoadDatatables();
+            // apiLoadDatatables();
         }
     });
 }

@@ -4,12 +4,20 @@
 var guestsArrivingToday = [];
 var availableRooms = [];
 var occupiedRooms = [];
+var client;
 
 function dateToString(date){
     return date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
 }
 
 $(document).ready(function(){
+    client = Stomp.over(new SockJS('/gs-guide-websocket'));
+    client.connect({}, function (frame) {
+        client.subscribe('/room', function (data) {
+            console.log(JSON.parse(data.body));
+        });
+    });
+
     $.ajax({
         url:"/api/guest/today",
         type:"get",

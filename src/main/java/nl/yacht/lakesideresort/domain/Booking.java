@@ -19,6 +19,14 @@ public class Booking {
     public Booking() { //default constructor
     }
 
+    public Booking(long bookingnumber, Guest guest, Room room, LocalDate startDate, LocalDate endDate) {
+        this.bookingnumber = bookingnumber;
+        this.guest = guest;
+        this.room = room;
+        this.startDate = startDate;
+        this.endDate = endDate;
+    }
+
     public Booking(long bookingnumber) {
         this.bookingnumber = bookingnumber;
     }
