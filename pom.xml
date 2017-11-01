@@ -107,7 +107,8 @@
                     <executable>true</executable>
                 </configuration>
             </plugin>
-            <plugin> <groupId>org.codehaus.mojo</groupId>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
                 <artifactId>sonar-maven-plugin</artifactId>
             </plugin>
         </plugins>

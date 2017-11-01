@@ -1,4 +1,4 @@
-package nl.yacht.lakesideresort.controller;
+package nl.yacht.lakesideresort.repository;
 
 import nl.yacht.lakesideresort.domain.Room;
 import org.springframework.data.repository.CrudRepository;

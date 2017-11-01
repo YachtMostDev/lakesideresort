@@ -31,6 +31,13 @@ public class Booking {
         this.bookingnumber = bookingnumber;
     }
 
+    public Booking(Guest guest, Room room, LocalDate startDate, LocalDate endDate) {
+        this.guest = guest;
+        this.room = room;
+        this.startDate = startDate;
+        this.endDate = endDate;
+    }
+
     public long getBookingnumber() {
         return bookingnumber;
     }
@@ -76,5 +83,11 @@ public class Booking {
     }
     public void setEndDate(String endDate) {
         this.endDate = LocalDate.parse(endDate);
+    }
+
+    public boolean isBetween(LocalDate date) {
+        return (date.isEqual(startDate) || date.isAfter(startDate)) &&
+                (date.isEqual(endDate) || date.isBefore(endDate));
+
     }
 }
