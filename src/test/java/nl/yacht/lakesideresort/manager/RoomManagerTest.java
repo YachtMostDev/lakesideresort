@@ -27,8 +27,8 @@ public class RoomManagerTest {
 		RoomRepository roomRepository = mock(RoomRepository.class);
 		roomManager = new RoomManager(roomRepository);
 
-		r1 = new Room(101, Room.RoomType.BUDGET, Room.RoomSize.ONE_PERSON, LocalDate.now());
-		r2 = new Room(201, Room.RoomType.NORMAL, Room.RoomSize.TWO_PERSON, LocalDate.now());
+		r1 = new Room("101", Room.RoomType.BUDGET, Room.RoomSize.ONE_PERSON, LocalDate.now());
+		r2 = new Room("201", Room.RoomType.NORMAL, Room.RoomSize.TWO_PERSON, LocalDate.now());
 		r2.setId(1);
 
 		listRooms = new ArrayList<>();
@@ -38,7 +38,7 @@ public class RoomManagerTest {
 		long id = 1L;
 		when(roomRepository.findOne(id)).thenReturn(r1);
 		when(roomRepository.findOne(2L)).thenReturn(r2);
-		when(roomRepository.findByRoomNumber(101)).thenReturn(r1);
+		when(roomRepository.findByRoomNumber("101")).thenReturn(r1);
 		when(roomRepository.exists(1L)).thenReturn(true);
 		when(roomRepository.exists(2L)).thenReturn(false);
 	}
@@ -62,7 +62,7 @@ public class RoomManagerTest {
 
 	@Test
 	public void findRoomByRoomNumber() throws Exception {
-		long id = roomManager.findRoomByRoomNumber(101);
+		long id = roomManager.findRoomByRoomNumber("101");
 		assertEquals(r1.getId(), id);
 	}
 

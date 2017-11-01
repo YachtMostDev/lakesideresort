@@ -75,7 +75,7 @@ public class GuestManagerTest {
     public void getGuestsArrivingToday() throws Exception {
 
         LocalDate localDate = LocalDate.now();
-        Room room = new Room(201, Room.RoomType.LUXURY, Room.RoomSize.TWO_PERSON, localDate);
+        Room room = new Room("201", Room.RoomType.LUXURY, Room.RoomSize.TWO_PERSON, localDate);
 
         Booking booking1 = new Booking(1L, guestList.get(0), room, LocalDate.now(), LocalDate.now());
         Booking booking2 = new Booking(2L, guestList.get(1), room, LocalDate.now(), LocalDate.now());

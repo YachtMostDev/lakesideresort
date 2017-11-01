@@ -76,7 +76,7 @@ function processFormPost(){
     apiPostRoom(room);
 }
 function processFormPut(id){
-    var roomNumber = parseInt($("#roomnumber").val());
+    var roomNumber = $("#roomnumber").val();
     var roomSize = $("#roomsize").val();
     var roomType = $("#roomtype").val();
     var availableFrom = $("#date").val();

@@ -36,7 +36,7 @@ public class RoomManager {
 		roomRepository.delete(id);
 	}
 
-	public long findRoomByRoomNumber(int roomnumber){
+	public long findRoomByRoomNumber(String roomnumber){
 		Room r = roomRepository.findByRoomNumber(roomnumber);
 		return r.getId();
 	}
