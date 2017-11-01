@@ -1,7 +1,7 @@
-package nl.yacht.lakesideresort.Manager;
+package nl.yacht.lakesideresort.manager;
 
-import nl.yacht.lakesideresort.controller.BookingRepository;
-import nl.yacht.lakesideresort.controller.GuestRepository;
+import nl.yacht.lakesideresort.repository.BookingRepository;
+import nl.yacht.lakesideresort.repository.GuestRepository;
 import nl.yacht.lakesideresort.domain.Booking;
 import nl.yacht.lakesideresort.domain.Guest;
 import org.springframework.beans.factory.annotation.Autowired;
