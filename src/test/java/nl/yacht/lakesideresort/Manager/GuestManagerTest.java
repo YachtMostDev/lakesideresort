@@ -1,5 +1,6 @@
 package nl.yacht.lakesideresort.manager;
 
+import nl.yacht.lakesideresort.exception.AlreadyExistException;
 import nl.yacht.lakesideresort.repository.BookingRepository;
 import nl.yacht.lakesideresort.repository.GuestRepository;
 import nl.yacht.lakesideresort.domain.Booking;
@@ -29,7 +30,6 @@ public class GuestManagerTest {
         guestRepository = mock(GuestRepository.class);
         bookingRepository = mock(BookingRepository.class);
         guestManager = new GuestManager(guestRepository, bookingRepository);
-        //Guest guest = guestManager.getGuest(1);
 
         Guest guest1 = new Guest(1, "Jansen", "Peter", "Astraat 12", "9876RK", "Groningen", "Nederland", "1234567890", "a.a@gmail.com");
         Guest guest2 = new Guest(2, "Vries", "Anne", "Astraat 12", "4567FL", "Zwolle", "Nederland", "1234567890", "a.a@gmail.com");
@@ -43,7 +43,6 @@ public class GuestManagerTest {
     public void getGuests() throws Exception {
 
         when(guestRepository.findAll()).thenReturn(guestList);
-        guestManager.getGuests();
         assertEquals(guestManager.getGuests(), guestList);
     }
 
@@ -51,7 +50,6 @@ public class GuestManagerTest {
     public void getGuest() throws Exception {
 
         when(guestRepository.findOne(1L)).thenReturn(guestList.get(1));
-        guestManager.getGuest(1L);
         assertEquals(guestManager.getGuest(1L), guestList.get(1));
     }
 
@@ -60,9 +58,20 @@ public class GuestManagerTest {
 
         Guest guest = new Guest(3, "Tom", "Herensma", "Astraat 12", "9876RK", "Groningen", "Nederland", "1234567890", "a.a@gmail.com");
 
+        when(guestRepository.findAll()).thenReturn(guestList);
+
         when(guestRepository.save(guest)).thenReturn(guest);
-        guestManager.insert(guest);
         assertTrue(guestManager.insert(guest).equals(guest));
+    }
+
+    @Test(expected = AlreadyExistException.class)
+    public void insertEmpty() throws Exception {
+
+        Guest guest = new Guest(1, "Jansen", "Peter", "Astraat 12", "9876RK", "Groningen", "Nederland", "1234567890", "a.a@gmail.com");
+
+        when(guestRepository.findAll()).thenReturn(guestList);
+
+        guestManager.insert(guest);
     }
 
     @Test
@@ -75,7 +84,7 @@ public class GuestManagerTest {
     public void getGuestsArrivingToday() throws Exception {
 
         LocalDate localDate = LocalDate.now();
-        Room room = new Room(201, Room.RoomType.LUXURY, Room.RoomSize.TWO_PERSON, localDate);
+        Room room = new Room("201", Room.RoomType.LUXURY, Room.RoomSize.TWO_PERSON, localDate);
 
         Booking booking1 = new Booking(1L, guestList.get(0), room, LocalDate.now(), LocalDate.now());
         Booking booking2 = new Booking(2L, guestList.get(1), room, LocalDate.now(), LocalDate.now());

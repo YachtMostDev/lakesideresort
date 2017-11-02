@@ -32,7 +32,7 @@ public class BookingManagerTest {
         bookingManager = new BookingManager(bookingRepository, guestRepository, roomRepository);
 
         Guest guest = new Guest(1, "Henker", "Henk", "Somewhere 2", "8118PA", "There", "Nederland", "0612345678", "henk@henker.nl");
-        Room room = new Room(201, Room.RoomType.LUXURY, Room.RoomSize.FIVE_SIX_PERSON, LocalDate.now());
+        Room room = new Room("201", Room.RoomType.LUXURY, Room.RoomSize.FIVE_SIX_PERSON, LocalDate.now());
         room.setId(1);
 
         List<Booking> bookingList = new ArrayList<>();
@@ -80,7 +80,7 @@ public class BookingManagerTest {
         Booking booking = new Booking();
         booking.setBookingnumber(3);
         Guest guest = new Guest(1, "Henker", "Henk", "Somewhere 2", "8118PA", "There", "Nederland", "0612345678", "henk@henker.nl");
-        Room room = new Room(201, Room.RoomType.LUXURY, Room.RoomSize.FIVE_SIX_PERSON, LocalDate.now());
+        Room room = new Room("201", Room.RoomType.LUXURY, Room.RoomSize.FIVE_SIX_PERSON, LocalDate.now());
         room.setId(1);
         booking.setGuest(guest);
         booking.setRoom(room);
@@ -99,7 +99,7 @@ public class BookingManagerTest {
         Booking booking = new Booking();
         booking.setBookingnumber(3);
         Guest guest = new Guest(99, "Henker", "Henk", "Somewhere 2", "8118PA", "There", "Nederland", "0612345678", "henk@henker.nl");
-        Room room = new Room(201, Room.RoomType.LUXURY, Room.RoomSize.FIVE_SIX_PERSON, LocalDate.now());
+        Room room = new Room("201", Room.RoomType.LUXURY, Room.RoomSize.FIVE_SIX_PERSON, LocalDate.now());
         room.setId(1);
         booking.setGuest(guest);
         booking.setRoom(room);
@@ -113,7 +113,7 @@ public class BookingManagerTest {
         Booking booking = new Booking();
         booking.setBookingnumber(3);
         Guest guest = new Guest(1, "Henker", "Henk", "Somewhere 2", "8118PA", "There", "Nederland", "0612345678", "henk@henker.nl");
-        Room room = new Room(201, Room.RoomType.LUXURY, Room.RoomSize.FIVE_SIX_PERSON, LocalDate.now());
+        Room room = new Room("201", Room.RoomType.LUXURY, Room.RoomSize.FIVE_SIX_PERSON, LocalDate.now());
         room.setId(99);
         booking.setGuest(guest);
         booking.setRoom(room);
@@ -130,7 +130,7 @@ public class BookingManagerTest {
         booking.setEndDate(LocalDate.of(2018, 8, 1));
         Guest guest = new Guest(1, "Henker", "Henk", "Somewhere 2", "8118PA", "There", "Nederland", "0612345678", "henk@henker.nl");
         booking.setGuest(guest);
-        Room room = new Room(201, Room.RoomType.LUXURY, Room.RoomSize.FIVE_SIX_PERSON, LocalDate.now());
+        Room room = new Room("201", Room.RoomType.LUXURY, Room.RoomSize.FIVE_SIX_PERSON, LocalDate.now());
         room.setId(1);
         booking.setRoom(room);
 
@@ -152,7 +152,7 @@ public class BookingManagerTest {
         booking.setEndDate(LocalDate.of(2018, 8, 1));
         Guest guest = new Guest(2, "Henker", "Henk", "Somewhere 2", "8118PA", "There", "Nederland", "0612345678", "henk@henker.nl");
         booking.setGuest(guest);
-        Room room = new Room(201, Room.RoomType.LUXURY, Room.RoomSize.FIVE_SIX_PERSON, LocalDate.now());
+        Room room = new Room("201", Room.RoomType.LUXURY, Room.RoomSize.FIVE_SIX_PERSON, LocalDate.now());
         room.setId(1);
         booking.setRoom(room);
 
@@ -167,7 +167,7 @@ public class BookingManagerTest {
         booking.setEndDate(LocalDate.of(2018, 8, 1));
         Guest guest = new Guest(2, "Henker", "Henk", "Somewhere 2", "8118PA", "There", "Nederland", "0612345678", "henk@henker.nl");
         booking.setGuest(guest);
-        Room room = new Room(201, Room.RoomType.LUXURY, Room.RoomSize.FIVE_SIX_PERSON, LocalDate.now());
+        Room room = new Room("201", Room.RoomType.LUXURY, Room.RoomSize.FIVE_SIX_PERSON, LocalDate.now());
         room.setId(99);
         booking.setRoom(room);
 
