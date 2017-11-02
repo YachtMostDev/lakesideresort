@@ -79,7 +79,7 @@ function submitEdit(id){
             updateTable();
         },
         error: function(error){
-            console.log(error);
+            displayError(error);
         }
     });
     deselect();
