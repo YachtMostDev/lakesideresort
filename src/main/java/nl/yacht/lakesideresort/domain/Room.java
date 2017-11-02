@@ -15,8 +15,11 @@ public class Room {
     private long id; // database id
 	@NotNull
     private String roomNumber;
+    @NotNull
     private RoomType roomType;
+    @NotNull
     private RoomSize roomSize;
+    @NotNull
     private LocalDate availableFrom;
 
     public enum RoomType{

@@ -1,11 +1,15 @@
 package nl.yacht.lakesideresort.domain;
 
+import org.hibernate.validator.constraints.Email;
+
 import javax.annotation.Generated;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 @Entity
 public class Guest {
@@ -18,11 +22,20 @@ public class Guest {
     private String surName;
 	@NotNull
     private String firstName;
+	@NotNull
     private String address;
+	@Size(min=3, max=10)
+    @NotNull
     private String postalCode;
+    @NotNull
     private String city;
+    @NotNull
     private String country;
+    @NotNull
+    @Pattern (regexp = "^(?:[0-9] ?){6,14}[0-9]$")
     private String phoneNumber;
+    @NotNull
+    @Email
     private String mailAddress;
 
     public Guest(){}

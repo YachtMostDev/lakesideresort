@@ -35,21 +35,23 @@ $(document).ready(function(){
 
 // Submit the guestdata in the form to the database
 function submitGuest(){
-      var formData = $("#guestForm").serializeArray().reduce(function(result, object){result[object.name] = object.value; return result}, {});
-      $.ajax({
-          url:"/api/guest",
-          type:"post",
-          data: JSON.stringify(formData),
-          contentType: "application/json; charset=utf-8",
-          success: function(result) {
-              updateTable();
-          },
+    var formData = $("#guestForm").serializeArray().reduce(function(result, object){result[object.name] = object.value; return result}, {});
+    $.ajax({
+        url:"/api/guest",
+        type:"post",
+        data: JSON.stringify(formData),
+        contentType: "application/json; charset=utf-8",
+        success: function(result) {
+            updateTable();
+            deselect();
+            $('#myModal').modal('toggle');
+        },
         error: function(error){
-            displayError(error);
+        console.log(JSON.parse(error.responseText));
+//            displayError(JSON.parse(error.responseText));
         }
-      });
-      deselect();
-      $('#myModal').modal('toggle');
+    });
+
 }
 
 function displayError(error){
@@ -77,13 +79,15 @@ function submitEdit(id){
         contentType: "application/json; charset=utf-8",
         success: function(result) {
             updateTable();
+            deselect();
+            $('#myModal').modal('toggle');
         },
         error: function(error){
-            displayError(error);
+                console.log(JSON.parse(error.responseText));
+        //            displayError(JSON.parse(error.responseText));
         }
     });
-    deselect();
-    $('#myModal').modal('toggle');
+
 }
 
 // Delete the guest in the database with the corresponding id

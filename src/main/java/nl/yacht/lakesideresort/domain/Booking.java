@@ -1,6 +1,8 @@
 package nl.yacht.lakesideresort.domain;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
 import java.time.LocalDate;
 
 @Entity
@@ -10,10 +12,14 @@ public class Booking {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long bookingnumber;
     @ManyToOne
+    @NotNull
     private Guest guest;
     @ManyToOne
+    @NotNull
     private Room room;
+    @NotNull
     private LocalDate startDate;
+    @NotNull
     private LocalDate endDate;
 
     public Booking() { //default constructor
