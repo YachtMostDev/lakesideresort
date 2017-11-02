@@ -39,19 +39,6 @@ function initializeGuestSearch(){
 
 }
 
-// OBJECT CONVERTERS
-var deleteID = -1;
-function bookingToTable(booking){
-    var result = "<tr>";
-    result += "<td>DB ID</td>";
-    result += "<td>" + booking.bookingNumber + "</td>";
-    result += "<td>" + guest.guestNumber + "</td>";
-    result += "<td>" + room.roomnumber + "</td>";
-    result += "<td><button type=\"button\" onclick=\"apiGetBooking(" + booking.bookingNumber + ")\" class=\"btn btn-info\"><span class=\"glyphicon glyphicon-pencil\"></span></button>";
-    result += "<button type=\"button\" onclick=\"confirmDelete(" + booking.bookingNumber + ")\" class=\"btn btn-danger\"><span class=\"glyphicon glyphicon-remove\"></span></button></td>";
-    result += "</tr>"
-    return result;
-}
 // GENERAL FUNCTIONS
 function createBookingDiv(){
 //    $("#booking-div").css('display', 'block');
@@ -196,19 +183,17 @@ function processFormPut(id){
     }
     console.log("api put: " + id + "  " + JSON.stringify(booking));
     apiPutBooking(id, booking);
-   console.log("apiPostBooking with obj: " + JSON.stringify(booking));
+    console.log("apiPostBooking with obj: " + JSON.stringify(booking));
 }
 function zeroPad(num, places) {
-  var zero = places - num.toString().length + 1;
-  return Array(+(zero > 0 && zero)).join("0") + num;
+    var zero = places - num.toString().length + 1;
+    return Array(+(zero > 0 && zero)).join("0") + num;
 }
 
 function apiLoadDatatables(){
     var api = "http://localhost:8080/api/booking";
 
     $.get(api, function (dataSet) {
-
-       // console.log("Adding dataset to table: \n" + JSON.stringify(dataSet));
         $("#bookingtable").DataTable().clear();
         $("#bookingtable").DataTable().rows.add(dataSet);
         $("#bookingtable").DataTable().columns.adjust().draw();
@@ -216,18 +201,10 @@ function apiLoadDatatables(){
 }
 
 function apiGetBooking(id){
-    // get query met id;
-//    console.log("getSingle: " + id)
     var api = "http://localhost:8080/api/booking/" + id;
     $.get(api, function(data){
         if (data){
-//            $("#booking-div").css('display','block');
             $('#myModal').modal('toggle');
-//            $("#booking-div-title").html("Update Booking");
-//            console.log('data for update: ' + JSON.stringify(data));
-//            console.log('data for update: ' + JSON.stringify(data));
-         //   console.log("got data:");
-         //   console.log(data);
             data.startDate = "" + data.startDate.year + "-" + zeroPad(data.startDate.monthValue, 2) + "-" + zeroPad(data.startDate.dayOfMonth, 2);
             data.endDate = "" + data.endDate.year + "-" + zeroPad(data.endDate.monthValue, 2) + "-" + zeroPad(data.endDate.dayOfMonth, 2);
 
@@ -235,22 +212,7 @@ function apiGetBooking(id){
         }
     });
 }
-function apiLoadBooking() {
-	var api = "http://localhost:8080/api/booking";
-	$.get(api, function (data) {
-		if (data) {
-            $("#tableBody").empty();
-            for(var i = 0; i < data.length; i++){
-                var item = data[i];
 
-                var bookingTableEntry = bookingToTable(item);
-                $("#tableBody").append(bookingTableEntry);
-		    }
-//            console.log("result of api call: " + data);
-		    return data;
-		}
-	});
-}
 function apiDeleteBooking(){
 if (deleteID > -1){
     var api = "http://localhost:8080/api/booking/" + deleteID;
@@ -258,15 +220,15 @@ if (deleteID > -1){
         url: api,
         type: 'DELETE',
         success: function(response){
-//            console.log(response);
             hideBookingModal()
             apiLoadDatatables();
         }
       });
     }
 }
+
 function apiPostBooking(data){
-console.log(JSON.stringify(data));
+    console.log(JSON.stringify(data));
     $.ajax ({
         url: 'http://localhost:8080/api/booking',
         type: "POST",
