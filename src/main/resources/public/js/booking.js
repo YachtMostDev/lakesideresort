@@ -89,6 +89,22 @@ function confirmDelete(id){
         apiDeleteBooking(id);
     }
 }
+function emptySearchSuggestions(){
+    $("#searchSuggestions").empty();
+    $("#searchSuggestions").css('display', 'none');
+}
+function updateSearch(){
+    var value = $("#guestNumber").val();
+    emptySearchSuggestions();
+    if(value.length >= 3) {
+        $.get("http://localhost:8080/api/guest/search/" + $("#guestNumber").val(), function (data) {
+            for(var index in data){
+                $("#searchSuggestions").append('<div style="padding: 5px 10px"><a style="cursor: pointer">' + data[index].firstName + " " + data[index].surName + '</a></div>')
+            }
+            $("#searchSuggestions").css('display', 'block');
+        });
+    }
+}
 function processFormPost(){
     console.log("processFormPost");
     var bn = parseInt($("#bookingNumber").val());
@@ -100,18 +116,18 @@ function processFormPost(){
     var roomid = apiFindRoomIdByRoomNumber(rn);//find room by roomnumber
     var guest = {
         "guestNumber" : gn
-    }
+    };
 
     var room = {
         "id" : roomid
-    }
+    };
 
     var booking = {
         "guest" : guest,
         "room" : room,
         "startDate" : startDate,
         "endDate" : endDate
-    }
+    };
  console.log(JSON.stringify(booking));
     console.log("apiPostBooking with obj: " + JSON.stringify(room));
     apiPostBooking(booking);

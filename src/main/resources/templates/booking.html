@@ -48,8 +48,13 @@
                     <form id="form-booking" class="form-horizontal">
                         <div class="form-group">
                             <label class="control-label col-sm-3" for="guestNumber">Guest:</label>
-                            <div class="col-sm-9">
-                                <input type="text" class="form-control" id="guestNumber">
+                            <div class="col-sm-9" style="position: relative">
+                                <input type="text" class="form-control" id="guestNumber" oninput="updateSearch();">
+                                <div id="searchSuggestions" style="position: absolute; width: calc(100% - 30px); z-index: 5; background: #f8f8f8; border: 1px solid gray; border-radius: 5px; display:none;">
+                                    <div style="padding: 5px 10px"><a style="cursor: pointer">Henk Storm</a></div>
+                                    <div style="padding: 5px 10px"><a style="cursor: pointer">Annie Storm</a></div>
+                                    <div style="padding: 5px 10px"><a style="cursor: pointer">Sjonnie Storm</a></div>
+                                </div>
                             </div>
                         </div>
 
