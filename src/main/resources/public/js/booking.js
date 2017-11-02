@@ -102,9 +102,10 @@ function updateSearch(){
     emptySearchSuggestions();
     if(searchString.length >= 3) {
         $.get("http://localhost:8080/api/guest/search/" + searchString, function (data) {
-            for(var index in data){
+            for(var index = 0; index < data.length && index < 5; index++){
                 var suggestionDiv = $("<div></div>");
                 suggestionDiv.attr("data-id",data[index].guestNumber);
+                suggestionDiv.attr("data-value",data[index].firstName + " " + data[index].surName);
                 suggestionDiv.text(data[index].firstName + " " + data[index].surName);
                 var locationString = "";
 
@@ -121,10 +122,13 @@ function updateSearch(){
                     event.stopPropagation();
                     event.stopImmediatePropagation();
                     $("#guestNumber").val(event.target.getAttribute("data-id"));
-                    $("#guestNumberSearch").val(data[index].firstName + " " + data[index].surName);
+                    $("#guestNumberSearch").val(event.target.getAttribute("data-value"));
                     emptySearchSuggestions();
                     // console.log(event.target.getAttribute("data-id"));
                 });
+            }
+            if(data.length > 5){
+                $("#searchSuggestions").append("<div style='color: gray; font-size: 12px; padding: 2px; margin: 5px 10px;'> And " + (data.length - 5) + " more</div>");
             }
             if(data.length > 0) $("#searchSuggestions").css('display', 'block');
         });
