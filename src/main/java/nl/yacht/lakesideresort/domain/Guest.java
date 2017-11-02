@@ -1,6 +1,8 @@
 package nl.yacht.lakesideresort.domain;
 
 import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.beans.factory.annotation.Required;
 
 import javax.annotation.Generated;
 import javax.persistence.Entity;
@@ -18,23 +20,26 @@ public class Guest {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
     private long guestNumber;
-	@NotNull
+	@NotEmpty
+    @Size(min=3)
     private String surName;
-	@NotNull
+    @NotEmpty
+    @Size(min=3)
     private String firstName;
-	@NotNull
+    @NotEmpty
+    @Size(min=3)
     private String address;
 	@Size(min=3, max=10)
-    @NotNull
+    @NotEmpty
     private String postalCode;
-    @NotNull
+    @NotEmpty
     private String city;
-    @NotNull
+    @NotEmpty
     private String country;
-    @NotNull
+    @NotEmpty
     @Pattern (regexp = "^(?:[0-9] ?){6,14}[0-9]$")
     private String phoneNumber;
-    @NotNull
+    @NotEmpty
     @Email
     private String mailAddress;
 

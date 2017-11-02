@@ -47,15 +47,16 @@ function submitGuest(){
             $('#myModal').modal('toggle');
         },
         error: function(error){
-        console.log(JSON.parse(error.responseText));
+            var responseText = JSON.parse(error.responseText);
+            console.log(JSON.parse(error.responseText));
+           // displayError(responseText);
 //            displayError(JSON.parse(error.responseText));
         }
     });
-
 }
-
 function displayError(error){
-    window.alert(JSON.parse(error.responseText).message);
+    var message = JSON.stringify(error);
+    alert(message);
 }
 
 // Make modal ready for creating a guest
@@ -84,6 +85,7 @@ function submitEdit(id){
         },
         error: function(error){
                 console.log(JSON.parse(error.responseText));
+
         //            displayError(JSON.parse(error.responseText));
         }
     });
@@ -146,3 +148,22 @@ function deselect(){
 function updateTable(){
     $('#guestTable').DataTable().ajax.reload();
 }
+
+function invalidHandler(){
+    $("#guestTable").validate({
+        invalidHandler: function(event, validator) {
+            var errors = validator.numberOfInvalids();
+            if (errors) {
+                var message = errors == 1
+                ? 'You missed 1 field. It has been highlighted'
+                : 'You missed ' + errors + ' fields. They have been highlighted';
+                $("div.error span").html(message);
+                $("div.error").show();
+            } else {
+              $("div.error").hide();
+            }
+        }
+    });
+}
+
+

@@ -1,5 +1,7 @@
 package nl.yacht.lakesideresort.domain;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,7 +15,7 @@ public class Room {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
     private long id; // database id
-	@NotNull
+    @NotEmpty
     private String roomNumber;
     @NotNull
     private RoomType roomType;

@@ -1,5 +1,7 @@
 package nl.yacht.lakesideresort.domain;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
@@ -12,14 +14,14 @@ public class Booking {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long bookingnumber;
     @ManyToOne
-    @NotNull
+    @NotEmpty
     private Guest guest;
     @ManyToOne
-    @NotNull
+    @NotEmpty
     private Room room;
-    @NotNull
+    @NotEmpty
     private LocalDate startDate;
-    @NotNull
+    @NotEmpty
     private LocalDate endDate;
 
     public Booking() { //default constructor

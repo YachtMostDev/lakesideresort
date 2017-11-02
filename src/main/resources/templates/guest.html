@@ -44,32 +44,31 @@
                     <button type="button" class="close" onclick="deselect()" data-dismiss="modal">&times;</button>
                     <h3 class="modal-title" id="modal-title">Title</h3>
                 </div>
-                <div class="modal-body">
-                    <form id="guestForm" enctype='text/plain'>
+                <form id="guestForm" enctype='text/plain'>
+                   <div class="modal-body">
                         First name:<br>
-                        <input type='text' class="form-control" name='firstName' id="firstName"><br>
+                        <input type='text' class="form-control" name='firstName' id="firstName" required min="3" max="20"><br>
                         Last name:<br>
-                        <input type='text' class="form-control" name='surName' id="surName"><br>
+                        <input type='text' class="form-control" name='surName' id="surName" required min="3" max="20"><br>
                         Address:<br>
-                        <input type='text' class="form-control" name='address' id="address"><br>
+                        <input type='text' class="form-control" name='address' id="address" required min="3" max="20"><br>
                         Postal code:<br>
-                        <input type='text' class="form-control" name='postalCode' id="postalCode"><br>
+                        <input type='text' class="form-control" name='postalCode' id="postalCode" required min="3" max="20"><br>
                         City:<br>
-                        <input type='text' class="form-control" name='city' id="city"><br>
+                        <input type='text' class="form-control" name='city' id="city" required min="2" max="20"><br>
                         Country:<br>
-                        <input type='text' class="form-control" name='country' id="country"><br>
+                        <input type='text' class="form-control" name='country' id="country" required min="6" max="14"><br>
                         Phone:<br>
-                        <input type='text' class="form-control" name='phoneNumber' id="phoneNumber"><br>
+                        <input type='tel' class="form-control" name='phoneNumber' id="phoneNumber" required min="3" max="20"><br>
                         e-mail:<br>
-                        <input type='text' class="form-control" name='mailAddress' id="mailAddress"><br>
-                    </form>
-
-                </div>
+                        <input type='email' class="form-control" name='mailAddress' id="mailAddress" required min="3" max="50"><br>
+                   </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" id="btnsubmit">Submit</button>
+                    <button type="submit" class="btn btn-primary" id="btnsubmit">Submit</button>
                     <a href="#" id="confirmbutton" data-title="Are you sure" data-trigger="focus" data-toggle="clickover" data-placement="top" class="btn btn-danger">Delete</a>
                     <button type="button" class="btn btn-default" id="btnclose" onclick="deselect()" data-dismiss="modal">Close</button>
                 </div>
+                </form>
             </div>
         </div>
     </div>
