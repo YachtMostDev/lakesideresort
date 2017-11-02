@@ -1,3 +1,41 @@
+$(document).ready(onDocumentReady);
+function onDocumentReady(){
+    dataTable = $('#bookingtable').DataTable({
+        columns: [
+        { "data": "bookingnumber" },
+        { "data": function(data, type, dataToSet){
+            return data.guest.surName + "," + data.guest.firstName;
+        }},
+        { "data": "room.roomNumber" }
+                 ]
+    });
+     $('#datePickerStart').datepicker({
+            autoclose: true,
+            format: 'yyyy-mm-dd'
+        });
+     $('#datePickerEnd').datepicker({
+            autoclose: true,
+            format: 'yyyy-mm-dd'
+        });
+    $('#bookingtable tbody').on( 'click', 'tr', function () {
+        if ( $(this).hasClass('selected') ) {
+            $(this).removeClass('selected');
+        }
+        else {
+            $('#bookingtable tr.selected').removeClass('selected');
+            $(this).addClass('selected');
+//            $('#myModal').modal('toggle');
+            var table = $('#bookingtable').DataTable();
+            var data = table.row( this ).data();
+
+           // console.log("selected row: " + JSON.stringify(data));
+            apiGetBooking(data.bookingnumber);
+            // get booking and show modal with correct values
+        }
+    });
+    apiLoadDatatables();
+}
+
 // OBJECT CONVERTERS
 var deleteID = -1;
 function bookingToTable(booking){
@@ -109,44 +147,6 @@ function processFormPut(id){
 function zeroPad(num, places) {
   var zero = places - num.toString().length + 1;
   return Array(+(zero > 0 && zero)).join("0") + num;
-}
-$(document).ready(onDocumentReady);
-// API FUNCTIONALITY
-function onDocumentReady(){
-    dataTable = $('#bookingtable').DataTable({
-        columns: [
-        { "data": "bookingnumber" },
-        { "data": function(data, type, dataToSet){
-            return data.guest.surName + "," + data.guest.firstName;
-        }},
-        { "data": "room.roomNumber" }
-                 ]
-    });
-     $('#datePickerStart').datepicker({
-            autoclose: true,
-            format: 'yyyy-mm-dd'
-        });
-     $('#datePickerEnd').datepicker({
-            autoclose: true,
-            format: 'yyyy-mm-dd'
-        });
-    $('#bookingtable tbody').on( 'click', 'tr', function () {
-        if ( $(this).hasClass('selected') ) {
-            $(this).removeClass('selected');
-        }
-        else {
-            $('#bookingtable tr.selected').removeClass('selected');
-            $(this).addClass('selected');
-//            $('#myModal').modal('toggle');
-            var table = $('#bookingtable').DataTable();
-            var data = table.row( this ).data();
-
-           // console.log("selected row: " + JSON.stringify(data));
-            apiGetBooking(data.bookingnumber);
-            // get booking and show modal with correct values
-        }
-    });
-    apiLoadDatatables();
 }
 
 function apiLoadDatatables(){
