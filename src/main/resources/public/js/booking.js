@@ -31,7 +31,12 @@ function onDocumentReady(){
             apiGetBooking(data.bookingnumber);
         }
     });
+    initializeGuestSearch();
     apiLoadDatatables();
+}
+
+function initializeGuestSearch(){
+
 }
 
 // OBJECT CONVERTERS
