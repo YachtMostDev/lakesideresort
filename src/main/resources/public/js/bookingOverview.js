@@ -1,4 +1,5 @@
 var from;
+var to;
 var table;
 var monthOffset = 0;
 
@@ -18,10 +19,10 @@ $(document).ready(function(){
 function refresh(){
     table.empty();
     // Get current month
-    var from = moment(new Date()).startOf('month');
+    from = moment(new Date()).startOf('month');
     from.add(monthOffset, 'month');
     from.add(1, 'hour');
-    var to = moment(from).endOf('month');
+    to = moment(from).endOf('month');
 
     $("#month").text(from.format('MMMM'));
 
@@ -37,10 +38,6 @@ function refresh(){
 
 function buildOverview(table, input){
     // Create headers
-// Create headers
-    var from = moment(new Date()).startOf('month');
-    var to = moment(from).endOf('month');
-
     var head = $("<thead></thead>");
     head.append("<td>Rooms</td>");
     table.append(head);
@@ -48,8 +45,8 @@ function buildOverview(table, input){
     // Create numbered headers
     var firstRoom = Object.values(input)[0];
 
-    for(from = moment(new Date()).startOf('month');from <= to; from.add(1,"day")){
-        head.append("<td>" + from.date() + "</td>");
+    for(var i = moment(from); i <= to; i.add(1,"day")){
+        head.append("<td>" + i.date() + "</td>");
     }
 
     // Create body
@@ -63,10 +60,10 @@ function buildOverview(table, input){
 
         var room = input[roomNumber];
         console.log(room);
-        for(from = moment(new Date()).startOf('month');from <= to; from.add(1,"day")){
+        for(var i = moment(from); i <= to; i.add(1,"day")){
             var td = $("<td></td>");
 
-            var booked = room[from.toISOString().slice(0,10)];
+            var booked = room[i.toISOString().slice(0,10)];
             if(booked) td.addClass("booked");
 
             tr.append(td);
