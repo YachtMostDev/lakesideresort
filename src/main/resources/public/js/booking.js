@@ -71,7 +71,7 @@ function processFormPost(){
         "startDate" : startDate,
         "endDate" : endDate
     }
- console.log(JSON.stringify(booking));
+    console.log(JSON.stringify(booking));
     console.log("apiPostBooking with obj: " + JSON.stringify(room));
     apiPostBooking(booking);
 }
@@ -255,7 +255,6 @@ function apiFindRoomIdByRoomNumber(rn){
         type: "GET",
         async: false,
         success: function(response){
-          //  console.log('search result: ' + response);
             roomid = response;
         }
     });
