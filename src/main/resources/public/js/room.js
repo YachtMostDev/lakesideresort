@@ -62,7 +62,7 @@ function confirmDelete(id){
     }
 }
 function processFormPost(){
-    var rn = parseInt($("#roomnumber").val());
+    var rn = $("#roomnumber").val();
     var rs = $("#roomsize").val();
     var rt = $("#roomtype").val();
     var af = $("#date").val();
