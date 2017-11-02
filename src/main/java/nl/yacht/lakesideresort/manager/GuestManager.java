@@ -35,14 +35,7 @@ public class GuestManager {
     }
 
     public Guest insert(Guest guest){
-        boolean guestFound = true;
-        for (Guest guestData: guestRepository.findAll()){
-            if (guestData.equals(guest)){
-                guestFound = false;
-                break;
-            }
-        }
-        if (!guestFound) throw new AlreadyExistException();
+        if (guestRepository.findBySurNameAndFirstNameAndAddressAndPostalCodeAndPhoneNumberAndMailAddress(guest.getSurName(), guest.getFirstName(), guest.getAddress(), guest.getPostalCode(), guest.getPhoneNumber(), guest.getMailAddress()).size() != 0) throw new AlreadyExistException();
         return guestRepository.save(guest);
     }
 

@@ -113,6 +113,13 @@ function zeroPad(num, places) {
 $(document).ready(onDocumentReady);
 // API FUNCTIONALITY
 function onDocumentReady(){
+    client = Stomp.over(new SockJS('/gs-guide-websocket'));
+    client.connect({}, function (frame) {
+        client.subscribe('/booking', function () {
+            apiLoadDatatables();
+        });
+    });
+
     dataTable = $('#bookingtable').DataTable({
         columns: [
         { "data": "bookingnumber" },
@@ -137,7 +144,6 @@ function onDocumentReady(){
         else {
             $('#bookingtable tr.selected').removeClass('selected');
             $(this).addClass('selected');
-//            $('#myModal').modal('toggle');
             var table = $('#bookingtable').DataTable();
             var data = table.row( this ).data();
 
@@ -151,9 +157,7 @@ function onDocumentReady(){
 
 function apiLoadDatatables(){
     var api = "http://localhost:8080/api/booking";
-
     $.get(api, function (dataSet) {
-
        // console.log("Adding dataset to table: \n" + JSON.stringify(dataSet));
         $("#bookingtable").DataTable().clear();
         $("#bookingtable").DataTable().rows.add(dataSet);

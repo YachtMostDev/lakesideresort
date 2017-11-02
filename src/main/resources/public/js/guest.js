@@ -1,6 +1,12 @@
 var deleteID = -1;
 
 $(document).ready(function(){
+    client = Stomp.over(new SockJS('/gs-guide-websocket'));
+    client.connect({}, function (frame) {
+        client.subscribe('/guest', function (data) {
+            setData(JSON.parse(data.body));
+        });
+    });
 
     // Fill the table with data
     $('#guestTable').DataTable({
@@ -41,11 +47,8 @@ function submitGuest(){
           type:"post",
           data: JSON.stringify(formData),
           contentType: "application/json; charset=utf-8",
-          success: function(result) {
-              updateTable();
-          },
-        error: function(error){
-            displayError(error);
+          error: function(error){
+              displayError(error);
         }
       });
       deselect();
@@ -75,9 +78,6 @@ function submitEdit(id){
         type:"put",
         data: JSON.stringify(formData),
         contentType: "application/json; charset=utf-8",
-        success: function(result) {
-            updateTable();
-        },
         error: function(error){
             displayError(error);
         }
@@ -94,10 +94,7 @@ function submitDelete(){
         url:"/api/guest/" + guestNumber,
         type:"delete",
         data: JSON.stringify(formData),
-        contentType: "application/json; charset=utf-8",
-        success: function(result) {
-            updateTable();
-        }
+        contentType: "application/json; charset=utf-8"
     });
 
     $('#myModal').modal('toggle');
@@ -139,6 +136,8 @@ function deselect(){
     document.getElementById("guestForm").reset();
 }
 
-function updateTable(){
-    $('#guestTable').DataTable().ajax.reload();
+function setData(data){
+    $("#guestTable").DataTable().clear();
+    $("#guestTable").DataTable().rows.add(data);
+    $("#guestTable").DataTable().columns.adjust().draw();
 }

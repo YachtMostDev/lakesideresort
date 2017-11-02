@@ -136,21 +136,4 @@ public class Guest {
         sb.append("\nMail: " + this.mailAddress);
         return sb.toString();
     }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Guest guest = (Guest) o;
-
-        if (surName != null ? !surName.equals(guest.surName) : guest.surName != null) return false;
-        if (firstName != null ? !firstName.equals(guest.firstName) : guest.firstName != null) return false;
-        if (address != null ? !address.equals(guest.address) : guest.address != null) return false;
-        if (postalCode != null ? !postalCode.equals(guest.postalCode) : guest.postalCode != null) return false;
-        if (city != null ? !city.equals(guest.city) : guest.city != null) return false;
-        if (country != null ? !country.equals(guest.country) : guest.country != null) return false;
-        if (phoneNumber != null ? !phoneNumber.equals(guest.phoneNumber) : guest.phoneNumber != null) return false;
-        return mailAddress != null ? mailAddress.equals(guest.mailAddress) : guest.mailAddress == null;
-    }
 }
