@@ -96,12 +96,22 @@ function emptySearchSuggestions(){
     $("#searchSuggestions").css('display', 'none');
 }
 function updateSearch(){
-    var value = $("#guestNumber").val();
+    var searchString = $("#guestNumberSearch").val();
     emptySearchSuggestions();
-    if(value.length >= 3) {
-        $.get("http://localhost:8080/api/guest/search/" + $("#guestNumber").val(), function (data) {
+    if(searchString.length >= 3) {
+        $.get("http://localhost:8080/api/guest/search/" + searchString, function (data) {
             for(var index in data){
-                $("#searchSuggestions").append('<div class="searchSuggestion">' + data[index].firstName + " " + data[index].surName + '</div>')
+                $("#searchSuggestions").append('<div class="searchSuggestion" data-id="' + data[index].guestNumber + '">' +
+                    data[index].firstName + " " + data[index].surName +
+                    '</div>');
+                $(".searchSuggestion").click(function(event){
+                    event.stopPropagation();
+                    event.stopImmediatePropagation();
+                    $("#guestNumber").val(event.target.getAttribute("data-id"));
+                    $("#guestNumberSearch").val(data[index].firstName + " " + data[index].surName);
+                    emptySearchSuggestions();
+                    // console.log(event.target.getAttribute("data-id"));
+                })
             }
             if(data.length > 0) $("#searchSuggestions").css('display', 'block');
         });
