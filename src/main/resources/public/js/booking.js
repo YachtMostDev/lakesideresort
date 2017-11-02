@@ -2,21 +2,21 @@ $(document).ready(onDocumentReady);
 function onDocumentReady(){
     dataTable = $('#bookingtable').DataTable({
         columns: [
-        { "data": "bookingnumber" },
-        { "data": function(data, type, dataToSet){
-            return data.guest.surName + "," + data.guest.firstName;
-        }},
-        { "data": "room.roomNumber" }
-                 ]
+            { "data": "bookingnumber" },
+            { "data": function(data, type, dataToSet){
+                return data.guest.surName + "," + data.guest.firstName;
+            }},
+            { "data": "room.roomNumber" }
+        ]
     });
      $('#datePickerStart').datepicker({
-            autoclose: true,
-            format: 'yyyy-mm-dd'
-        });
+        autoclose: true,
+        format: 'yyyy-mm-dd'
+    });
      $('#datePickerEnd').datepicker({
-            autoclose: true,
-            format: 'yyyy-mm-dd'
-        });
+        autoclose: true,
+        format: 'yyyy-mm-dd'
+    });
     $('#bookingtable tbody').on( 'click', 'tr', function () {
         if ( $(this).hasClass('selected') ) {
             $(this).removeClass('selected');
@@ -24,13 +24,11 @@ function onDocumentReady(){
         else {
             $('#bookingtable tr.selected').removeClass('selected');
             $(this).addClass('selected');
-//            $('#myModal').modal('toggle');
             var table = $('#bookingtable').DataTable();
             var data = table.row( this ).data();
 
-           // console.log("selected row: " + JSON.stringify(data));
-            apiGetBooking(data.bookingnumber);
             // get booking and show modal with correct values
+            apiGetBooking(data.bookingnumber);
         }
     });
     apiLoadDatatables();
