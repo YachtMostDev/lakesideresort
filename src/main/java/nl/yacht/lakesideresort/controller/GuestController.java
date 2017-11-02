@@ -25,6 +25,16 @@ public class GuestController {
         return guestManager.getGuests();
     }
 
+    @RequestMapping(value = "search/{searchString}", method = RequestMethod.GET)
+    public Iterable<Guest> searchGuest(@PathVariable String searchString){
+        String[] parts = searchString.split(" ");
+        if(parts.length == 1){
+            return guestManager.searchGuests(searchString);
+        } else {
+            return guestManager.searchGuests(parts[0],parts[1]);
+        }
+    }
+
     @RequestMapping(value = "today", method = RequestMethod.GET)
     public Iterable<Guest> getGuestsArrivingToday(){
         return guestManager.getGuestsArrivingToday();
