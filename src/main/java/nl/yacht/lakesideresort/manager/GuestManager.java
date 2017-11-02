@@ -1,5 +1,7 @@
 package nl.yacht.lakesideresort.manager;
 
+import nl.yacht.lakesideresort.exception.AlreadyExistException;
+import nl.yacht.lakesideresort.exception.NotFoundException;
 import nl.yacht.lakesideresort.repository.BookingRepository;
 import nl.yacht.lakesideresort.repository.GuestRepository;
 import nl.yacht.lakesideresort.domain.Booking;
@@ -33,6 +35,14 @@ public class GuestManager {
     }
 
     public Guest insert(Guest guest){
+        boolean guestFound = true;
+        for (Guest guestData: guestRepository.findAll()){
+            if (guestData.equals(guest)){
+                guestFound = false;
+                break;
+            }
+        }
+        if (!guestFound) throw new AlreadyExistException();
         return guestRepository.save(guest);
     }
 
@@ -54,19 +64,17 @@ public class GuestManager {
     }
 
     public Guest update(long guestNumber, Guest guest) {
-        if (guestRepository.exists(guestNumber)) {
-            Guest updateGuest = guestRepository.findOne(guestNumber);
-            updateGuest.setSurName(guest.getSurName());
-            updateGuest.setCountry(guest.getCountry());
-            updateGuest.setAddress(guest.getAddress());
-            updateGuest.setCity(guest.getCity());
-            updateGuest.setFirstName(guest.getFirstName());
-            updateGuest.setMailAddress(guest.getMailAddress());
-            updateGuest.setPhoneNumber(guest.getPhoneNumber());
-            updateGuest.setPostalCode(guest.getPostalCode());
-            return guestRepository.save(updateGuest);
-        }
-        return null;
+        if (!guestRepository.exists(guestNumber)) throw new NotFoundException();
+        Guest updateGuest = guestRepository.findOne(guestNumber);
+        updateGuest.setSurName(guest.getSurName());
+        updateGuest.setCountry(guest.getCountry());
+        updateGuest.setAddress(guest.getAddress());
+        updateGuest.setCity(guest.getCity());
+        updateGuest.setFirstName(guest.getFirstName());
+        updateGuest.setMailAddress(guest.getMailAddress());
+        updateGuest.setPhoneNumber(guest.getPhoneNumber());
+        updateGuest.setPostalCode(guest.getPostalCode());
+        return guestRepository.save(updateGuest);
     }
 
     public Iterable<Guest> searchGuests(String searchString){
