@@ -106,15 +106,11 @@ function updateSearch(){
                 var suggestionDiv = $("<div></div>");
                 suggestionDiv.attr("data-id",data[index].guestNumber);
                 suggestionDiv.text(data[index].firstName + " " + data[index].surName);
-                var locationString = "";
 
-                var address = data[index].address;
-                var city = data[index].city;
-                if(address && city) locationString = address + ", " + city;
-                else if(city) locationString = city;
-                else if(address) locationString = address;
+                var locationSpan = $("<span></span>");
+                locationSpan.text(getLocationString(data[index]));
 
-                suggestionDiv.append("<span>" + locationString + "</span>");
+                suggestionDiv.append(locationSpan);
                 suggestionDiv.addClass('searchSuggestion');
                 $("#searchSuggestions").append(suggestionDiv);
                 $(".searchSuggestion").click(function(event){
@@ -130,6 +126,20 @@ function updateSearch(){
         });
     }
 }
+
+function getLocationString(guest){
+    var locationString = "";
+
+    if(guest.address && guest.city) {
+        locationString = guest.address + ", " + guest.city;
+    } else if(guest.city) {
+        locationString = guest.city;
+    } else if(guest.address) {
+        locationString = guest.address;
+    }
+    return locationString;
+}
+
 function processFormPost(){
     console.log("processFormPost");
     var bn = parseInt($("#bookingNumber").val());
