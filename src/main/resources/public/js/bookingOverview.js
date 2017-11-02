@@ -20,6 +20,7 @@ function refresh(){
     // Get current month
     var from = moment(new Date()).startOf('month');
     from.add(monthOffset, 'month');
+    from.add(1, 'hour');
     var to = moment(from).endOf('month');
 
     $("#month").text(from.format('MMMM'));
