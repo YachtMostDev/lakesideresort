@@ -56,6 +56,7 @@ function bookingToTable(booking){
 function createBookingDiv(){
 //    $("#booking-div").css('display', 'block');
     $("#modal-title").html("Create Booking");
+    $("#searchSuggestions").css('display', 'none');
     $("#bookingnumber").val("");
     $("#guestNumber").val("");
     $("#dateStart").val("");
@@ -73,6 +74,7 @@ function hideBookingModal(){
 function fillUpdateModal(booking){
     $("#btnsubmit").attr('onclick', 'processFormPut(' + booking.bookingnumber + ');');
     $("#bookingnumber").val(booking.bookingnumber);
+    $("#searchSuggestions").css('display', 'none');
     $("#guestNumber").val(booking.guest.guestNumber);
     $("#roomnumber").val(booking.room.roomNumber);
     $("#modal-title").html("Update Booking");
@@ -99,9 +101,9 @@ function updateSearch(){
     if(value.length >= 3) {
         $.get("http://localhost:8080/api/guest/search/" + $("#guestNumber").val(), function (data) {
             for(var index in data){
-                $("#searchSuggestions").append('<div style="padding: 5px 10px"><a style="cursor: pointer">' + data[index].firstName + " " + data[index].surName + '</a></div>')
+                $("#searchSuggestions").append('<div class="searchSuggestion">' + data[index].firstName + " " + data[index].surName + '</div>')
             }
-            $("#searchSuggestions").css('display', 'block');
+            if(data.length > 0) $("#searchSuggestions").css('display', 'block');
         });
     }
 }
