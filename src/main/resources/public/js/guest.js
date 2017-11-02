@@ -43,10 +43,17 @@ function submitGuest(){
           contentType: "application/json; charset=utf-8",
           success: function(result) {
               updateTable();
-          }
+          },
+        error: function(error){
+            displayError(error);
+        }
       });
       deselect();
       $('#myModal').modal('toggle');
+}
+
+function displayError(error){
+    window.alert(JSON.parse(error.responseText).message);
 }
 
 // Make modal ready for creating a guest
@@ -70,6 +77,9 @@ function submitEdit(id){
         contentType: "application/json; charset=utf-8",
         success: function(result) {
             updateTable();
+        },
+        error: function(error){
+            console.log(error);
         }
     });
     deselect();
