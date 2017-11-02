@@ -14,7 +14,7 @@ public class Room {
 	@GeneratedValue(strategy = GenerationType.AUTO)
     private long id; // database id
 	@NotNull
-    private int roomNumber;
+    private String roomNumber;
     private RoomType roomType;
     private RoomSize roomSize;
     private LocalDate availableFrom;
@@ -28,7 +28,7 @@ public class Room {
 
     public Room(){}
 
-    public Room(int roomNumber, RoomType roomType, RoomSize roomSize, LocalDate availableFrom) {
+    public Room(String roomNumber, RoomType roomType, RoomSize roomSize, LocalDate availableFrom) {
         this.roomNumber = roomNumber;
         this.roomType = roomType;
         this.roomSize = roomSize;
@@ -52,11 +52,11 @@ public class Room {
 		this.id = id;
 	}
 
-    public int getRoomNumber() {
+    public String getRoomNumber() {
         return roomNumber;
     }
 
-    public void setRoomNumber(int roomNumber) {
+    public void setRoomNumber(String roomNumber) {
         this.roomNumber = roomNumber;
     }
 

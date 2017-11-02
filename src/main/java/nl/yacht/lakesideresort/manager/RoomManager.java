@@ -25,10 +25,12 @@ public class RoomManager {
 	}
 
 	public boolean insertRoom(Room r){
-		Room foundRoom = getSingleRoom(r.getId());
-		if (foundRoom == null){
-			roomRepository.save(r);
-			return true;
+		long id = findRoomByRoomNumber(r.getRoomNumber());
+		if(!r.getRoomNumber().equals("4") && !r.getRoomNumber().equals("13")) {
+			if (id == -1) {
+				roomRepository.save(r);
+				return true;
+			}
 		}
 		return false;
 	}
@@ -36,8 +38,11 @@ public class RoomManager {
 		roomRepository.delete(id);
 	}
 
-	public long findRoomByRoomNumber(int roomnumber){
+	public long findRoomByRoomNumber(String roomnumber){
 		Room r = roomRepository.findByRoomNumber(roomnumber);
+		if(r == null){
+			return -1;
+		}
 		return r.getId();
 	}
 
