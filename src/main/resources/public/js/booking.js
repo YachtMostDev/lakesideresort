@@ -101,7 +101,19 @@ function updateSearch(){
     if(value.length >= 3) {
         $.get("http://localhost:8080/api/guest/search/" + $("#guestNumber").val(), function (data) {
             for(var index in data){
-                $("#searchSuggestions").append('<div class="searchSuggestion">' + data[index].firstName + " " + data[index].surName + '</div>')
+                var suggestionDiv = $("<div></div>");
+                suggestionDiv.text(data[index].firstName + " " + data[index].surName);
+                var locationString = "";
+
+                var address = data[index].address;
+                var city = data[index].city;
+                if(address && city) locationString = address + ", " + city;
+                else if(city) locationString = city;
+                else if(address) locationString = address;
+
+                suggestionDiv.append("<span>" + locationString + "</span>");
+                suggestionDiv.addClass('searchSuggestion');
+                $("#searchSuggestions").append(suggestionDiv);
             }
             if(data.length > 0) $("#searchSuggestions").css('display', 'block');
         });
