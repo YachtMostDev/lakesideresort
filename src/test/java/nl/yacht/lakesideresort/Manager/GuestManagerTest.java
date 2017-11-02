@@ -58,18 +58,30 @@ public class GuestManagerTest {
 
         Guest guest = new Guest(3, "Tom", "Herensma", "Astraat 12", "9876RK", "Groningen", "Nederland", "1234567890", "a.a@gmail.com");
 
-        when(guestRepository.findAll()).thenReturn(guestList);
+        when(guestRepository.findFirstBySurNameAndFirstNameAndAddressAndPostalCodeAndPhoneNumberAndMailAddress(
+                guest.getSurName(),
+                guest.getFirstName(),
+                guest.getAddress(),
+                guest.getPostalCode(),
+                guest.getPhoneNumber(),
+                guest.getMailAddress())).thenReturn(null);
 
         when(guestRepository.save(guest)).thenReturn(guest);
         assertTrue(guestManager.insert(guest).equals(guest));
     }
 
     @Test(expected = AlreadyExistException.class)
-    public void insertEmpty() throws Exception {
+    public void insertExistingGuest() throws Exception {
 
         Guest guest = new Guest(1, "Jansen", "Peter", "Astraat 12", "9876RK", "Groningen", "Nederland", "1234567890", "a.a@gmail.com");
 
-        when(guestRepository.findAll()).thenReturn(guestList);
+        when(guestRepository.findFirstBySurNameAndFirstNameAndAddressAndPostalCodeAndPhoneNumberAndMailAddress(
+                guest.getSurName(),
+                guest.getFirstName(),
+                guest.getAddress(),
+                guest.getPostalCode(),
+                guest.getPhoneNumber(),
+                guest.getMailAddress()) != null).thenReturn(true);
 
         guestManager.insert(guest);
     }
