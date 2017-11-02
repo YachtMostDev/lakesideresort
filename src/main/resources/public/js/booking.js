@@ -59,6 +59,7 @@ function createBookingDiv(){
     $("#searchSuggestions").css('display', 'none');
     $("#bookingnumber").val("");
     $("#guestNumber").val("");
+    $("#guestNumberSearch").val("");
     $("#dateStart").val("");
     $("#dateEnd").val("");
     $("#roomnumber").val("");
@@ -76,6 +77,7 @@ function fillUpdateModal(booking){
     $("#bookingnumber").val(booking.bookingnumber);
     $("#searchSuggestions").css('display', 'none');
     $("#guestNumber").val(booking.guest.guestNumber);
+    $("#guestNumberSearch").val(booking.guest.firstName + " " + booking.guest.surName);
     $("#roomnumber").val(booking.room.roomNumber);
     $("#modal-title").html("Update Booking");
     $("#confirmbutton").css('display', 'inline-block');
@@ -101,18 +103,8 @@ function updateSearch(){
     if(searchString.length >= 3) {
         $.get("http://localhost:8080/api/guest/search/" + searchString, function (data) {
             for(var index in data){
-                $("#searchSuggestions").append('<div class="searchSuggestion" data-id="' + data[index].guestNumber + '">' +
-                    data[index].firstName + " " + data[index].surName +
-                    '</div>');
-                $(".searchSuggestion").click(function(event){
-                    event.stopPropagation();
-                    event.stopImmediatePropagation();
-                    $("#guestNumber").val(event.target.getAttribute("data-id"));
-                    $("#guestNumberSearch").val(data[index].firstName + " " + data[index].surName);
-                    emptySearchSuggestions();
-                    // console.log(event.target.getAttribute("data-id"));
-                })
                 var suggestionDiv = $("<div></div>");
+                suggestionDiv.attr("data-id",data[index].guestNumber);
                 suggestionDiv.text(data[index].firstName + " " + data[index].surName);
                 var locationString = "";
 
@@ -125,6 +117,14 @@ function updateSearch(){
                 suggestionDiv.append("<span>" + locationString + "</span>");
                 suggestionDiv.addClass('searchSuggestion');
                 $("#searchSuggestions").append(suggestionDiv);
+                $(".searchSuggestion").click(function(event){
+                    event.stopPropagation();
+                    event.stopImmediatePropagation();
+                    $("#guestNumber").val(event.target.getAttribute("data-id"));
+                    $("#guestNumberSearch").val(data[index].firstName + " " + data[index].surName);
+                    emptySearchSuggestions();
+                    // console.log(event.target.getAttribute("data-id"));
+                });
             }
             if(data.length > 0) $("#searchSuggestions").css('display', 'block');
         });
