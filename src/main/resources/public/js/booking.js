@@ -112,6 +112,19 @@ function updateSearch(){
                     emptySearchSuggestions();
                     // console.log(event.target.getAttribute("data-id"));
                 })
+                var suggestionDiv = $("<div></div>");
+                suggestionDiv.text(data[index].firstName + " " + data[index].surName);
+                var locationString = "";
+
+                var address = data[index].address;
+                var city = data[index].city;
+                if(address && city) locationString = address + ", " + city;
+                else if(city) locationString = city;
+                else if(address) locationString = address;
+
+                suggestionDiv.append("<span>" + locationString + "</span>");
+                suggestionDiv.addClass('searchSuggestion');
+                $("#searchSuggestions").append(suggestionDiv);
             }
             if(data.length > 0) $("#searchSuggestions").css('display', 'block');
         });
