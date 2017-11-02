@@ -4,7 +4,7 @@ function onDocumentReady(){
         columns: [
             { "data": "bookingnumber" },
             { "data": function(data, type, dataToSet){
-                return data.guest.surName + "," + data.guest.firstName;
+                return data.guest.firstName + " " + data.guest.surName;
             }},
             { "data": "room.roomNumber" }
         ]
@@ -31,12 +31,7 @@ function onDocumentReady(){
             apiGetBooking(data.bookingnumber);
         }
     });
-    initializeGuestSearch();
     apiLoadDatatables();
-}
-
-function initializeGuestSearch(){
-
 }
 
 // GENERAL FUNCTIONS
@@ -55,10 +50,9 @@ function createBookingDiv(){
 }
 
 function hideBookingModal(){
-    //$("#booking-div").css('display', 'none');
-    // hide modal
-    $('#myModal').modal('toggle');
+
 }
+
 function fillUpdateModal(booking){
     $("#btnsubmit").attr('onclick', 'processFormPut(' + booking.bookingnumber + ');');
     $("#bookingnumber").val(booking.bookingnumber);
@@ -150,7 +144,7 @@ function processFormPost(){
         "startDate" : startDate,
         "endDate" : endDate
     };
- console.log(JSON.stringify(booking));
+    console.log(JSON.stringify(booking));
     console.log("apiPostBooking with obj: " + JSON.stringify(room));
     apiPostBooking(booking);
 }
@@ -220,7 +214,7 @@ if (deleteID > -1){
         url: api,
         type: 'DELETE',
         success: function(response){
-            hideBookingModal()
+            $('#myModal').modal('toggle');
             apiLoadDatatables();
         }
       });
@@ -267,7 +261,6 @@ function apiFindRoomIdByRoomNumber(rn){
         type: "GET",
         async: false,
         success: function(response){
-          //  console.log('search result: ' + response);
             roomid = response;
         }
     });
