@@ -23,7 +23,7 @@ public class RoomController{
 
     /** return room id of found room*/
     @RequestMapping(value = "/search/{roomnumber}", method = RequestMethod.GET)
-    public long findRoomByRoomNumber(@PathVariable int roomnumber){
+    public long findRoomByRoomNumber(@PathVariable String roomnumber){
 		return roomManager.findRoomByRoomNumber(roomnumber);
     }
 

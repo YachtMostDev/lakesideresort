@@ -20,15 +20,18 @@ public class RoomManagerTest {
 
 	private RoomManager roomManager;
 	private List<Room> listRooms;
-	private Room r1, r2;
+	private Room r1, r2, r3, r4, r5;
 
 	@Before
 	public void setUp() throws Exception {
 		RoomRepository roomRepository = mock(RoomRepository.class);
 		roomManager = new RoomManager(roomRepository);
 
-		r1 = new Room(101, Room.RoomType.BUDGET, Room.RoomSize.ONE_PERSON, LocalDate.now());
-		r2 = new Room(201, Room.RoomType.NORMAL, Room.RoomSize.TWO_PERSON, LocalDate.now());
+		r1 = new Room("101", Room.RoomType.BUDGET, Room.RoomSize.ONE_PERSON, LocalDate.now());
+		r2 = new Room("201", Room.RoomType.NORMAL, Room.RoomSize.TWO_PERSON, LocalDate.now());
+		r3 = new Room ("13", Room.RoomType.NORMAL, Room.RoomSize.ONE_PERSON, LocalDate.now());
+		r4 = new Room ("4", Room.RoomType.NORMAL, Room.RoomSize.ONE_PERSON, LocalDate.now());
+		r5 = new Room ("Sanders Kelder", Room.RoomType.NORMAL, Room.RoomSize.ONE_PERSON, LocalDate.now());
 		r2.setId(1);
 
 		listRooms = new ArrayList<>();
@@ -38,7 +41,7 @@ public class RoomManagerTest {
 		long id = 1L;
 		when(roomRepository.findOne(id)).thenReturn(r1);
 		when(roomRepository.findOne(2L)).thenReturn(r2);
-		when(roomRepository.findByRoomNumber(101)).thenReturn(r1);
+		when(roomRepository.findByRoomNumber("101")).thenReturn(r1);
 		when(roomRepository.exists(1L)).thenReturn(true);
 		when(roomRepository.exists(2L)).thenReturn(false);
 	}
@@ -62,7 +65,7 @@ public class RoomManagerTest {
 
 	@Test
 	public void findRoomByRoomNumber() throws Exception {
-		long id = roomManager.findRoomByRoomNumber(101);
+		long id = roomManager.findRoomByRoomNumber("101");
 		assertEquals(r1.getId(), id);
 	}
 
@@ -77,13 +80,31 @@ public class RoomManagerTest {
 	}
 
 	@Test
-	public void insertRoom() throws Exception {
-		assertTrue(roomManager.insertRoom(r1));
+	public void insertExistingRoom() throws Exception {
+		boolean result= roomManager.insertRoom(r1);
+		assertFalse(result);
 	}
 
 	@Test
-	public void insertRoom2() throws Exception {
-		assertFalse(roomManager.insertRoom(r2));
+	public void insertRoom() throws Exception {
+		boolean result = roomManager.insertRoom(r2);
+		assertTrue(result);
+	}
+
+	@Test
+	public void insertRoomWithNumber13() throws Exception{
+		boolean result = roomManager.insertRoom(r3);
+		assertFalse(result);
+	}
+	@Test
+	public void insertRoomWithNumber4() throws Exception{
+		boolean result = roomManager.insertRoom(r4);
+		assertFalse(result);
+	}
+	@Test
+	public void insertRoomWithString() throws Exception{
+		boolean result = roomManager.insertRoom(r5);
+		assertTrue(result);
 	}
 
 

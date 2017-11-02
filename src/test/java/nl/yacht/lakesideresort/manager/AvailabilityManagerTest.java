@@ -38,10 +38,10 @@ public class AvailabilityManagerTest {
         LocalDate date6 = LocalDate.parse("2017-10-20");
 
         Guest guest = new Guest();
-        Room room1 = new Room(101, Room.RoomType.BUDGET, Room.RoomSize.ONE_PERSON,date1);
-        Room room2 = new Room(102, Room.RoomType.BUDGET, Room.RoomSize.ONE_PERSON,date1);
-        Room room3 = new Room(103, Room.RoomType.BUDGET, Room.RoomSize.ONE_PERSON,date1);
-        Room room4 = new Room(104, Room.RoomType.BUDGET, Room.RoomSize.ONE_PERSON,date1);
+        Room room1 = new Room("101", Room.RoomType.BUDGET, Room.RoomSize.ONE_PERSON,date1);
+        Room room2 = new Room("102", Room.RoomType.BUDGET, Room.RoomSize.ONE_PERSON,date1);
+        Room room3 = new Room("103", Room.RoomType.BUDGET, Room.RoomSize.ONE_PERSON,date1);
+        Room room4 = new Room("104", Room.RoomType.BUDGET, Room.RoomSize.ONE_PERSON,date1);
 
         roomList.add(room1);
         roomList.add(room2);
