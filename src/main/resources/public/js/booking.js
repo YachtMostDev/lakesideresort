@@ -165,7 +165,8 @@ function processFormPost(event){
     apiPostBooking(booking);
 }
 
-function processFormPut(id){
+function processFormPut(event, id){
+    event.preventDefault();
 //    console.log("processFormPut: " + id);
     var bn = parseInt($("#bookingNumber").val());
     var gn = $("#guestNumber").val();
