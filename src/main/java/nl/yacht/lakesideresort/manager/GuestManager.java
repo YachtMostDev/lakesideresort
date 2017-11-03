@@ -76,4 +76,25 @@ public class GuestManager {
         updateGuest.setPostalCode(guest.getPostalCode());
         return guestRepository.save(updateGuest);
     }
+
+    public Iterable<Guest> searchGuests(String searchString){
+        ArrayList<Guest> result = new ArrayList<>();
+        for(Guest guest : guestRepository.findAll()){
+            if(guest.getFirstName().toLowerCase().contains(searchString.toLowerCase()) ||
+                    guest.getSurName().toLowerCase().contains(searchString.toLowerCase())){
+                result.add(guest);
+            }
+        }
+        return result;
+    }
+
+    public Iterable<Guest> searchGuests(String searchString1, String searchString2){
+        ArrayList<Guest> result = new ArrayList<>();
+        ArrayList<Guest> searchResult1 = (ArrayList<Guest>) searchGuests(searchString1);
+        ArrayList<Guest> searchResult2 = (ArrayList<Guest>) searchGuests(searchString2);
+        for(Guest guest : searchResult1){
+            if(searchResult2.contains(guest)) result.add(guest);
+        }
+        return result;
+    }
 }
