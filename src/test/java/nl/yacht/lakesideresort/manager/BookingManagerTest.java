@@ -85,7 +85,8 @@ public class BookingManagerTest {
         room.setId(1);
         booking.setGuest(guest);
         booking.setRoom(room);
-
+        booking.setStartDate(LocalDate.now());
+        booking.setEndDate(LocalDate.now());
         Booking newBooking = bookingManager.insertBooking(booking);
         assertTrue(newBooking.getBookingnumber() == 3);
     }
