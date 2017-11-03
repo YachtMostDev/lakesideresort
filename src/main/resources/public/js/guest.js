@@ -48,7 +48,7 @@ function submitGuest(){
         },
         error: function(error){
             var responseText = JSON.parse(error.responseText);
-            console.log(JSON.parse(error.responseText));
+//            console.log(JSON.parse(error.responseText));
            // displayError(responseText);
 //            displayError(JSON.parse(error.responseText));
         }
@@ -84,7 +84,7 @@ function submitEdit(id){
             $('#myModal').modal('toggle');
         },
         error: function(error){
-                console.log(JSON.parse(error.responseText));
+//                console.log(JSON.parse(error.responseText));
 
         //            displayError(JSON.parse(error.responseText));
         }
