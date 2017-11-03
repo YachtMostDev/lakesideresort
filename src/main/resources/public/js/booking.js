@@ -1,14 +1,28 @@
 $(document).ready(onDocumentReady);
 function onDocumentReady(){
+    client = Stomp.over(new SockJS('/gs-guide-websocket'));
+    client.connect({}, function (frame) {
+        client.subscribe('/booking', function (data) {
+            setData(JSON.parse(data.body));
+        });
+    });
+
+    $.get("/api/booking", function (data) {
+        setData(data);
+    });
+
     dataTable = $('#bookingtable').DataTable({
         columns: [
             { "data": "bookingnumber" },
             { "data": function(data, type, dataToSet){
                 return data.guest.firstName + " " + data.guest.surName;
             }},
-            { "data": "room.roomNumber" }
+            { "data": "room.roomNumber" },
+            { "data": "startDate" },
+            { "data": "endDate" }
         ]
     });
+
      $('#datePickerStart').datepicker({
         autoclose: true,
         format: 'yyyy-mm-dd'
@@ -31,7 +45,6 @@ function onDocumentReady(){
             apiGetBooking(data.bookingnumber);
         }
     });
-    apiLoadDatatables();
 }
 
 // GENERAL FUNCTIONS
@@ -49,10 +62,6 @@ function createBookingDiv(){
     $("#confirmbutton").css('display', 'none');
 }
 
-function hideBookingModal(){
-
-}
-
 function fillUpdateModal(booking){
     $("#btnsubmit").attr('onclick', 'processFormPut(' + booking.bookingnumber + ');');
     $("#bookingnumber").val(booking.bookingnumber);
@@ -60,6 +69,8 @@ function fillUpdateModal(booking){
     $("#guestNumber").val(booking.guest.guestNumber);
     $("#guestNumberSearch").val(booking.guest.firstName + " " + booking.guest.surName);
     $("#roomnumber").val(booking.room.roomNumber);
+    $("#dateStart").val(booking.startDate);
+    $("#dateEnd").val(booking.endDate);
     $("#modal-title").html("Update Booking");
     $("#confirmbutton").css('display', 'inline-block');
     deleteID = booking.bookingnumber;
@@ -188,14 +199,17 @@ function zeroPad(num, places) {
     return Array(+(zero > 0 && zero)).join("0") + num;
 }
 
-function apiLoadDatatables(){
-    var api = "http://localhost:8080/api/booking";
+function setData(data){
 
-    $.get(api, function (dataSet) {
-        $("#bookingtable").DataTable().clear();
-        $("#bookingtable").DataTable().rows.add(dataSet);
-        $("#bookingtable").DataTable().columns.adjust().draw();
+    data = data.map(function(object){
+        object.startDate = object.startDate = "" + object.startDate.year + "-" + zeroPad(object.startDate.monthValue, 2) + "-" + zeroPad(object.startDate.dayOfMonth, 2);
+        object.endDate = object.endDate = "" + object.endDate.year + "-" + zeroPad(object.endDate.monthValue, 2) + "-" + zeroPad(object.endDate.dayOfMonth, 2);
+        return object;
     });
+
+    $("#bookingtable").DataTable().clear();
+    $("#bookingtable").DataTable().rows.add(data);
+    $("#bookingtable").DataTable().columns.adjust().draw();
 }
 
 function apiGetBooking(id){
@@ -219,7 +233,6 @@ if (deleteID > -1){
         type: 'DELETE',
         success: function(response){
             $('#myModal').modal('toggle');
-            apiLoadDatatables();
         }
       });
     }
@@ -235,7 +248,7 @@ function apiPostBooking(data){
         success: function(response){
             console.log("POST booking request success");
             console.log("Response: " + response);
-            hideBookingModal();
+            $('#myModal').modal('toggle'); 
             apiLoadDatatables();
         },
         error: function(req, status, err){
@@ -254,7 +267,6 @@ function apiPutBooking(id, data){
         contentType: "application/json",
         success: function(response){
             hideBookingModal();
-            apiLoadDatatables();
         }
     });
 }

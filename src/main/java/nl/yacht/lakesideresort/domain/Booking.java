@@ -5,6 +5,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
+import javax.validation.constraints.AssertTrue;
 import java.time.LocalDate;
 
 @Entity
@@ -23,6 +24,11 @@ public class Booking {
     private LocalDate startDate;
     @NotEmpty
     private LocalDate endDate;
+
+    @AssertTrue(message = "Start date must be before end date")
+    public boolean datesAreValid(){
+        return startDate.isBefore(endDate);
+    }
 
     public Booking() { //default constructor
     }

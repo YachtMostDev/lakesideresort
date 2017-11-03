@@ -123,7 +123,12 @@ function fillUpdateDiv(guest){
     $("#confirmbutton").css('display', 'inline-block');
     deleteID = guest.guestNumber;
     var elem = '<button type="button" class="btn btn-danger" onclick="submitDelete();">Confirm delete</button>';
-    $('#confirmbutton').popover({animation:true, content:elem, html:true});
+    $('#confirmbutton').popover({
+        animation:true,
+        content:elem,
+        html:true,
+        container: myModal
+    });
 }
 
 // Get the data of a guest using an id
