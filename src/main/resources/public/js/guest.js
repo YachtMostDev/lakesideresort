@@ -48,29 +48,14 @@ function submitGuest(){
         data: JSON.stringify(formData),
         contentType: "application/json; charset=utf-8",
         success: function(result) {
-            updateTable();
             deselect();
             $('#myModal').modal('toggle');
         },
         error: function(error){
             var responseText = JSON.parse(error.responseText);
-//            console.log(JSON.parse(error.responseText));
-           // displayError(responseText);
-//            displayError(JSON.parse(error.responseText));
+            console.log(JSON.parse(responseText));
         }
     });
-      var formData = $("#guestForm").serializeArray().reduce(function(result, object){result[object.name] = object.value; return result}, {});
-      $.ajax({
-          url:"/api/guest",
-          type:"post",
-          data: JSON.stringify(formData),
-          contentType: "application/json; charset=utf-8",
-          error: function(error){
-              displayError(error);
-        }
-      });
-      deselect();
-      $('#myModal').modal('toggle');
 }
 function displayError(error){
     var message = JSON.stringify(error);
@@ -100,20 +85,8 @@ function submitEdit(id){
             updateTable();
             deselect();
             $('#myModal').modal('toggle');
-        },
-        error: function(error){
-//                console.log(JSON.parse(error.responseText));
-
-        //            displayError(JSON.parse(error.responseText));
         }
     });
-
-        error: function(error){
-            displayError(error);
-        }
-    });
-    deselect();
-    $('#myModal').modal('toggle');
 }
 
 // Delete the guest in the database with the corresponding id
@@ -124,10 +97,10 @@ function submitDelete(){
         url:"/api/guest/" + guestNumber,
         type:"delete",
         data: JSON.stringify(formData),
-        contentType: "application/json; charset=utf-8"
+        contentType: "application/json; charset=utf-8",
         success: function(result) {
-                    updateTable();
-                }
+            updateTable();
+        }
     });
 
     $('#myModal').modal('toggle');
@@ -171,14 +144,12 @@ function deselect(){
 
 function updateTable(){
     $('#guestTable').DataTable().ajax.reload();
-    }
+}
 
 function setData(data){
     $("#guestTable").DataTable().clear();
     $("#guestTable").DataTable().rows.add(data);
     $("#guestTable").DataTable().columns.adjust().draw();
-    }
-  });
 }
 
 
