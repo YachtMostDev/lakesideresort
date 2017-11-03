@@ -42,9 +42,6 @@ function buildOverview(table, input){
     head.append("<td>Rooms</td>");
     table.append(head);
 
-    // Create numbered headers
-    var firstRoom = Object.values(input)[0];
-
     for(var i = moment(from); i <= to; i.add(1,"day")){
         head.append("<td>" + i.date() + "</td>");
     }
@@ -52,21 +49,30 @@ function buildOverview(table, input){
     // Create body
     var body = $("<tbody></tbody>");
     table.append(body);
-    for(var roomNumber in input){
-        // Room number row
-        var tr = $("<tr></tr>");
+
+    if(Object.keys(input).length < 1){
+        var colspan = to.format('D');
+        var tr = $("<tr><td></td></tr>");
+        var td = $("<td colspan=" + colspan + ">No rooms available...</td>")
+        tr.append(td);
         body.append(tr);
-        tr.append("<td>" + roomNumber + "</td>");
+    } else {
+        for(var roomNumber in input){
+            // Room number row
+            var tr = $("<tr></tr>");
+            body.append(tr);
+            tr.append("<td>" + roomNumber + "</td>");
 
-        var room = input[roomNumber];
-        console.log(room);
-        for(var i = moment(from); i <= to; i.add(1,"day")){
-            var td = $("<td></td>");
+            var room = input[roomNumber];
+            console.log(room);
+            for(var i = moment(from); i <= to; i.add(1,"day")){
+                var td = $("<td></td>");
 
-            var booked = room[i.toISOString().slice(0,10)];
-            if(booked) td.addClass("booked");
+                var booked = room[i.toISOString().slice(0,10)];
+                if(booked) td.addClass("booked");
 
-            tr.append(td);
+                tr.append(td);
+            }
         }
     }
 }
