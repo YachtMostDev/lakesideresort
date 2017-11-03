@@ -205,13 +205,11 @@ function zeroPad(num, places) {
 
 function setData(data){
 
-    console.log(data);
     data = data.map(function(object){
         object.startDate = object.startDate = "" + object.startDate.year + "-" + zeroPad(object.startDate.monthValue, 2) + "-" + zeroPad(object.startDate.dayOfMonth, 2);
         object.endDate = object.endDate = "" + object.endDate.year + "-" + zeroPad(object.endDate.monthValue, 2) + "-" + zeroPad(object.endDate.dayOfMonth, 2);
         return object;
     });
-    console.log(data);
 
     $("#bookingtable").DataTable().clear();
     $("#bookingtable").DataTable().rows.add(data);
