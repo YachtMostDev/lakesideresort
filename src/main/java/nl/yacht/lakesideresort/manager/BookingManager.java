@@ -1,5 +1,6 @@
 package nl.yacht.lakesideresort.manager;
 
+import nl.yacht.lakesideresort.exception.AlreadyExistException;
 import nl.yacht.lakesideresort.repository.BookingRepository;
 import nl.yacht.lakesideresort.repository.GuestRepository;
 import nl.yacht.lakesideresort.repository.RoomRepository;
@@ -7,7 +8,11 @@ import nl.yacht.lakesideresort.domain.Booking;
 import nl.yacht.lakesideresort.domain.Guest;
 import nl.yacht.lakesideresort.domain.Room;
 import nl.yacht.lakesideresort.exception.NotFoundException;
+import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Component;
+
+import java.time.LocalDate;
+import java.util.HashMap;
 
 @Component
 public class BookingManager {
@@ -15,11 +20,13 @@ public class BookingManager {
     private final BookingRepository bookingRepository;
     private final GuestRepository guestRepository;
     private final RoomRepository roomRepository;
+    private final AvailabilityManager availabilityManager;
 
-    BookingManager(BookingRepository bookingRepository, GuestRepository guestRepository, RoomRepository roomRepository) {
+    BookingManager(BookingRepository bookingRepository, GuestRepository guestRepository, RoomRepository roomRepository, AvailabilityManager availabilityManager) {
         this.bookingRepository = bookingRepository;
         this.guestRepository = guestRepository;
         this.roomRepository = roomRepository;
+        this.availabilityManager = availabilityManager;
     }
 
     public Iterable<Booking> getBookings(){
@@ -50,6 +57,10 @@ public class BookingManager {
             throw new NotFoundException();
         }
         booking.setRoom(foundRoom);
+        if(!checkAvailable(booking.getRoom().getRoomNumber(), booking.getStartDate(), booking.getEndDate())){
+            System.out.println("room is not available");
+            throw new AlreadyExistException();
+        }
         bookingRepository.save(booking);
         return booking;
     }
@@ -71,6 +82,13 @@ public class BookingManager {
         foundBooking.setStartDate(booking.getStartDate());
         foundBooking.setEndDate(booking.getEndDate());
 
+        if(!checkAvailable(foundBooking.getRoom().getRoomNumber(), foundBooking.getStartDate(), foundBooking.getEndDate())){
+            System.out.println("room is not available");
+            throw new AlreadyExistException();
+        }
+
+        bookingRepository.save(booking);
+
         return foundBooking;
     }
 
@@ -78,5 +96,16 @@ public class BookingManager {
         Booking foundBooking = bookingRepository.findOne(id);
         if (foundBooking == null) throw new NotFoundException();
         bookingRepository.delete(foundBooking);
+    }
+
+    private boolean checkAvailable(String roomNumber, LocalDate startDate, LocalDate endDate){
+        boolean available = true;
+        HashMap<String, Boolean> availability = availabilityManager.getAvailabilityOfRoom(roomNumber, startDate, endDate);
+        LocalDate date = startDate;
+        while((date.isBefore(endDate) || date.isEqual(endDate)) && available){
+            date = date.plusDays(1);
+            if(availability.getOrDefault(date.toString(),false)) available = false;
+        }
+        return available;
     }
 }
