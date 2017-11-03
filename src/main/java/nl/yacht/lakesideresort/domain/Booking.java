@@ -1,6 +1,7 @@
 package nl.yacht.lakesideresort.domain;
 
 import javax.persistence.*;
+import javax.validation.constraints.AssertTrue;
 import java.time.LocalDate;
 
 @Entity
@@ -15,6 +16,11 @@ public class Booking {
     private Room room;
     private LocalDate startDate;
     private LocalDate endDate;
+
+    @AssertTrue(message = "Start date must be before end date")
+    public boolean datesAreValid(){
+        return startDate.isBefore(endDate);
+    }
 
     public Booking() { //default constructor
     }
