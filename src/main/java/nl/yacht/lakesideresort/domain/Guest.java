@@ -1,28 +1,46 @@
 package nl.yacht.lakesideresort.domain;
 
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.beans.factory.annotation.Required;
+
 import javax.annotation.Generated;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 @Entity
 public class Guest {
 
     //variabelen
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long guestNumber;
-	@NotNull
+    @NotEmpty
+    @Size(min=1)
     private String surName;
-	@NotNull
+    @NotEmpty
+    @Size(min=1)
     private String firstName;
+    @NotEmpty
+    @Size(min=3)
     private String address;
+    @Size(min=3, max=10)
+    @NotEmpty
     private String postalCode;
+    @NotEmpty
     private String city;
+    @NotEmpty
     private String country;
+    @NotEmpty
+    @Pattern (regexp = "^(?:[0-9] ?){6,14}[0-9]$")
     private String phoneNumber;
+    @NotEmpty
+    @Email
     private String mailAddress;
 
     public Guest(){}

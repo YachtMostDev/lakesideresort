@@ -1,6 +1,10 @@
 package nl.yacht.lakesideresort.domain;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
 import javax.validation.constraints.AssertTrue;
 import java.time.LocalDate;
 
@@ -11,10 +15,14 @@ public class Booking {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long bookingnumber;
     @ManyToOne
+    @NotEmpty
     private Guest guest;
     @ManyToOne
+    @NotEmpty
     private Room room;
+    @NotEmpty
     private LocalDate startDate;
+    @NotEmpty
     private LocalDate endDate;
 
     @AssertTrue(message = "Start date must be before end date")

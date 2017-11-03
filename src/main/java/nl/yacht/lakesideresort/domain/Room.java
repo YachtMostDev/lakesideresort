@@ -1,5 +1,7 @@
 package nl.yacht.lakesideresort.domain;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -10,13 +12,16 @@ import java.time.LocalDate;
 @Entity
 public class Room {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id; // database id
-	@NotNull
+    @NotEmpty
     private String roomNumber;
+    @NotNull
     private RoomType roomType;
+    @NotNull
     private RoomSize roomSize;
+    @NotNull
     private LocalDate availableFrom;
 
     public enum RoomType{
@@ -44,13 +49,13 @@ public class Room {
         return s;
     }
 
-	public long getId() {
-		return id;
-	}
+    public long getId() {
+        return id;
+    }
 
-	public void setId(long id) {
-		this.id = id;
-	}
+    public void setId(long id) {
+        this.id = id;
+    }
 
     public String getRoomNumber() {
         return roomNumber;
@@ -83,7 +88,7 @@ public class Room {
     public void setAvailableFrom(String ld){
         this.availableFrom = LocalDate.parse(ld);
     }
-	public void setAvailableFrom(LocalDate ld){
-		this.availableFrom = ld;
-	}
+    public void setAvailableFrom(LocalDate ld){
+        this.availableFrom = ld;
+    }
 }
