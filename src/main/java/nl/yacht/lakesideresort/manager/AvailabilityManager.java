@@ -26,10 +26,10 @@ public class AvailabilityManager {
         this.roomRepository = roomRepository;
     }
 
-    public HashMap<String, Boolean> getAvailabilityOfRoom(String roomString, LocalDate startDate, LocalDate endDate){
+    public HashMap<String, Boolean> getAvailabilityOfRoom(String roomNumber, LocalDate startDate, LocalDate endDate){
 
         HashMap<String, Boolean> result = new HashMap<>();
-        Room room = roomRepository.findOne(new Long(roomString));
+        Room room = roomRepository.findByRoomNumber(roomNumber);
 
         for(Booking booking : bookingRepository.findAll()){
             if(booking.getRoom().equals(room)){
