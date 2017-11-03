@@ -7,7 +7,12 @@ var occupiedRooms = [];
 var client;
 
 function dateToString(date){
-    return date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
+    return date.getFullYear() + "-" + zeroPad((date.getMonth() + 1),2) + "-" + zeroPad(date.getDate(),2);
+}
+
+function zeroPad(num, places) {
+    var zero = places - num.toString().length + 1;
+    return Array(+(zero > 0 && zero)).join("0") + num;
 }
 
 $(document).ready(function(){
