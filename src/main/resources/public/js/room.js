@@ -61,9 +61,7 @@ function confirmDelete(id){
         apiDeleteRoom(id);
     }
 }
-function processFormPost(e){
-    e.preventDefault();
-
+function processFormPost(){
     var rn = $("#roomnumber").val();
     var rs = $("#roomsize").val();
     var rt = $("#roomtype").val();

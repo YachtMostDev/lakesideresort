@@ -21,10 +21,10 @@ public class Guest {
 	@GeneratedValue(strategy = GenerationType.AUTO)
     private long guestNumber;
 	@NotEmpty
-    @Size(min=3)
+    @Size(min=1)
     private String surName;
     @NotEmpty
-    @Size(min=3)
+    @Size(min=1)
     private String firstName;
     @NotEmpty
     @Size(min=3)
