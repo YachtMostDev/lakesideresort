@@ -26,7 +26,8 @@ public class GuestManagerTest {
     private List<Guest> guestList;
     private GuestManager guestManager;
 
-    @Before public void initialize(){
+    @Before
+    public void initialize(){
         guestRepository = mock(GuestRepository.class);
         bookingRepository = mock(BookingRepository.class);
         guestManager = new GuestManager(guestRepository, bookingRepository);
@@ -37,25 +38,23 @@ public class GuestManagerTest {
         guestList = new ArrayList<>();
         guestList.add(guest1);
         guestList.add(guest2);
+
+        when(guestRepository.findAll()).thenReturn(guestList);
+        when(guestRepository.findOne(1L)).thenReturn(guestList.get(1));
     }
 
     @Test
     public void getGuests() throws Exception {
-
-        when(guestRepository.findAll()).thenReturn(guestList);
         assertEquals(guestManager.getGuests(), guestList);
     }
 
     @Test
     public void getGuest() throws Exception {
-
-        when(guestRepository.findOne(1L)).thenReturn(guestList.get(1));
         assertEquals(guestManager.getGuest(1L), guestList.get(1));
     }
 
     @Test
     public void insert() throws Exception {
-
         Guest guest = new Guest(3, "Tom", "Herensma", "Astraat 12", "9876RK", "Groningen", "Nederland", "1234567890", "a.a@gmail.com");
 
         when(guestRepository.findFirstBySurNameAndFirstNameAndAddressAndPostalCodeAndPhoneNumberAndMailAddress(
@@ -72,17 +71,15 @@ public class GuestManagerTest {
 
     @Test(expected = AlreadyExistException.class)
     public void insertExistingGuest() throws Exception {
-
         Guest guest = new Guest(1, "Jansen", "Peter", "Astraat 12", "9876RK", "Groningen", "Nederland", "1234567890", "a.a@gmail.com");
-
         when(guestRepository.findFirstBySurNameAndFirstNameAndAddressAndPostalCodeAndPhoneNumberAndMailAddress(
-                guest.getSurName(),
-                guest.getFirstName(),
-                guest.getAddress(),
-                guest.getPostalCode(),
-                guest.getPhoneNumber(),
-                guest.getMailAddress()) != null).thenReturn(true);
-
+            guest.getSurName(),
+            guest.getFirstName(),
+            guest.getAddress(),
+            guest.getPostalCode(),
+            guest.getPhoneNumber(),
+            guest.getMailAddress())
+        ).thenReturn(guest);
         guestManager.insert(guest);
     }
 
@@ -94,7 +91,6 @@ public class GuestManagerTest {
 
     @Test
     public void getGuestsArrivingToday() throws Exception {
-
         LocalDate localDate = LocalDate.now();
         Room room = new Room("201", Room.RoomType.LUXURY, Room.RoomSize.TWO_PERSON, localDate);
 
