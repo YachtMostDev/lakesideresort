@@ -29,7 +29,8 @@ public class BookingManagerTest {
         BookingRepository bookingRepository = mock(BookingRepository.class);
         GuestRepository guestRepository = mock(GuestRepository.class);
         RoomRepository roomRepository = mock(RoomRepository.class);
-        bookingManager = new BookingManager(bookingRepository, guestRepository, roomRepository);
+        AvailabilityManager availabilityManager = mock(AvailabilityManager.class);
+        bookingManager = new BookingManager(bookingRepository, guestRepository, roomRepository, availabilityManager);
 
         Guest guest = new Guest(1, "Henker", "Henk", "Somewhere 2", "8118PA", "There", "Nederland", "0612345678", "henk@henker.nl");
         Room room = new Room("201", Room.RoomType.LUXURY, Room.RoomSize.FIVE_SIX_PERSON, LocalDate.now());
