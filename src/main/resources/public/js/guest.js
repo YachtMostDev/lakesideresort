@@ -40,7 +40,8 @@ $(document).ready(function(){
 });
 
 // Submit the guestdata in the form to the database
-function submitGuest(){
+function submitGuest(event){
+      event.preventDefault();
       var formData = $("#guestForm").serializeArray().reduce(function(result, object){result[object.name] = object.value; return result}, {});
       $.ajax({
           url:"/api/guest",
@@ -67,7 +68,8 @@ function createGuest(){
 }
 
 // Submit the edited data in the form to the database
-function submitEdit(id){
+function submitEdit(event, id){
+    event.preventDefault();
     var formData = $("#guestForm").serializeArray().reduce(function(result, object){ result[object.name] = object.value; return result}, {});
     var guestNumber = id;
     for(var key in formData){

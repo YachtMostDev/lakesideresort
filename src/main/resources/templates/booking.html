@@ -71,13 +71,13 @@
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                     <h3 class="modal-title" id="modal-title">Title</h3>
                 </div>
-                <div class="modal-body">
-                    <form id="form-booking" class="form-horizontal">
+                <form id="form-booking" class="form-horizontal">
+                    <div class="modal-body">
                         <div class="form-group">
                             <label class="control-label col-sm-3" for="guestNumber">Guest:</label>
                             <div class="col-sm-9" style="position: relative">
                                 <input type="hidden" class="form-control" id="guestNumber">
-                                <input type="text" class="form-control" id="guestNumberSearch" oninput="updateSearch();" autocomplete="off">
+                                <input type="text" class="form-control" id="guestNumberSearch" oninput="updateSearch();" autocomplete="off" required>
                                 <div id="searchSuggestions"></div>
                             </div>
                         </div>
@@ -85,14 +85,14 @@
                         <div class="form-group">
                             <label class="control-label col-sm-3" for="roomnumber">Room:</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" id="roomnumber">
+                                <input type="text" class="form-control" id="roomnumber" required>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-3 control-label">Start Date:</label>
                             <div class="col-sm-9 date">
                                 <div class="input-group input-append date" id="datePickerStart">
-                                    <input type="text" class="form-control" id="dateStart" name="date" />
+                                    <input type="text" class="form-control" id="dateStart" name="date" required/>
                                     <span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar"></span></span>
                                 </div>
                             </div>
@@ -101,7 +101,7 @@
                             <label class="col-sm-3 control-label">End Date:</label>
                             <div class="col-sm-9 date">
                                 <div class="input-group input-append date" id="datePickerEnd">
-                                    <input type="text" class="form-control" id="dateEnd" name="date" />
+                                    <input type="text" class="form-control" id="dateEnd" name="date" required/>
                                     <span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar"></span></span>
                                 </div>
                             </div>
@@ -112,8 +112,8 @@
                         <a href="#" id="confirmbutton" data-title="Are you sure" data-trigger="focus" data-toggle="clickover" data-placement="top" class="btn btn-danger">Delete</a>
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     </div>
-                </form>
-            </div>
+                </div>
+            </form>
         </div>
     </div>
 

@@ -136,7 +136,8 @@ function getLocationString(guest){
     return locationString;
 }
 
-function processFormPost(){
+function processFormPost(event){
+    event.preventDefault();
     console.log("processFormPost");
     var bn = parseInt($("#bookingNumber").val());
     var gn = $("#guestNumber").val();
