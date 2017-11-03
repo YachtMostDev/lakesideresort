@@ -1,6 +1,12 @@
 var deleteID = -1;
 
 $(document).ready(function(){
+    client = Stomp.over(new SockJS('/gs-guide-websocket'));
+    client.connect({}, function (frame) {
+        client.subscribe('/guest', function (data) {
+            setData(JSON.parse(data.body));
+        });
+    });
 
     // Fill the table with data
     $('#guestTable').DataTable({
@@ -53,6 +59,18 @@ function submitGuest(){
 //            displayError(JSON.parse(error.responseText));
         }
     });
+      var formData = $("#guestForm").serializeArray().reduce(function(result, object){result[object.name] = object.value; return result}, {});
+      $.ajax({
+          url:"/api/guest",
+          type:"post",
+          data: JSON.stringify(formData),
+          contentType: "application/json; charset=utf-8",
+          error: function(error){
+              displayError(error);
+        }
+      });
+      deselect();
+      $('#myModal').modal('toggle');
 }
 function displayError(error){
     var message = JSON.stringify(error);
@@ -90,6 +108,12 @@ function submitEdit(id){
         }
     });
 
+        error: function(error){
+            displayError(error);
+        }
+    });
+    deselect();
+    $('#myModal').modal('toggle');
 }
 
 // Delete the guest in the database with the corresponding id
@@ -100,10 +124,10 @@ function submitDelete(){
         url:"/api/guest/" + guestNumber,
         type:"delete",
         data: JSON.stringify(formData),
-        contentType: "application/json; charset=utf-8",
+        contentType: "application/json; charset=utf-8"
         success: function(result) {
-            updateTable();
-        }
+                    updateTable();
+                }
     });
 
     $('#myModal').modal('toggle');
@@ -147,23 +171,14 @@ function deselect(){
 
 function updateTable(){
     $('#guestTable').DataTable().ajax.reload();
-}
+    }
 
-function invalidHandler(){
-    $("#guestTable").validate({
-        invalidHandler: function(event, validator) {
-            var errors = validator.numberOfInvalids();
-            if (errors) {
-                var message = errors == 1
-                ? 'You missed 1 field. It has been highlighted'
-                : 'You missed ' + errors + ' fields. They have been highlighted';
-                $("div.error span").html(message);
-                $("div.error").show();
-            } else {
-              $("div.error").hide();
-            }
-        }
-    });
+function setData(data){
+    $("#guestTable").DataTable().clear();
+    $("#guestTable").DataTable().rows.add(data);
+    $("#guestTable").DataTable().columns.adjust().draw();
+    }
+  });
 }
 
 
