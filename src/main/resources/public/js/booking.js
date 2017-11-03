@@ -62,10 +62,6 @@ function createBookingDiv(){
     $("#confirmbutton").css('display', 'none');
 }
 
-function hideBookingModal(){
-
-}
-
 function fillUpdateModal(booking){
     $("#btnsubmit").attr('onclick', 'processFormPut(' + booking.bookingnumber + ');');
     $("#bookingnumber").val(booking.bookingnumber);
@@ -252,7 +248,8 @@ function apiPostBooking(data){
         success: function(response){
             console.log("POST booking request success");
             console.log("Response: " + response);
-            hideBookingModal();
+            $('#myModal').modal('toggle'); 
+            apiLoadDatatables();
         },
         error: function(req, status, err){
             console.log("Error during POST");
