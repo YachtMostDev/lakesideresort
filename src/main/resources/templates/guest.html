@@ -46,21 +46,22 @@
                 <div class="modal-body">
                     <form id="guestForm" enctype='text/plain'>
                         First name:<br>
-                        <input type='text' class="form-control" name='firstName' id="firstName"><br>
+                        First name:<br>
+                        <input type='text' class="form-control" name='firstName' id="firstName" required min="1" max="20"><br>
                         Last name:<br>
-                        <input type='text' class="form-control" name='surName' id="surName"><br>
+                        <input type='text' class="form-control" name='surName' id="surName" required min="1" max="20"><br>
                         Address:<br>
-                        <input type='text' class="form-control" name='address' id="address"><br>
+                        <input type='text' class="form-control" name='address' id="address" required min="3" max="20"><br>
                         Postal code:<br>
-                        <input type='text' class="form-control" name='postalCode' id="postalCode"><br>
+                        <input type='text' class="form-control" name='postalCode' id="postalCode" required min="3" max="20"><br>
                         City:<br>
-                        <input type='text' class="form-control" name='city' id="city"><br>
+                        <input type='text' class="form-control" name='city' id="city" required min="2" max="20"><br>
                         Country:<br>
-                        <input type='text' class="form-control" name='country' id="country"><br>
+                        <input type='text' class="form-control" name='country' id="country" required min="6" max="14"><br>
                         Phone:<br>
-                        <input type='text' class="form-control" name='phoneNumber' id="phoneNumber"><br>
+                        <input type='tel' class="form-control" name='phoneNumber' id="phoneNumber" required min="3" max="20"><br>
                         e-mail:<br>
-                        <input type='text' class="form-control" name='mailAddress' id="mailAddress"><br>
+                        <input type='email' class="form-control" name='mailAddress' id="mailAddress" required min="3" max="50"><br>
                     </form>
 
                 </div>
