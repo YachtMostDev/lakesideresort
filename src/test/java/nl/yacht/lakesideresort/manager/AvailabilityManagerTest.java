@@ -67,6 +67,10 @@ public class AvailabilityManagerTest {
         when(roomRepository.findOne(new Long("102"))).thenReturn(room2);
         when(roomRepository.findOne(new Long("103"))).thenReturn(room3);
         when(roomRepository.findOne(new Long("104"))).thenReturn(room4);
+        when(roomRepository.findByRoomNumber("101")).thenReturn(room1);
+        when(roomRepository.findByRoomNumber("102")).thenReturn(room2);
+        when(roomRepository.findByRoomNumber("103")).thenReturn(room3);
+        when(roomRepository.findByRoomNumber("104")).thenReturn(room4);
     }
 
     @Test
